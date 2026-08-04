@@ -205,34 +205,62 @@
       <div class="rule"><b>Blank page before every topic.</b> Write what you remember from memory first. Then study. Then rewrite. The gap between the two is the only thing that actually stuck.</div>
       <div class="rule"><b>Reconstruct from empty.</b> Every topic ends with you building one small thing — 20 to 40 lines — from an empty file, no reference, no tab open.</div>
       <div class="rule"><b>Revisit at +2 days and +7 days.</b> Ten minutes, blank page. This is what turns a week of study into knowledge you still own in November.</div>
+      <div class="rule"><b>If you do use AI to ship something, log it as a <span style="font-family:'Geist Mono',monospace">1</span> in the audit in the same sitting.</b> Not later, not next week — before you close the laptop. What damaged Weeks 8–18 was not using AI. It was using AI and not writing it down, so the gap went silent and compounded for three months. A tracked debt is survivable. An invisible one is what put you here.</div>
 
-      <h2 class="sec">Phase 1 — Aug 5 to 14: rebuild the Python foundation</h2>
-      <p>University assignments are done and next week is light, so this window is real study time, not scraps. The audit found the gap is concentrated in <b>Week 3 (functions, files, exceptions) and Week 4 (all of OOP)</b> — which is precisely why Django feels like magic you cannot control. Your own Week 4 note predicted it.</p>
-      <p>One artifact carries almost all of this debt: <b>rebuild the OOP To-Do app from an empty folder.</b> It forces functions, scope, files, exceptions, classes, inheritance and dunder methods to all be real at the same time.</p>
+      <h2 class="sec">The two holes are one hole</h2>
+      <p>The audit says Weeks 3–4 are a gap and <em>all</em> of Django is a gap. Those are not two problems. Django is not a new language stacked on Python — it is Python's class system with a database bolted on. Everything you flagged in Week 4 is something Django uses on every single page.</p>
+      <p>So do not study Python and then study Django. <b>Learn the Python in Django's vocabulary</b> and every hour counts twice:</p>
+      <table class="sp">
+        <tr><th>What you flagged in Weeks 3–4</th><th>What it already is in Django</th></tr>
+        <tr><td>classes, <code>__init__</code>, attributes, methods</td><td>a model — <code>class Task(models.Model)</code></td></tr>
+        <tr><td>inheritance, overriding, <code>super()</code></td><td><code>models.Model</code>, <code>class Meta</code>, <code>AbstractUser</code>, class-based views</td></tr>
+        <tr><td><code>__str__</code>, <code>__repr__</code>, <code>__eq__</code></td><td>the <code>__str__</code> on every model — it is literally what the admin displays</td></tr>
+        <tr><td><code>@property</code>, encapsulation</td><td>computed fields — <code>@property def is_overdue(self)</code></td></tr>
+        <tr><td>decorators</td><td><code>@login_required</code>, <code>@admin.register</code>, <code>@receiver</code></td></tr>
+        <tr><td><code>*args</code> / <code>**kwargs</code></td><td><code>def get_context_data(self, **kwargs)</code>, URL params arriving in views</td></tr>
+        <tr><td>try/except, custom exceptions</td><td><code>Task.DoesNotExist</code>, <code>ValidationError</code>, <code>get_object_or_404</code></td></tr>
+        <tr><td>files and paths</td><td><code>FileField</code>, <code>ImageField</code>, <code>MEDIA_ROOT</code>, uploads</td></tr>
+        <tr><td>iterators, generators, laziness</td><td>QuerySets are lazy — they do not touch the database until you iterate</td></tr>
+      </table>
+
+      <h2 class="sec">Phase 1 — Aug 5 to 11: Python, named for its Django payoff</h2>
+      <p>Each day: blank page from memory → learn → rebuild from empty. Never the other order.</p>
       <table class="sp">
         <tr><th>Day</th><th>Work</th></tr>
-        <tr><td class="d">Aug 5</td><td>Score Django + SQL <em>core only</em> in the audit (15 min). Then functions: parameters, return, scope, <code>*args/**kwargs</code>. Blank page → learn → write 5 functions from empty.</td></tr>
-        <tr><td class="d">Aug 6</td><td>Decorators and lambda. Write your own <code>@timer</code> and <code>@log</code> from scratch. This is what makes Django views stop looking like magic.</td></tr>
-        <tr><td class="d">Aug 7</td><td>Files and exceptions. A script that reads/writes JSON and survives: missing file, corrupt JSON, bad input. From empty.</td></tr>
-        <tr><td class="d">Aug 8</td><td>Iterators and generators — why <code>yield</code> exists. Write one generator. Django QuerySets are lazy for exactly this reason.</td></tr>
-        <tr><td class="d">Aug 9</td><td>OOP 1: classes, <code>__init__</code>, instance vs class attributes, methods. Build a <code>Task</code> class from empty.</td></tr>
-        <tr><td class="d">Aug 10</td><td>OOP 2: inheritance, method overriding, polymorphism. Build a small hierarchy from empty.</td></tr>
-        <tr><td class="d">Aug 11</td><td>OOP 3: <code>__str__</code>, <code>__repr__</code>, <code>__eq__</code>, properties, encapsulation. This <em>is</em> a Django model.</td></tr>
-        <tr><td class="d">Aug 12</td><td><b>The rebuild.</b> OOP To-Do app, empty folder: <code>Task</code>, <code>TodoList</code>, <code>FileManager</code>, JSON persistence, real error handling. No AI. No old repo. No tutorial.</td></tr>
-        <tr><td class="d">Aug 13</td><td>Finish and debug it. Write the README yourself in English. Push as a <em>new</em> repo. <em>Then</em> let AI review it — "what would a senior change?" — and read the critique.</td></tr>
-        <tr><td class="d">Aug 14</td><td>Git habits in one sitting (~3h clears 11 items): branching, stash, diff, log, tags, <code>.env</code>, <code>.gitignore</code>, GitHub flow — all on the repo you just built. Then score JS + HTML core.</td></tr>
+        <tr><td class="d">Aug 5</td><td>Functions: parameters, return, scope, <code>*args/**kwargs</code>. Write 5 from an empty file.</td></tr>
+        <tr><td class="d">Aug 6</td><td>Decorators. Write your own <code>@timer</code> and <code>@log</code> from scratch. Then read Django's <code>@login_required</code> and see that it is the same thing.</td></tr>
+        <tr><td class="d">Aug 7</td><td>Classes: <code>__init__</code>, instance vs class attributes, methods. Build a <code>Task</code> class from empty. <b>You are writing a model and do not know it yet.</b></td></tr>
+        <tr><td class="d">Aug 8</td><td>Inheritance, overriding, <code>super()</code>, polymorphism. A small hierarchy from empty.</td></tr>
+        <tr><td class="d">Aug 9</td><td>Dunder methods, <code>@property</code>, encapsulation. Add <code>__str__</code> and a computed property to your <code>Task</code>.</td></tr>
+        <tr><td class="d">Aug 10</td><td>Files and exceptions, plus 30 minutes on generators and laziness. Custom exception classes.</td></tr>
+        <tr><td class="d">Aug 11</td><td><b>Rebuild the OOP To-Do app from an empty folder.</b> <code>Task</code>, <code>TodoList</code>, <code>FileManager</code>, JSON persistence, real error handling. No AI, no old repo, no tutorial.</td></tr>
       </table>
 
-      <h2 class="sec">Phase 2 — Aug 15 to Sep 2: the term break</h2>
-      <p>Nineteen days, no university load. With Python solid, this entire window goes to the front line: <b>Django and SQL</b>, which is what Weeks 19–24 are made of.</p>
+      <h2 class="sec">Phase 2 — Aug 12 to 14: the bridge</h2>
+      <p>Now build the same app again, in Django. Same domain, so every ounce of attention goes to <em>what Django adds</em> rather than to the problem itself.</p>
+      <p><b>And look at what Week 19 actually is: "Django To-Do App Project."</b> Your backfill deliverable and your current assignment are the same artifact. You are not choosing between catching up and keeping up.</p>
+      <table class="sp">
+        <tr><th>Day</th><th>Work</th></tr>
+        <tr><td class="d">Aug 12</td><td><code>startproject</code>, <code>startapp</code>, settings, your <code>Task</code> as a real model, <code>makemigrations</code>, <code>migrate</code>, register it in the admin. <b>Seeing your own class appear in the Django admin is the moment Django stops being magic.</b></td></tr>
+        <tr><td class="d">Aug 13</td><td>Views, URLs, templates. Get the task list rendering in a browser. Understand the request → URL → view → template → response path.</td></tr>
+        <tr><td class="d">Aug 14</td><td><code>ModelForm</code> and full CRUD through the browser. Push it. <em>Then</em> let AI review it — "what would a senior change?" Git habits in the same sitting (~3h clears 11 items).</td></tr>
+      </table>
+
+      <h2 class="sec">Phase 3 — Aug 15 to Sep 2: Django properly, SQL alongside</h2>
       <table class="sp">
         <tr><th>Dates</th><th>Focus</th></tr>
-        <tr><td class="d">Aug 15–21</td><td><b>Django core.</b> Models, ORM, migrations, views, URLs, templates, admin. Build one small app end to end from an empty project.</td></tr>
-        <tr><td class="d">Aug 22–28</td><td><b>Django deep + SQL together.</b> Write the ORM query, then read the SQL it emits. Joins, indexes, the N+1 problem. Two sides of one coin.</td></tr>
-        <tr><td class="d">Aug 29–Sep 2</td><td><b>The integration build</b> — the debt-clearing exam. Django + a real Postgres schema with joins, deployed. From empty.</td></tr>
-        <tr><td class="d">Sep 3 →</td><td><b>Dual-track resumes.</b> JavaScript backfill at 12h/week (React lands Week 25). HTML/CSS on demand. Current modules at full depth.</td></tr>
+        <tr><td class="d">Aug 15–19</td><td><b>Relationships and the ORM.</b> ForeignKey, ManyToMany, <code>related_name</code>, <code>filter</code>/<code>exclude</code>/<code>annotate</code>/<code>select_related</code>. Rebuild the Week 20 blog yourself.</td></tr>
+        <tr><td class="d">Aug 20–25</td><td><b>Auth, forms, class-based views</b> — and SQL in the same sessions. Print <code>queryset.query</code>, read the SQL the ORM emits, then learn joins, indexes and the N+1 problem from your own output. This is why SQL costs far less than the audit estimates.</td></tr>
+        <tr><td class="d">Aug 26–Sep 2</td><td><b>The integration build.</b> Django + PostgreSQL with real relationships, deployed. From empty. This is the exam that proves the debt is paid.</td></tr>
+        <tr><td class="d">Sep 3 →</td><td>SQL mop-up (~1 week), then JavaScript at 12h/week — React does not land until Week 25.</td></tr>
       </table>
-      <p><b>Daily shape during the break:</b> 6 focused hours, 6 days a week, one full day off. Not 12 hours. You are rebuilding from a fragile place, and a plan that burns you out in week one is worse than no plan.</p>
+
+      <h2 class="sec">Weeks 20–24: the part I will not pretend about</h2>
+      <p>Six consecutive Django weeks are in front of you and you are starting from zero. You will <b>not</b> do the Week 20 blog and the Week 21 e-commerce project at full depth. Decide that now, deliberately, instead of discovering it in a panic at 2am.</p>
+      <p><b>Week 21 — 48 hours, 6 live classes.</b> Attend every class; the exposure is worth real money even when you follow only half. Take notes. Then build the <em>smallest honest slice</em> yourself: product list, product detail, add to cart. Nothing else.</p>
+      <p>An ugly three-page shop you can explain line by line beats a complete storefront you cannot. The first one is a portfolio piece and an interview story. The second is a liability that will be exposed in twenty minutes by anyone competent.</p>
+      <h2 class="sec">Daily shape — and the part that is not negotiable</h2>
+      <p><b>Before the break (Aug 5–14):</b> about 4 focused hours a day. <b>During the break:</b> 6 focused hours, 6 days a week, one full day off. Not 12 hours. You are rebuilding from a fragile place, and a plan that burns you out in week one is worse than no plan at all.</p>
       <ul>
         <li><b>Morning block (post-Fajr, ~3h)</b> — hardest new concept of the day. This is your best brain; do not spend it on video.</li>
         <li><b>Afternoon block (~2h)</b> — reconstruct from empty. Build the small thing. No tutorials.</li>
