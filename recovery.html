@@ -435,7 +435,7 @@ function flash(){ var m=document.getElementById('savedMsg'); if(!m)return; m.tex
 
 var SCORE = load('rc_score', {});   // taskId -> 0|1|2|3
 var CLEAR = load('rc_done', {});    // taskId -> 1  (debt item worked off)
-var THRU  = load('rc_thru', 19);
+var THRU  = load('rc_thru', 21);
 var mode  = 'core';
 var qmode = 'core';
 var view  = 'audit';
@@ -475,8 +475,8 @@ var TRACKS = [
     why:'Hard deadline: module 26 (hooks and state), not module 25. Sep 6 – Oct 3. Only the React-critical subset — see the Sprint tab.' },
   { key:'web',     name:'HTML & CSS',       weeks:[10,11,12], due:'Sep 26',
     why:'Four conceptual things only: box model, flexbox, grid, media queries. The rest of CSS is lookup forever. One weekend, not a sprint.' },
-  { key:'current', name:'Current module',   weeks:[19], due:'ongoing',
-    why:'Do not add new debt while clearing old debt. This is the line you hold.' }
+  { key:'current', name:'Live modules (19–21)', weeks:[19,20,21], due:'ongoing',
+    why:'The modules happening now. Score these honestly too — module 19 clears when you build the Django To-Do on Aug 12–14, and module 20 is superseded by module 21 rather than rebuilt. Do not add new silent debt while clearing old debt.' }
 ];
 
 function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
