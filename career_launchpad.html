@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Career Launchpad — Freelance · Jobs · Interviews</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500;600&family=Geist:wght@300;400;500;600;700&display=swap');
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Geist', sans-serif; background: #eef2f6; color: #11181c; padding: 18px 12px 60px; }
+  .wrap { max-width: 880px; margin: 0 auto; }
+
+  .header { background: linear-gradient(135deg,#0f766e,#1d4ed8); color:#fff; border-radius:14px; padding:20px 22px; margin-bottom:14px; }
+  .header h1 { font-size:20px; font-weight:700; }
+  .header p { font-size:12px; opacity:.9; margin-top:5px; line-height:1.5; }
+  .saved { font-size:10px; opacity:.85; font-family:'Geist Mono',monospace; margin-top:9px; }
+
+  .tabs { display:flex; gap:6px; margin-bottom:16px; flex-wrap:wrap; }
+  .tb { padding:9px 14px; border-radius:22px; font-size:12.5px; font-weight:600; cursor:pointer; border:1px solid #d4dbe0; background:#fff; color:#5b6770; }
+  .tb.active { background:#0f766e; color:#fff; border-color:#0f766e; }
+
+  .view { display:none; }
+  .view.active { display:block; }
+
+  .sec { background:#fff; border-radius:12px; padding:16px 18px; margin-bottom:14px; box-shadow:0 2px 8px rgba(0,0,0,.05); }
+  .sec h2 { font-size:15px; font-weight:700; margin-bottom:5px; }
+  .sec h3 { font-size:13px; font-weight:700; margin:14px 0 7px; display:flex; align-items:center; gap:7px; }
+  .sec h3:first-of-type { margin-top:4px; }
+  .sec p.lead { font-size:12px; color:#5b6770; line-height:1.6; }
+
+  .phase { font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:.06em; color:#0f766e; background:#e6f4f1; display:inline-block; padding:3px 9px; border-radius:8px; margin-bottom:8px; }
+
+  ul.b { list-style:none; margin:2px 0; }
+  ul.b li { font-size:12px; color:#38444c; line-height:1.55; padding:3px 0 3px 15px; position:relative; }
+  ul.b li::before { content:'▸'; position:absolute; left:0; color:#0f766e; }
+  ul.b li b { color:#11181c; }
+
+  label.chk { display:flex; align-items:flex-start; gap:9px; font-size:12.5px; color:#38444c; line-height:1.45; padding:6px 0; cursor:pointer; border-bottom:1px solid #f0f3f5; }
+  label.chk:last-child { border-bottom:none; }
+  label.chk input { width:16px; height:16px; margin-top:1px; accent-color:#0f766e; cursor:pointer; flex-shrink:0; }
+  label.chk.done span { text-decoration:line-through; color:#aeb6bc; }
+  label.chk b { color:#11181c; }
+
+  .callout { border-radius:9px; padding:11px 13px; font-size:12px; line-height:1.55; margin:10px 0; }
+  .c-warn { background:#fdf3ec; border:1px solid #f6d8be; color:#7a4a1e; }
+  .c-warn b { color:#c2410c; }
+  .c-good { background:#eef9f0; border:1px solid #c9e8cf; color:#2d5b38; }
+  .c-good b { color:#15803d; }
+  .c-info { background:#eef3fd; border:1px solid #cddcf6; color:#1e3a6b; }
+  .c-info b { color:#1d4ed8; }
+
+  table.t { width:100%; border-collapse:collapse; font-size:11.5px; margin:6px 0; }
+  table.t th, table.t td { text-align:left; padding:7px 8px; border-bottom:1px solid #eef1f4; vertical-align:top; }
+  table.t th { font-size:9.5px; text-transform:uppercase; letter-spacing:.05em; color:#8a949c; font-weight:700; }
+  table.t td b { color:#11181c; }
+
+  pre.tpl { background:#0f1720; color:#d6e2ee; border-radius:8px; padding:12px 13px; font-family:'Geist Mono',monospace; font-size:10.5px; line-height:1.6; white-space:pre-wrap; overflow-x:auto; margin:6px 0; }
+  .lnk { color:#1d4ed8; text-decoration:none; } .lnk:hover { text-decoration:underline; }
+  .src { font-size:10px; color:#8a949c; font-style:italic; margin-top:8px; }
+  .pillrow { display:flex; flex-wrap:wrap; gap:5px; margin:4px 0 8px; }
+  .pl { font-size:10.5px; padding:3px 9px; border-radius:7px; background:#f1f5f8; border:1px solid #e3e8ec; color:#38444c; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="header">
+    <h1>🚀 Career Launchpad</h1>
+    <p>Your full playbook for turning skills into income — freelancing from Week 22, hunting local/remote/startup jobs, and winning interviews. Tick items as you go; everything saves in this browser.</p>
+    <div class="saved" id="savedMsg">Auto-saved ✓</div>
+  </div>
+
+  <div class="tabs">
+    <button class="tb active" data-v="free">💼 Freelance</button>
+    <button class="tb" data-v="jobs">🎯 Job Hunt</button>
+    <button class="tb" data-v="intv">🧠 Interviews</button>
+    <button class="tb" data-v="kit">🧰 Toolkit</button>
+  </div>
+
+  <!-- ============== FREELANCE ============== -->
+  <div class="view active" id="view-free">
+    <div class="sec">
+      <h2>💼 The freelance journey (start ~Week 22)</h2>
+      <p class="lead">From Bangladesh, freelancing is usually your <b>fastest first income</b> and fastest real-world experience — lower barrier than a salaried remote role, and every gig gives you reviews, references, and portfolio proof. Goal: <b>first paid dollar by end of 2026.</b> Don't start before ~Week 22 though — protect your learning first.</p>
+      <div class="callout c-warn"><b>Mindset shift:</b> freelancing is a <b>business</b>, not "doing tasks for money." You're selling an outcome to a client who has a problem. The dev who communicates clearly and hits deadlines beats the better coder who goes silent — every time.</div>
+    </div>
+
+    <div class="sec">
+      <span class="phase">Phase F1 · Week 20–22 · Build the storefront</span>
+      <h3>🎯 Pick a niche (don't be "a web developer")</h3>
+      <ul class="b">
+        <li>Niche = easier to get hired and charge more. Be <b>"Django + React developer for small businesses"</b> or <b>"AI-integration developer (chatbots/RAG for startups)"</b> — your differentiator.</li>
+        <li>Generalists drown in competition; specialists get chosen.</li>
+      </ul>
+      <h3>🧩 Set up your platforms</h3>
+      <div class="pillrow"><span class="pl">Upwork (primary)</span><span class="pl">Fiverr (productized gigs)</span><span class="pl">Freelancer.com</span><span class="pl">PeoplePerHour</span><span class="pl">Contra</span><span class="pl">Local: BDjobs, FB groups, agencies</span></div>
+      <ul class="b">
+        <li><b>Upwork</b> — best for hourly/contract work via proposals. Your main engine.</li>
+        <li><b>Fiverr</b> — productized "gigs" clients buy directly (e.g., "I will build a Django REST API"). Set up 2–3.</li>
+        <li><b>Toptal / Arc / Lemon.io</b> — vetted, higher pay. Come back to these once you're stronger (2027).</li>
+      </ul>
+      <div class="callout c-info"><b>💳 Getting paid from Bangladesh:</b> the standard route is <b>Payoneer</b> — connect it to Upwork/Fiverr/Freelancer, receive USD, then withdraw to your local bank in BDT. (Wise has receiving limits in BD; Payoneer is the reliable default.) Keep clean records — Bangladesh offers remittance incentives for freelance earnings. Set this up <em>before</em> your first gig so payment is frictionless.<div class="src">Payment-route info summarized from <a class="lnk" href="https://www.payoneer.com/" target="_blank">Payoneer</a> and Bangladesh freelancer payment guides; rephrased for compliance. Verify current Bangladesh Bank rules before relying on any single method.</div></div>
+      <h3>✅ F1 setup checklist</h3>
+      <div data-list="free">
+        <label class="chk"><input type="checkbox" data-id="f1"><span>Choose a clear niche (write it as one sentence)</span></label>
+        <label class="chk"><input type="checkbox" data-id="f2"><span>Create <b>Payoneer</b> account + link a local bank for BDT withdrawal</span></label>
+        <label class="chk"><input type="checkbox" data-id="f3"><span>Build Upwork profile: pro photo, benefit-driven title, strong bio</span></label>
+        <label class="chk"><input type="checkbox" data-id="f4"><span>Add 3 best projects to portfolio (live links + screenshots)</span></label>
+        <label class="chk"><input type="checkbox" data-id="f5"><span>Record a 30–60s English intro video for the profile</span></label>
+        <label class="chk"><input type="checkbox" data-id="f6"><span>Create 2–3 Fiverr gigs around your niche</span></label>
+        <label class="chk"><input type="checkbox" data-id="f7"><span>Set starting rates intentionally low (to win first reviews)</span></label>
+      </div>
+    </div>
+
+    <div class="sec">
+      <span class="phase">Phase F2 · Week 22–26 · Land the first 3 reviews</span>
+      <p class="lead">The first 5 reviews are the hardest and the most valuable thing you own. Bid on small, crystal-clear jobs you can absolutely nail.</p>
+      <h3>✍️ How to write proposals that win</h3>
+      <ul class="b">
+        <li><b>Never copy-paste.</b> First line addresses <em>their</em> specific problem — proves you read the post.</li>
+        <li>Give a tiny plan (3 bullet steps) showing you already understand it.</li>
+        <li>Link one <b>relevant</b> sample (not your whole portfolio).</li>
+        <li>Keep it short. End with a question/CTA ("Want me to start with X?").</li>
+        <li>Apply <b>5–10 quality proposals/day</b> early on. It's a numbers game at first.</li>
+      </ul>
+      <div class="callout c-warn"><b>🚩 Scam / red flags — walk away:</b> asking to pay or talk <em>outside</em> the platform, "do a free test project," vague scope with big promises, pressure to start before any agreement, or rates that seem too good to be true.</div>
+      <h3>🤝 Deliver like a pro (this earns the 5 stars)</h3>
+      <ul class="b">
+        <li>Confirm scope <b>in writing</b> before starting. Break into milestones.</li>
+        <li>Over-communicate: a short update every 1–2 days. Reply within 24h.</li>
+        <li>Under-promise, over-deliver. Hit every deadline.</li>
+        <li>At the end, politely ask for a review + ask if they need anything else.</li>
+      </ul>
+      <h3>✅ F2 first-client checklist</h3>
+      <div data-list="free">
+        <label class="chk"><input type="checkbox" data-id="f8"><span>Sent 30+ tailored proposals</span></label>
+        <label class="chk"><input type="checkbox" data-id="f9"><span>Landed first paid gig 🎉</span></label>
+        <label class="chk"><input type="checkbox" data-id="f10"><span>Delivered with clear scope + milestones + daily updates</span></label>
+        <label class="chk"><input type="checkbox" data-id="f11"><span>Earned first 5-star review</span></label>
+        <label class="chk"><input type="checkbox" data-id="f12"><span>Reached 3+ reviews</span></label>
+      </div>
+    </div>
+
+    <div class="sec">
+      <span class="phase">Phase F3 · Week 26–32 · Momentum → higher rates</span>
+      <ul class="b">
+        <li>After 3–5 five-star reviews, <b>raise your rates</b> — your proof now sells for you.</li>
+        <li>Ask happy clients for <b>repeat work, referrals, and a LinkedIn testimonial</b>.</li>
+        <li>Lean your gigs toward <b>AI integration</b> — fewer competitors, premium pricing.</li>
+        <li>Track income, hours, and clients in a simple sheet.</li>
+      </ul>
+      <span class="phase" style="margin-top:6px;">Phase F4 · 2027 · Scale &amp; go premium</span>
+      <ul class="b">
+        <li>Apply to vetted networks (Toptal, Arc, Lemon.io) for higher-paying remote work.</li>
+        <li>Move toward <b>retainer clients</b> (steady monthly income) and productized offers.</li>
+        <li>Raise rates regularly. Learn to say no to bad-fit clients — your time is the asset now.</li>
+      </ul>
+      <div class="callout c-good"><b>Why this matters beyond money:</b> freelance experience <em>is</em> real experience. "Delivered 8 projects for international clients with 5-star ratings" on your CV beats "completed a bootcamp" in any salaried-job interview.</div>
+    </div>
+  </div>
+
+  <!-- ============== JOBS ============== -->
+  <div class="view" id="view-jobs">
+    <div class="sec">
+      <h2>🎯 Job hunt — three lanes, run in parallel</h2>
+      <p class="lead">Don't bet on one path. Run all three at once and take whichever offer comes first. For a beginner in Bangladesh, the realistic order of "easiest first win" is usually: <b>local + freelance → remote → big-tech remote</b>.</p>
+      <table class="t">
+        <tr><th>Lane</th><th>Where to look</th><th>Reality</th></tr>
+        <tr><td><b>🇧🇩 Local (BD)</b></td><td>BDjobs.com, LinkedIn, company career pages, FB groups ("Software Engineers of Bangladesh"), Dhaka startups/agencies, referrals</td><td>Easiest first role · in-person mentorship · lower pay · great resume builder</td></tr>
+        <tr><td><b>🌍 Remote (global)</b></td><td>Wellfound, RemoteOK, We Work Remotely, Remotive, LinkedIn (remote filter), Turing/Arc/Lemon.io (vetted), HN "Who is Hiring"</td><td>USD pay · very competitive · needs strong English + portfolio + timezone overlap</td></tr>
+        <tr><td><b>🚀 Startups</b></td><td>Wellfound (ex-AngelList), YC "Work at a Startup", startup boards, founders on X/Twitter</td><td>Learn fast · wear many hats · <b>AI startups love your AI-integration niche</b> · higher risk</td></tr>
+      </table>
+      <div class="src">Board names current as of 2026 (Wellfound = formerly AngelList Talent). Pick 2–3 boards that fit your niche and set alerts; rephrased for compliance.</div>
+    </div>
+
+    <div class="sec">
+      <h2>📈 Application strategy (this is where people lose)</h2>
+      <ul class="b">
+        <li><b>Referrals first — they roughly double your callback rate.</b> Before applying cold, check if you know anyone there (LinkedIn) and ask for a referral or a 15-min chat.</li>
+        <li><b>Volume + tailoring:</b> aim for <b>10 applications/week</b>. Tailor your CV's top line + the first 2 sentences of each cover letter to the role.</li>
+        <li><b>Apply at ~60% match.</b> Job posts are wish-lists. If you meet most of it, apply — don't wait to feel "ready."</li>
+        <li><b>Track everything</b> in a sheet: company · role · date · status · follow-up date. Treat the hunt like engineering.</li>
+        <li><b>Follow up</b> politely after ~1 week of silence.</li>
+        <li><b>Apply early</b> — being in the first 25 applicants matters a lot.</li>
+      </ul>
+      <h3>✅ Job-hunt setup checklist</h3>
+      <div data-list="jobs">
+        <label class="chk"><input type="checkbox" data-id="j1"><span>1-page CV built (see Toolkit for structure)</span></label>
+        <label class="chk"><input type="checkbox" data-id="j2"><span>LinkedIn fully optimized + "Open to work" on</span></label>
+        <label class="chk"><input type="checkbox" data-id="j3"><span>Portfolio site live (4–6 projects, demos, GitHub)</span></label>
+        <label class="chk"><input type="checkbox" data-id="j4"><span>Application tracker sheet created</span></label>
+        <label class="chk"><input type="checkbox" data-id="j5"><span>Picked 2–3 job boards per lane + set alerts</span></label>
+        <label class="chk"><input type="checkbox" data-id="j6"><span>Listed 10 target companies + checked for referral contacts</span></label>
+      </div>
+    </div>
+
+    <div class="sec">
+      <h2>📄 CV / resume essentials</h2>
+      <ul class="b">
+        <li><b>One page.</b> Simple, ATS-friendly format (no fancy columns that parsers choke on).</li>
+        <li><b>Top:</b> Name · title ("Full-Stack Developer | Python · Django · React · AI") · email · GitHub · portfolio · LinkedIn · location.</li>
+        <li><b>Projects FIRST</b> (you're junior — projects are your proof): 3 best, each with what it does, the tech, and a <b>live link</b>. Add impact where possible.</li>
+        <li><b>Experience:</b> freelance counts! "Freelance Full-Stack Developer — delivered X projects, 5-star rated."</li>
+        <li><b>Skills + Education:</b> UoPeople BS Computer Science (in progress).</li>
+        <li>Mirror keywords from the job post (ATS scans for them). Use action verbs. Cut all fluff.</li>
+      </ul>
+      <div class="callout c-info"><b>Your self-taught edge:</b> a green GitHub graph, deployed projects with live links, and an AI flagship beat a generic degree-only candidate. Make your proof impossible to miss.</div>
+    </div>
+  </div>
+
+  <!-- ============== INTERVIEWS ============== -->
+  <div class="view" id="view-intv">
+    <div class="sec">
+      <h2>🧠 Interview mastery</h2>
+      <p class="lead">Interviewing is a <b>separate skill</b> from coding — and it's learnable. Practice it deliberately (mock interviews on <a class="lnk" href="https://www.pramp.com/" target="_blank">Pramp</a> / interviewing.io, or with peers). Most candidates lose not on ability but on preparation and communication.</p>
+      <table class="t">
+        <tr><th>Stage</th><th>What it tests</th></tr>
+        <tr><td><b>1. Recruiter screen</b></td><td>Fit, motivation, communication, salary expectations, logistics</td></tr>
+        <tr><td><b>2. Coding / technical</b></td><td>DSA (LeetCode-style) or a practical build — and how you <em>think</em></td></tr>
+        <tr><td><b>3. System design</b> (light for juniors)</td><td>Vocabulary + trade-offs (load balancer, cache, DB, scaling)</td></tr>
+        <tr><td><b>4. Behavioral</b></td><td>Teamwork, conflict, ownership, culture fit (STAR)</td></tr>
+        <tr><td><b>5. Final / founder</b></td><td>Vision fit, your questions, the human read</td></tr>
+      </table>
+    </div>
+
+    <div class="sec">
+      <h2>💻 Coding interview — do &amp; don't</h2>
+      <h3>✅ Do</h3>
+      <ul class="b">
+        <li><b>Clarify before coding</b> — restate the problem, ask about inputs, edge cases, constraints.</li>
+        <li><b>Think out loud</b> — they're hiring your reasoning, not just the final answer.</li>
+        <li>Start with a brute-force idea, then optimize. State <b>time/space complexity</b>.</li>
+        <li><b>Test your code</b> with an example and an edge case before saying "done."</li>
+        <li>If stuck, say what you're thinking — it becomes a collaboration, and hints flow.</li>
+      </ul>
+      <h3>🚫 Don't</h3>
+      <ul class="b">
+        <li>Code in silence · jump straight to code without clarifying · pretend to know something · give up quietly · ignore edge cases.</li>
+      </ul>
+      <div class="callout c-good"><b>Your benchmark (from the plan):</b> any LeetCode <b>easy in &lt;10 min</b>, <b>medium in &lt;25 min</b>, narrating your thinking. Hit that and you'll clear most junior screens.</div>
+    </div>
+
+    <div class="sec">
+      <h2>🗣️ Behavioral — the STAR method</h2>
+      <p class="lead">Answer "tell me about a time…" with <b>S</b>ituation → <b>T</b>ask → <b>A</b>ction → <b>R</b>esult. Quantify the result. Prepare <b>6–8 stories</b> in advance so you're never caught flat:</p>
+      <ul class="b">
+        <li>A hard bug you solved · a tight deadline you met · learning something fast</li>
+        <li>A disagreement / handling feedback · a project you're proud of</li>
+        <li>A failure + what you learned · juggling competing priorities (you have a great one: degree + full-stack + family!)</li>
+      </ul>
+      <h3>❓ Questions YOU must ask them (never say "no questions")</h3>
+      <ul class="b">
+        <li>What does success look like in the first 90 days?</li>
+        <li>How does the team review code / mentor juniors?</li>
+        <li>What's the biggest challenge the team faces right now?</li>
+        <li>How does the team use AI in its workflow today?</li>
+        <li>What's the tech stack and how are decisions made?</li>
+      </ul>
+      <h3>✅ Interview-prep checklist</h3>
+      <div data-list="intv">
+        <label class="chk"><input type="checkbox" data-id="i1"><span>Wrote + rehearsed 6–8 STAR stories</span></label>
+        <label class="chk"><input type="checkbox" data-id="i2"><span>Can explain each of my projects' architecture in 5 min</span></label>
+        <label class="chk"><input type="checkbox" data-id="i3"><span>Did 5+ mock interviews with real people</span></label>
+        <label class="chk"><input type="checkbox" data-id="i4"><span>Prepared my list of questions to ask</span></label>
+        <label class="chk"><input type="checkbox" data-id="i5"><span>Can explain REST, JWT, MVT, N+1, ACID in plain English</span></label>
+        <label class="chk"><input type="checkbox" data-id="i6"><span>Tested camera, mic, internet + have mobile-data backup</span></label>
+      </div>
+    </div>
+
+    <div class="sec">
+      <h2>📦 Take-home projects</h2>
+      <ul class="b">
+        <li>Scope it — don't over-engineer, but <b>show quality</b>: a clean README, a few tests, tidy commits.</li>
+        <li>Deliver on time. Add <b>one thoughtful extra</b> that shows initiative.</li>
+        <li>Document your decisions ("I chose X because…") — that's what they actually grade.</li>
+      </ul>
+    </div>
+
+    <div class="sec">
+      <h2>💰 Salary negotiation (yes, even as a junior)</h2>
+      <ul class="b">
+        <li>Research ranges first: <a class="lnk" href="https://www.levels.fyi/" target="_blank">levels.fyi</a>, Glassdoor, local norms. Know the number before they ask.</li>
+        <li>If pushed for a number first, give a <b>researched range</b>, not a single figure.</li>
+        <li><b>The first offer is rarely final.</b> Politely ask "is there flexibility?" — a calm ask often gets 10–20% more.</li>
+        <li>Early career, weigh <b>learning + mentorship + growth</b> heavily, not just salary.</li>
+        <li>For remote-from-BD: know your worth, but price to win the role and raise later via proof.</li>
+      </ul>
+      <h3>📨 Before &amp; after every interview</h3>
+      <ul class="b">
+        <li><b>Before:</b> research the company + interviewer, prep stories, quiet space, good light, water, GitHub/portfolio open, join 2 min early.</li>
+        <li><b>After:</b> send a short thank-you note within 24h; reflect on what to improve; follow up after a week of silence.</li>
+      </ul>
+      <div class="callout c-warn"><b>Common killers to avoid:</b> bad-mouthing anyone · lying about skills · zero enthusiasm · rambling · not knowing your own resume/projects · a messy remote setup. Any one of these can end it.</div>
+    </div>
+  </div>
+
+  <!-- ============== TOOLKIT ============== -->
+  <div class="view" id="view-kit">
+    <div class="sec">
+      <h2>🧰 Templates you can copy</h2>
+      <h3>Upwork proposal (first message)</h3>
+      <pre class="tpl">Hi [Name],
+
+You mentioned [their exact problem, in your words] — I build
+exactly this with Django + React.
+
+Here's how I'd approach it:
+1. [step]
+2. [step]
+3. [step]
+
+Here's a similar thing I built: [ONE relevant live link]
+
+I can start [timeframe]. Want me to begin with [specific first step]?
+
+Best,
+[Your name]</pre>
+      <h3>Referral / cold DM (LinkedIn)</h3>
+      <pre class="tpl">Hi [Name], I really admire [specific thing about their work/company].
+I'm a full-stack dev (Python/Django/React + AI integration) and I'm
+exploring roles like [role] at [company]. I'm not asking you to refer
+me blindly — could I ask you 2-3 questions about the team over a quick
+15-min call? Totally understand if you're busy. Thank you!</pre>
+      <h3>Thank-you note (after interview)</h3>
+      <pre class="tpl">Hi [Name], thank you for your time today. I enjoyed discussing
+[specific topic] and I'm even more excited about [role] at [company].
+[One sentence reinforcing a strength or answering something you missed.]
+Looking forward to next steps.
+
+Best, [Your name]</pre>
+    </div>
+
+    <div class="sec">
+      <h2>📑 1-page CV structure</h2>
+      <pre class="tpl">[NAME]  —  Full-Stack Developer | Python · Django · React · AI
+email · phone · GitHub · portfolio · LinkedIn · Khulna, Bangladesh
+
+SUMMARY  (2 lines: who you are + your AI-integration edge)
+
+PROJECTS  (your proof — 3 best)
+ • [Project] — what it does · tech · LIVE LINK · 1 impact line
+ • [Project] — ...
+ • [AI flagship] — ...
+
+EXPERIENCE
+ • Freelance Full-Stack Developer — delivered N projects, 5★ rated
+
+SKILLS  Python, Django, DRF, React, PostgreSQL, Docker, Git,
+        REST APIs, LLM/RAG integration, FastAPI
+
+EDUCATION  BS Computer Science, University of the People (in progress)</pre>
+    </div>
+
+    <div class="sec">
+      <h2>🔗 Platforms &amp; resources</h2>
+      <h3>Freelance</h3>
+      <div class="pillrow"><span class="pl">Upwork</span><span class="pl">Fiverr</span><span class="pl">Freelancer.com</span><span class="pl">PeoplePerHour</span><span class="pl">Contra</span><span class="pl">Toptal (later)</span><span class="pl">Payoneer (payments)</span></div>
+      <h3>Remote jobs</h3>
+      <div class="pillrow"><span class="pl">Wellfound</span><span class="pl">RemoteOK</span><span class="pl">We Work Remotely</span><span class="pl">Remotive</span><span class="pl">Turing</span><span class="pl">Arc.dev</span><span class="pl">Lemon.io</span><span class="pl">HN Who-is-Hiring</span></div>
+      <h3>Startup jobs</h3>
+      <div class="pillrow"><span class="pl">Wellfound</span><span class="pl">YC Work at a Startup</span><span class="pl">Founders on X/Twitter</span></div>
+      <h3>Local (Bangladesh)</h3>
+      <div class="pillrow"><span class="pl">BDjobs.com</span><span class="pl">LinkedIn</span><span class="pl">FB dev groups</span><span class="pl">Dhaka startups/agencies</span></div>
+      <h3>Interview prep</h3>
+      <div class="pillrow"><span class="pl">LeetCode</span><span class="pl">Pramp (free mocks)</span><span class="pl">interviewing.io</span><span class="pl">levels.fyi (salaries)</span><span class="pl">Glassdoor</span></div>
+      <div class="callout c-good" style="margin-top:12px;"><b>How to use this tab:</b> pick <b>2–3 platforms per lane</b> (not all of them), set up alerts, and go deep rather than spreading thin. Focus beats scatter.</div>
+    </div>
+  </div>
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+<script src="sync.js"></script>
+<script>
+  // tab switching
+  document.querySelectorAll('.tb').forEach(function(b){
+    b.addEventListener('click', function(){
+      document.querySelectorAll('.tb').forEach(function(x){ x.classList.remove('active'); });
+      b.classList.add('active');
+      var v=b.getAttribute('data-v');
+      document.querySelectorAll('.view').forEach(function(p){ p.classList.toggle('active', p.id==='view-'+v); });
+      window.scrollTo({top:0, behavior:'smooth'});
+    });
+  });
+
+  // checkbox persistence + cloud sync
+  function loadDone(){ try{ return JSON.parse(localStorage.getItem('cl_done'))||{}; }catch(e){ return {}; } }
+  var DONE = loadDone();
+  var msg = document.getElementById('savedMsg'), mt;
+  function flash(){ msg.textContent='Saved '+new Date().toLocaleTimeString()+' ✓'; clearTimeout(mt); mt=setTimeout(function(){ msg.textContent='Auto-saved ✓'; },1800); }
+  function applyState(){
+    DONE = loadDone();
+    document.querySelectorAll('label.chk input[type=checkbox]').forEach(function(cb){
+      var id=cb.getAttribute('data-id'); var on=!!DONE[id];
+      cb.checked=on; cb.closest('label').classList.toggle('done', on);
+    });
+  }
+  document.querySelectorAll('label.chk input[type=checkbox]').forEach(function(cb){
+    cb.addEventListener('change', function(){
+      var id=cb.getAttribute('data-id');
+      if(cb.checked){ DONE[id]=1; } else { delete DONE[id]; }
+      cb.closest('label').classList.toggle('done', cb.checked);
+      localStorage.setItem('cl_done', JSON.stringify(DONE)); flash();
+      if(window.CloudSync) window.CloudSync.push();
+    });
+  });
+  applyState();
+  if(window.CloudSync){ window.CloudSync.start({ keys:['cl_done'], onData: applyState }); }
+</script>
+</body>
+</html>

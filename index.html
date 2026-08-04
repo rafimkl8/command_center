@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#0f766e">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="My Command Center">
+<title>My Command Center — Hub</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500;600&family=Geist:wght@300;400;500;600;700&display=swap');
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Geist', sans-serif; background: #eef2f6; color: #11181c; padding: 22px 14px 60px; }
+  .wrap { max-width: 760px; margin: 0 auto; }
+  .hero { background: linear-gradient(135deg,#0f766e,#1d4ed8,#7c3aed); color:#fff; border-radius:16px; padding:24px; margin-bottom:18px; }
+  .hero h1 { font-size:22px; font-weight:700; }
+  .hero p { font-size:12.5px; opacity:.9; margin-top:6px; line-height:1.55; }
+  .grid { display:grid; grid-template-columns:1fr 1fr; gap:11px; margin-bottom:18px; }
+  @media (max-width:560px){ .grid{ grid-template-columns:1fr; } }
+  a.tile { display:block; background:#fff; border-radius:13px; padding:15px 16px; text-decoration:none; color:#11181c; box-shadow:0 2px 8px rgba(0,0,0,.05); border:1px solid #e3e8ec; transition:transform .12s,box-shadow .12s; }
+  a.tile:hover { transform:translateY(-2px); box-shadow:0 6px 16px rgba(0,0,0,.10); }
+  a.tile .ic { font-size:22px; }
+  a.tile .t { font-size:14px; font-weight:700; margin-top:6px; }
+  a.tile .d { font-size:11px; color:#5b6770; margin-top:3px; line-height:1.45; }
+  a.tile .sync { font-size:9px; font-weight:700; color:#0f766e; background:#e6f4f1; border-radius:6px; padding:2px 7px; display:inline-block; margin-top:8px; }
+  .sec { background:#fff; border-radius:13px; padding:18px 20px; margin-bottom:16px; box-shadow:0 2px 8px rgba(0,0,0,.05); }
+  .sec h2 { font-size:15px; font-weight:700; margin-bottom:8px; }
+  .sec p, .sec li { font-size:12.5px; color:#38444c; line-height:1.6; }
+  ol.steps { margin:8px 0 0 18px; } ol.steps li { margin-bottom:7px; }
+  ol.steps b { color:#11181c; }
+  pre { background:#0f1720; color:#d6e2ee; border-radius:9px; padding:13px; font-family:'Geist Mono',monospace; font-size:11px; line-height:1.5; white-space:pre-wrap; margin:8px 0; overflow-x:auto; }
+  .note { background:#eef3fd; border:1px solid #cddcf6; border-radius:9px; padding:11px 13px; font-size:12px; color:#1e3a6b; line-height:1.55; margin-top:10px; }
+  .note b { color:#1d4ed8; }
+  .warn { background:#fdf3ec; border:1px solid #f6d8be; border-radius:9px; padding:11px 13px; font-size:12px; color:#7a4a1e; line-height:1.55; margin-top:10px; }
+  .warn b { color:#c2410c; }
+  code { font-family:'Geist Mono',monospace; background:#f1f5f8; padding:1px 5px; border-radius:4px; font-size:11px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="hero">
+    <h1>⚙️ My Command Center</h1>
+    <p>Everything in one place — the plan, trackers, routines, and career playbook. The two trackers sync across your iPhone and laptop once you set up the sync code (guide below). Add this page to your home screen for an app-like feel.</p>
+  </div>
+
+  <div class="grid">
+    <a class="tile" href="command_center.html"><div class="ic">🧭</div><div class="t">Command Center</div><div class="d">Master dashboard — routine, time budget, plan alignment, principles.</div></a>
+    <a class="tile" href="weekly_tracker.html"><div class="ic">📅</div><div class="t">Weekly Tracker</div><div class="d">Week-by-week tasks + the prioritized "Remaining" backlog.</div><span class="sync">☁ syncs across devices</span></a>
+    <a class="tile" href="career_launchpad.html"><div class="ic">🚀</div><div class="t">Career Launchpad</div><div class="d">Freelance, job hunt, and interview playbook with checklists.</div><span class="sync">☁ syncs across devices</span></a>
+    <a class="tile" href="refined_8_month_fullstack_plan.html"><div class="ic">📚</div><div class="t">The Full Plan</div><div class="d">All 40 weeks across 6 phases, including AI specialization.</div></a>
+    <a class="tile" href="print_routine.html"><div class="ic">⏰</div><div class="t">Daily Routine — A</div><div class="d">Printable one-pager · Sleep-Repair Mode.</div></a>
+    <a class="tile" href="print_routine_variant_b.html"><div class="ic">⚡</div><div class="t">Daily Routine — B</div><div class="d">Printable one-pager · Deep Work Mode.</div></a>
+  </div>
+
+  <div class="sec">
+    <h2>☁️ Set up cross-device sync (iPhone ⇄ Windows) — ~5 min, once</h2>
+    <p>Your trackers save on each device by default. To sync them, connect a tiny free Firebase database. The web config is <b>not a secret</b> — your data is protected by your private sync code.</p>
+    <ol class="steps">
+      <li>Go to <b>console.firebase.google.com</b> → <b>Add project</b> (any name, e.g. "my-tracker"). Analytics optional.</li>
+      <li><b>Build → Firestore Database → Create database</b>. Choose <b>Production mode</b>, region <code>asia-south1</code> (Mumbai, closest to Bangladesh).</li>
+      <li>Open the <b>Rules</b> tab, replace everything with the rules below, and click <b>Publish</b>:</li>
+    </ol>
+    <pre>rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /trackers/{code} {
+      allow read, write: if true;
+    }
+  }
+}</pre>
+    <ol class="steps" start="4">
+      <li>Click the <b>gear icon → Project settings → Your apps → Web (&lt;/&gt;)</b>. Register the app and copy the <code>firebaseConfig</code> values (apiKey, authDomain, projectId, appId).</li>
+      <li>Paste those values into <code>sync.js</code> (the <code>FIREBASE_CONFIG</code> block at the top) — or just send them to your assistant to wire in and push.</li>
+      <li>Open a tracker, tap <b>Connect</b> in the top bar, and set a <b>sync code</b>. Use the <b>same code</b> on your iPhone and laptop. Done — they now sync in real time. ✅</li>
+    </ol>
+    <div class="note"><b>First-link tip:</b> connect sync on your <b>most up-to-date device first</b> (it uploads), then connect the second device (it downloads &amp; merges). After that, every tick syncs both ways automatically.</div>
+    <div class="warn"><b>Privacy note:</b> these rules let anyone <em>who knows your exact sync code</em> read/write that one document. For your personal study checkboxes that's fine — just keep your code private and make it long. (When you build your real full-stack capstone later, you'll add proper login.)</div>
+  </div>
+
+  <div class="sec">
+    <h2>🌐 Hosting it so your iPhone can open it</h2>
+    <p>To open these on your phone, host them free with GitHub Pages:</p>
+    <ol class="steps">
+      <li>On GitHub, open this repo → <b>Settings → Pages</b>.</li>
+      <li>Under <b>Source</b>, pick <b>Deploy from a branch</b> → branch <b>main</b> → folder <b>/(root)</b> → <b>Save</b>.</li>
+      <li>After a minute your site is live at <code>https://wasir-codes.github.io/claude/</code> — open that on your iPhone and laptop, and bookmark / add to home screen.</li>
+    </ol>
+    <div class="note"><b>iPhone home-screen app:</b> open the link in Safari → tap <b>Share → Add to Home Screen</b>. It opens fullscreen like a real app — no APK or App Store needed.</div>
+  </div>
+
+  <div class="sec">
+    <h2>📱 Want a "real app" later?</h2>
+    <p>Don't build one now — it would steal your learning time. Instead, <b>rebuild this whole system as your portfolio capstone</b> around Weeks 26–32 (React + Django + PostgreSQL + login + AI study-coach). You'll get the app you want <em>and</em> a flagship project that wins interviews — best of both worlds.</p>
+  </div>
+</div>
+</body>
+</html>

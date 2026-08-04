@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Daily Routine — Print / Pin Up</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500;600&family=Geist:wght@300;400;500;600;700&display=swap');
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Geist', sans-serif; background: #e9eef3; color: #11181c; padding: 24px; }
+
+  .toolbar { max-width: 800px; margin: 0 auto 16px; display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+  .toolbar p { font-size: 12px; color: #5b6770; }
+  .printbtn { background: #2563eb; color: #fff; border: none; padding: 9px 18px; border-radius: 8px; font-size: 13px; font-weight: 600; cursor: pointer; font-family: inherit; }
+  .printbtn:hover { background: #1d4ed8; }
+
+  .sheet { max-width: 800px; margin: 0 auto; background: #fff; padding: 30px 34px; border-radius: 10px; box-shadow: 0 6px 24px rgba(0,0,0,0.10); }
+
+  .head { display: flex; justify-content: space-between; align-items: flex-end; border-bottom: 2px solid #11181c; padding-bottom: 10px; margin-bottom: 4px; }
+  .head h1 { font-size: 21px; font-weight: 700; letter-spacing: -0.01em; }
+  .head .meta { text-align: right; font-size: 10px; color: #5b6770; line-height: 1.5; font-family: 'Geist Mono', monospace; }
+  .prayerstrip { display: flex; flex-wrap: wrap; gap: 4px 14px; margin: 10px 0 16px; font-family: 'Geist Mono', monospace; font-size: 10.5px; color: #15803d; }
+  .prayerstrip b { color: #11181c; }
+
+  .cols { display: grid; grid-template-columns: 1.55fr 1fr; gap: 22px; }
+
+  .sec-title { font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #8a949c; margin-bottom: 7px; }
+
+  table.day { width: 100%; border-collapse: collapse; }
+  table.day td { padding: 3.5px 0; vertical-align: top; font-size: 11.5px; line-height: 1.3; border-bottom: 1px solid #eef1f4; }
+  table.day td.t { font-family: 'Geist Mono', monospace; font-size: 10px; color: #5b6770; white-space: nowrap; width: 78px; padding-right: 8px; }
+  table.day tr.pray td.a { color: #15803d; font-weight: 600; }
+  table.day tr.fs td.a { color: #1d4ed8; font-weight: 600; }
+  table.day tr.uni td.a { color: #6d28d9; font-weight: 600; }
+  table.day tr.fam td.a { color: #be185d; font-weight: 600; }
+  table.day tr.rest td.a { color: #5b6770; }
+  table.day tr.gym td.a { color: #b45309; font-weight: 600; }
+  table.day td .sub { color: #8a949c; font-weight: 400; }
+
+  .box { border: 1px solid #e3e8ec; border-radius: 8px; padding: 11px 13px; margin-bottom: 12px; }
+  .box h3 { font-size: 12px; font-weight: 700; margin-bottom: 7px; }
+  ul.mini { list-style: none; }
+  ul.mini li { font-size: 11px; color: #38444c; line-height: 1.45; padding: 2.5px 0 2.5px 15px; position: relative; }
+  ul.mini li::before { content: '·'; position: absolute; left: 3px; color: #2563eb; font-weight: 700; font-size: 14px; top: 1px; }
+  ul.mini li b { color: #11181c; }
+
+  .weekend { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .weekend div { font-size: 10.5px; color: #38444c; line-height: 1.4; }
+  .weekend b { color: #11181c; display:block; margin-bottom:2px; font-size:11px; }
+
+  .footer { margin-top: 16px; padding-top: 10px; border-top: 1px solid #e3e8ec; font-size: 10px; color: #8a949c; text-align: center; font-style: italic; }
+
+  .totals { font-size: 10.5px; color: #5b6770; margin-top: 8px; padding: 7px 10px; background: #f5f8fa; border-radius: 6px; }
+  .totals b { color: #1d4ed8; }
+
+  @media print {
+    body { background: #fff; padding: 0; }
+    .toolbar { display: none; }
+    .sheet { box-shadow: none; border-radius: 0; max-width: 100%; padding: 0; }
+    @page { size: A4 portrait; margin: 14mm; }
+  }
+</style>
+</head>
+<body>
+  <div class="toolbar">
+    <p>Tip: click Print, then choose "Save as PDF" or print to paper. Designed to fit one A4 page. Pin it by your desk.</p>
+    <button class="printbtn" onclick="window.print()">🖨 Print / Save PDF</button>
+  </div>
+
+  <div class="sheet">
+    <div class="head">
+      <h1>⏰ My Daily Routine</h1>
+      <div class="meta">Khulna, Bangladesh · GMT+6<br>Variant A — Sleep-Repair Mode<br>Prayer-anchored · ~7–8h study/day</div>
+    </div>
+
+    <div class="prayerstrip">
+      <span><b>Fajr</b> 3:48</span><span><b>Dhuhr</b> 12:02</span><span><b>Asr</b> 4:30</span><span><b>Maghrib</b> 6:47</span><span><b>Isha</b> 8:17</span><span style="color:#8a949c">(shift blocks as times move through the year)</span>
+    </div>
+
+    <div class="cols">
+      <!-- LEFT: timetable -->
+      <div>
+        <div class="sec-title">Weekday — every block, anchored to prayer</div>
+        <table class="day">
+          <tr class="pray"><td class="t">3:48–4:15</td><td class="a">Fajr + 10 min Quran</td></tr>
+          <tr class="rest"><td class="t">4:15–7:30</td><td class="a">Second sleep <span class="sub">— your real rest block</span></td></tr>
+          <tr class="rest"><td class="t">7:30–8:00</td><td class="a">Up · freshen · breakfast <span class="sub">· no phone</span></td></tr>
+          <tr class="fs"><td class="t">8:00–10:00</td><td class="a">Deep Work 1 — Full-stack <span class="sub">(hardest task)</span></td></tr>
+          <tr class="rest"><td class="t">10:00–10:15</td><td class="a">Break <span class="sub">— walk, water</span></td></tr>
+          <tr class="fs"><td class="t">10:15–12:00</td><td class="a">Deep Work 2 — Full-stack <span class="sub">(build/code)</span></td></tr>
+          <tr class="pray"><td class="t">12:02–12:50</td><td class="a">Dhuhr + lunch</td></tr>
+          <tr class="rest"><td class="t">12:50–13:15</td><td class="a">Qailulah — 20-min nap</td></tr>
+          <tr class="uni"><td class="t">13:15–15:45</td><td class="a">University — CS 1111 + UNIV 1002</td></tr>
+          <tr class="rest"><td class="t">15:45–16:00</td><td class="a">Pre-workout snack · head to gym</td></tr>
+          <tr class="gym"><td class="t">16:00–18:00</td><td class="a">🏋️ Gym (4:00–5:30 + commute) · pray Asr at gym ~4:30</td></tr>
+          <tr class="rest"><td class="t">18:00–18:45</td><td class="a">Home · shower · freshen</td></tr>
+          <tr class="pray"><td class="t">18:47–19:10</td><td class="a">Maghrib</td></tr>
+          <tr class="fam"><td class="t">19:10–20:10</td><td class="a">Wife + dinner <span class="sub">— laptop closed</span></td></tr>
+          <tr class="pray"><td class="t">20:17–20:45</td><td class="a">Isha</td></tr>
+          <tr class="fs"><td class="t">20:45–22:15</td><td class="a">Flex: LeetCode 45 · English 30 · LinkedIn 15</td></tr>
+          <tr class="fam"><td class="t">22:15–23:15</td><td class="a">Wind-down · plan tomorrow · <b style="color:#be185d">screens off</b></td></tr>
+          <tr class="rest"><td class="t">23:15</td><td class="a">Lights out <span class="sub">(~7.5h total sleep)</span></td></tr>
+        </table>
+        <div class="totals">Daily: <b>~3.75h full-stack</b> · <b>~2.5h university</b> · <b>~1.5h skills</b> + <b>🏋️ 2h gym</b>. Gym Sat–Thu; Friday rest. ~45–48h study/week.</div>
+      </div>
+
+      <!-- RIGHT: rules + weekend -->
+      <div>
+        <div class="box">
+          <h3>🚫 Non-negotiables</h3>
+          <ul class="mini">
+            <li><b>Wake = Fajr</b>, same time every day (incl. weekends)</li>
+            <li><b>Screens off 45 min</b> before bed</li>
+            <li><b>No caffeine after Asr</b> (~4:30 pm)</li>
+            <li><b>Gym 6×/week</b> (Sat–Thu) · Friday rest</li>
+            <li><b>Sleep 7.5h</b> — it's a study tool, not a luxury</li>
+            <li><b>1 Git commit</b> every single day</li>
+            <li>Dinner block = <b>fully present</b> with your wife</li>
+          </ul>
+        </div>
+
+        <div class="box">
+          <h3>✅ Today is a win if…</h3>
+          <ul class="mini">
+            <li>2 deep-work full-stack blocks done</li>
+            <li>University tasks for today done</li>
+            <li>1+ LeetCode solved</li>
+            <li>Committed code to GitHub</li>
+            <li>30 min English practice</li>
+            <li>Prayed all 5 on time</li>
+            <li>Hit the gym 🏋️ (or rested, if Friday)</li>
+          </ul>
+        </div>
+
+        <div class="box">
+          <h3>📅 Weekend shape</h3>
+          <div class="weekend">
+            <div><b>Friday</b>Light + Jummah. No gym — rest day. Wife's content shoot + family. Recharge.</div>
+            <div><b>Saturday</b>Full-stack power day — 6–8h deep work. Ship something. Weekly review.</div>
+          </div>
+        </div>
+
+        <div class="box" style="border-color:#cfe3d3;background:#f3faf4;">
+          <h3 style="color:#15803d;">🎯 Weekly target</h3>
+          <ul class="mini">
+            <li><b>~45–50h</b> study total (sustainable)</li>
+            <li>Light Friday + strong Saturday</li>
+            <li>Sunday night: 20-min review + plan</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer">Consistency beats intensity. Show up at Fajr, run the blocks, protect sleep and family — and still be standing in month eight.</div>
+  </div>
+</body>
+</html>

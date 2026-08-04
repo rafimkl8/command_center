@@ -1,0 +1,764 @@
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500;600&family=Geist:wght@300;400;500;600;700&display=swap');
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Geist', sans-serif; color: var(--color-text-primary); background: transparent; }
+  .cc-wrap { padding: 8px 0 48px; }
+
+  /* Intro */
+  .cc-intro { border: 1px solid var(--color-border-tertiary); border-radius: 12px; padding: 16px 18px; margin-bottom: 18px; background: var(--color-background-secondary); }
+  .cc-intro h1 { font-size: 18px; font-weight: 700; margin-bottom: 6px; }
+  .cc-intro p { font-size: 12px; color: var(--color-text-secondary); line-height: 1.6; }
+  .cc-intro .tag { display:inline-block; font-family:'Geist Mono',monospace; font-size:10px; padding:3px 8px; border-radius:10px; background: rgba(37,99,235,0.1); color:#2563eb; border:1px solid rgba(37,99,235,0.2); margin-top:8px; }
+
+  /* Tabs */
+  .cc-nav { display: flex; gap: 4px; flex-wrap: wrap; margin-bottom: 20px; }
+  .cc-btn { padding: 7px 13px; border-radius: 20px; font-size: 11px; font-weight: 600; cursor: pointer; border: 1px solid var(--color-border-tertiary); background: var(--color-background-secondary); color: var(--color-text-secondary); transition: all 0.15s; white-space: nowrap; }
+  .cc-btn.active { color: #fff; border-color: transparent; background: #2563eb; }
+  .cc-panel { display: none; }
+  .cc-panel.active { display: block; }
+
+  /* Section headers */
+  .sec-head { border-radius: 12px; padding: 14px 16px; margin-bottom: 14px; border: 1px solid var(--color-border-tertiary); background: var(--color-background-secondary); }
+  .sec-head h2 { font-size: 16px; font-weight: 700; margin-bottom: 4px; }
+  .sec-head p { font-size: 12px; color: var(--color-text-secondary); line-height: 1.6; }
+
+  /* Cards */
+  .card { border: 1px solid var(--color-border-tertiary); border-radius: 11px; padding: 14px 16px; margin-bottom: 12px; }
+  .card h3 { font-size: 13px; font-weight: 700; margin-bottom: 10px; display:flex; align-items:center; gap:6px; }
+  .card h4 { font-size: 12px; font-weight: 600; margin: 12px 0 6px; color: var(--color-text-primary); }
+
+  /* Callout */
+  .callout { border-radius: 10px; padding: 12px 14px; margin-bottom: 12px; font-size: 12px; line-height: 1.6; }
+  .callout strong { font-weight: 600; }
+  .co-warn { background: rgba(234,88,12,0.07); border: 1px solid rgba(234,88,12,0.25); color: var(--color-text-secondary); }
+  .co-warn b { color:#c2410c; }
+  .co-good { background: rgba(22,163,74,0.06); border: 1px solid rgba(22,163,74,0.22); color: var(--color-text-secondary); }
+  .co-good b { color:#15803d; }
+  .co-info { background: rgba(37,99,235,0.06); border: 1px solid rgba(37,99,235,0.22); color: var(--color-text-secondary); }
+  .co-info b { color:#1d4ed8; }
+
+  /* Time table */
+  table.tt { width: 100%; border-collapse: collapse; font-size: 12px; }
+  table.tt th, table.tt td { text-align: left; padding: 7px 9px; border-bottom: 1px solid var(--color-border-tertiary); vertical-align: top; }
+  table.tt th { font-size: 10px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--color-text-tertiary); font-weight: 700; }
+  table.tt td.time { font-family: 'Geist Mono', monospace; font-size: 11px; color: var(--color-text-tertiary); white-space: nowrap; }
+  .pill { display:inline-block; font-size:9px; font-weight:700; padding:2px 7px; border-radius:8px; }
+  .p-pray { background: rgba(22,163,74,0.12); color:#15803d; }
+  .p-fs   { background: rgba(37,99,235,0.12); color:#1d4ed8; }
+  .p-uni  { background: rgba(124,58,237,0.12); color:#6d28d9; }
+  .p-fam  { background: rgba(219,39,119,0.12); color:#be185d; }
+  .p-self { background: rgba(217,119,6,0.12); color:#b45309; }
+  .p-rest { background: rgba(100,116,139,0.14); color:#475569; }
+  @media (prefers-color-scheme: dark){
+    .p-pray{color:#4ade80;} .p-fs{color:#60a5fa;} .p-uni{color:#c084fc;}
+    .p-fam{color:#f472b6;} .p-self{color:#fbbf24;} .p-rest{color:#94a3b8;}
+    .co-warn b{color:#fb923c;} .co-good b{color:#4ade80;} .co-info b{color:#60a5fa;}
+  }
+
+  /* Checklist */
+  ul.chk { list-style: none; }
+  ul.chk li { font-size: 12px; color: var(--color-text-secondary); line-height: 1.5; padding: 5px 0 5px 24px; position: relative; border-bottom: 1px dashed var(--color-border-tertiary); }
+  ul.chk li::before { content: '☐'; position: absolute; left: 0; top: 4px; color: var(--color-text-tertiary); font-size: 14px; }
+  ul.chk li:last-child { border-bottom: none; }
+  ul.chk li strong { color: var(--color-text-primary); font-weight: 600; }
+
+  ul.bul { list-style: none; }
+  ul.bul li { font-size: 12px; color: var(--color-text-secondary); line-height: 1.55; padding: 4px 0 4px 16px; position: relative; }
+  ul.bul li::before { content: '▸'; position: absolute; left: 0; color: var(--color-text-tertiary); }
+  ul.bul li strong { color: var(--color-text-primary); font-weight: 600; }
+
+  /* Budget bars */
+  .budget-row { display: grid; grid-template-columns: 130px 1fr 56px; gap: 10px; align-items: center; margin-bottom: 7px; }
+  .budget-label { font-size: 11px; color: var(--color-text-secondary); }
+  .budget-track { height: 16px; background: var(--color-border-tertiary); border-radius: 4px; overflow: hidden; }
+  .budget-fill { height: 100%; border-radius: 4px; }
+  .budget-hrs { font-family: 'Geist Mono', monospace; font-size: 11px; color: var(--color-text-tertiary); text-align: right; }
+
+  /* Grid of two */
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  @media (max-width: 560px){ .grid2 { grid-template-columns: 1fr; } .budget-row{ grid-template-columns: 92px 1fr 48px; } }
+
+  /* mini stat */
+  .stats { display:grid; grid-template-columns: repeat(4,1fr); gap:8px; margin-bottom:14px; }
+  .stat { border:1px solid var(--color-border-tertiary); border-radius:9px; padding:10px; text-align:center; background:var(--color-background-secondary); }
+  .stat .n { font-family:'Geist Mono',monospace; font-size:18px; font-weight:700; }
+  .stat .l { font-size:9px; color:var(--color-text-tertiary); margin-top:2px; }
+  @media (max-width:560px){ .stats{ grid-template-columns:repeat(2,1fr);} }
+
+  .timeline-item { display:flex; gap:10px; margin-bottom:10px; }
+  .ti-week { font-family:'Geist Mono',monospace; font-size:10px; color:var(--color-text-tertiary); min-width:70px; flex-shrink:0; padding-top:1px; }
+  .ti-body { font-size:12px; color:var(--color-text-secondary); line-height:1.5; }
+  .ti-body strong { color:var(--color-text-primary); font-weight:600; }
+
+  .legend2 { display:flex; flex-wrap:wrap; gap:10px; margin:6px 0 14px; }
+  .lg2 { display:flex; align-items:center; gap:5px; font-size:10px; color:var(--color-text-secondary); }
+  .lg2 .d { width:9px; height:9px; border-radius:3px; }
+</style>
+
+<div class="cc-wrap">
+
+  <div class="cc-intro">
+    <h1>⚙️ Your Command Center</h1>
+    <p>One system to run everything — full-stack journey (you're on Week 13), UoPeople CS degree (Week 1 done), marriage, your wife's content launch, faith, sleep, health, and a realistic runway to becoming a job-ready AI-fluent developer — earning by end of 2026, salaried role in early 2027. Built around 5 daily prayers and a fixed sleep anchor. Tap a tab to navigate.</p>
+    <span class="tag">Khulna, Bangladesh (GMT+6) · FS Week 13 · UoPeople AY2026-T5 Week 1 done</span>
+  </div>
+
+  <div class="cc-nav">
+    <div class="cc-btn active" onclick="ccSw(this,'t1')">🧮 The Reality Check</div>
+    <div class="cc-btn" onclick="ccSw(this,'t2')">⏰ Daily Routine</div>
+    <div class="cc-btn" onclick="ccSw(this,'t3')">🗓️ Weekly System</div>
+    <div class="cc-btn" onclick="ccSw(this,'t4')">🎯 Monthly Goals</div>
+    <div class="cc-btn" onclick="ccSw(this,'t5')">🔗 Integrated Plan</div>
+    <div class="cc-btn" onclick="ccSw(this,'t6')">🚀 Beast Mode (Jobs)</div>
+    <div class="cc-btn" onclick="ccSw(this,'t7')">😴 Sleep · 👰 Family · 💸 Hustle</div>
+    <div class="cc-btn" onclick="ccSw(this,'t8')">🤖 AI Career Path</div>
+    <div class="cc-btn" onclick="ccSw(this,'t9')">🔑 Principles</div>
+  </div>
+
+  <!-- ============ TAB 1: REALITY CHECK / TIME BUDGET ============ -->
+  <div class="cc-panel active" id="t1">
+    <div class="sec-head">
+      <h2>🧮 The honest math of your week</h2>
+      <p>You have 168 hours a week — not infinite. The reason you feel like you're "struggling to manage both" isn't weak discipline. It's that nobody showed you the math. Here it is. Once you see it, the overwhelm turns into a plan.</p>
+    </div>
+
+    <div class="stats">
+      <div class="stat"><div class="n" style="color:#2563eb">168</div><div class="l">hours/week total</div></div>
+      <div class="stat"><div class="n" style="color:#16a34a">~121</div><div class="l">life · sleep · faith · gym</div></div>
+      <div class="stat"><div class="n" style="color:#d97706">~46</div><div class="l">sustainable study/week</div></div>
+      <div class="stat"><div class="n" style="color:#db2777">~7</div><div class="l">study hrs/day (real)</div></div>
+    </div>
+
+    <div class="card">
+      <h3>📊 Where your 168 hours actually go</h3>
+      <div class="legend2">
+        <div class="lg2"><span class="d" style="background:#16a34a"></span>Non-negotiable life</div>
+        <div class="lg2"><span class="d" style="background:#2563eb"></span>Full-stack journey</div>
+        <div class="lg2"><span class="d" style="background:#7c3aed"></span>University</div>
+      </div>
+      <div class="budget-row"><div class="budget-label">Sleep (7.5h × 7)</div><div class="budget-track"><div class="budget-fill" style="width:31%;background:#16a34a"></div></div><div class="budget-hrs">52.5h</div></div>
+      <div class="budget-row"><div class="budget-label">5 prayers + Quran</div><div class="budget-track"><div class="budget-fill" style="width:5.4%;background:#16a34a"></div></div><div class="budget-hrs">9h</div></div>
+      <div class="budget-row"><div class="budget-label">Meals + hygiene</div><div class="budget-track"><div class="budget-fill" style="width:8.3%;background:#16a34a"></div></div><div class="budget-hrs">14h</div></div>
+      <div class="budget-row"><div class="budget-label">Wife + family</div><div class="budget-track"><div class="budget-fill" style="width:9.5%;background:#16a34a"></div></div><div class="budget-hrs">16h</div></div>
+      <div class="budget-row"><div class="budget-label">Gym (6×/week)</div><div class="budget-track"><div class="budget-fill" style="width:7.1%;background:#16a34a"></div></div><div class="budget-hrs">12h</div></div>
+      <div class="budget-row"><div class="budget-label">Buffer · rest · life slack</div><div class="budget-track"><div class="budget-fill" style="width:10.7%;background:#16a34a"></div></div><div class="budget-hrs">18h</div></div>
+      <div class="budget-row"><div class="budget-label">University (2 courses)</div><div class="budget-track"><div class="budget-fill" style="width:10.7%;background:#7c3aed"></div></div><div class="budget-hrs">18h</div></div>
+      <div class="budget-row"><div class="budget-label">Full-stack journey</div><div class="budget-track"><div class="budget-fill" style="width:17%;background:#2563eb"></div></div><div class="budget-hrs">28.5h</div></div>
+    </div>
+
+    <div class="callout co-good">
+      <b>The verdict:</b> Your goal IS achievable — at a <strong>sustainable</strong> pace, not a punishing one. Plan around <strong>~40–50 study hours/week (target ~46)</strong>, not the 67 of raw "free" time. About 18 goes to university and ~28 to full-stack during the term (your 6×/week gym now takes ~12h); full-stack then climbs to ~45 during term breaks when university pauses. The ~18h of buffer/slack isn't wasted time — it's the margin that keeps you off the burnout cliff and is the whole difference between a plan that survives 8 months and one that collapses in 3.
+    </div>
+
+    <div class="card">
+      <h3>🩺 "Is ~46 hours really sustainable?" — yes, and here's why</h3>
+      <p style="font-size:12px;color:var(--color-text-secondary);line-height:1.6;margin-bottom:8px;">67 was the theoretical ceiling — every non-essential hour spent studying, 7 days a week. No human sustains that for months. Here's the honest model instead:</p>
+      <ul class="bul">
+        <li><strong>Deep, focused work</strong> (coding, hard problems, new concepts) tops out at <strong>~4–5h/day</strong> for almost everyone. Beyond that you're staring, not learning.</li>
+        <li><strong>Lighter study</strong> (reading, videos, forums, review) adds ~2–3h/day on top.</li>
+        <li>So a realistic productive day is <strong>~7h</strong>, and a realistic week is <strong>~45–50h</strong> — a demanding full-time job <em>plus</em> overtime. Intense, but real.</li>
+        <li><strong>~67h is the "redline."</strong> Touch it only for short term-break sprints, never as your everyday plan.</li>
+        <li><strong>The unfilled buffer is a feature, not a gap.</strong> It absorbs sick days, family needs, slow mornings, and life — so one bad day doesn't break the streak.</li>
+      </ul>
+    </div>
+
+    <div class="callout co-warn">
+      <b>⚠️ The one collision you must know about.</b> Your UoPeople term and your full-stack plan run in parallel, one week each. That means: <strong>UoPeople Final Exam Week (term Week 9) lands exactly on Full-Stack Week 21</strong> — the e-commerce project with 6 live classes, the single hardest, 48-hour week of your entire 8-month plan. Two "boss fights" on the same week. The <b>Integrated Plan</b> tab shows you exactly how to defuse this before it happens.
+    </div>
+
+    <div class="card">
+      <h3>🧭 The 3 rules that make it work</h3>
+      <ul class="bul">
+        <li><strong>Sleep is a study tool, not a luxury.</strong> A tired brain learns ~40% slower. Protecting 7.5h is how you actually finish faster. Sleep is rule #1, not the thing you cut.</li>
+        <li><strong>University has hard deadlines; full-stack has soft ones.</strong> When a week gets tight, university work (graded, dated) wins the day; full-stack flexes into the term breaks. Never the reverse.</li>
+        <li><strong>Two deep-work blocks beat eight scattered hours.</strong> Your hardest, freshest thinking goes to full-stack coding in the morning. University reading/discussions fit the afternoon when focus dips.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ============ TAB 2: DAILY ROUTINE ============ -->
+  <div class="cc-panel" id="t2">
+    <div class="sec-head">
+      <h2>⏰ Your daily routine</h2>
+      <p>Prayer-anchored and built to repair your sleep. Times use <strong>Khulna, Bangladesh</strong> prayer times for late June (Fajr ~3:48 · Dhuhr ~12:02 · Asr ~4:30 Hanafi · Maghrib ~6:47 · Isha ~8:17). As these shift through the year, move the blocks — keep the structure. Two variants: start with A to fix sleep, graduate to B for elite output.</p>
+    </div>
+
+    <div class="callout co-info">
+      <b>The anchor that fixes everything:</b> a <strong>fixed wake time tied to Fajr</strong>. You already have to wake for Fajr — so make that the non-negotiable anchor of your whole day. Everything else falls into place around it. Bad sleep is almost always a <em>variable</em> wake time; remove the variable.
+    </div>
+
+    <div class="card">
+      <h3>🅰️ Variant A — Sleep Repair Mode <span class="pill p-rest">start here, weeks 1–3</span></h3>
+      <p style="font-size:11px;color:var(--color-text-secondary);margin-bottom:10px;line-height:1.5;">Use this until your body clock is stable. You pray Fajr on time, then take a short second sleep — the classic, sustainable rhythm for early-Fajr summers.</p>
+      <table class="tt">
+        <tr><th>Time</th><th>Block</th><th>What</th></tr>
+        <tr><td class="time">3:48–4:15</td><td><span class="pill p-pray">Faith</span></td><td>Wake · Fajr prayer · 10 min Quran</td></tr>
+        <tr><td class="time">4:15–7:30</td><td><span class="pill p-rest">Sleep</span></td><td>Second sleep (this is your real rest block)</td></tr>
+        <tr><td class="time">7:30–8:00</td><td><span class="pill p-rest">Reset</span></td><td>Up for good · freshen · light breakfast · no phone</td></tr>
+        <tr><td class="time">8:00–10:00</td><td><span class="pill p-fs">Full-stack</span></td><td><strong>Deep Work 1</strong> — hardest task: new concept / project build</td></tr>
+        <tr><td class="time">10:00–10:15</td><td><span class="pill p-rest">Break</span></td><td>Walk, water, stretch — away from screen</td></tr>
+        <tr><td class="time">10:15–12:00</td><td><span class="pill p-fs">Full-stack</span></td><td><strong>Deep Work 2</strong> — continue project / coding</td></tr>
+        <tr><td class="time">12:02–12:50</td><td><span class="pill p-pray">Faith</span></td><td>Dhuhr prayer + lunch</td></tr>
+        <tr><td class="time">12:50–13:15</td><td><span class="pill p-rest">Qailulah</span></td><td>20-min power nap (Sunnah + science = afternoon focus)</td></tr>
+        <tr><td class="time">13:15–15:45</td><td><span class="pill p-uni">University</span></td><td><strong>CS 1111 + UNIV 1002</strong> — reading, quiz, discussion, journal</td></tr>
+        <tr><td class="time">15:45–16:00</td><td><span class="pill p-rest">Fuel</span></td><td>Pre-workout snack · head to gym</td></tr>
+        <tr><td class="time">16:00–18:00</td><td><span class="pill p-self">Gym</span></td><td><strong>🏋️ Gym</strong> — workout 4:00–5:30 + commute · pray <strong>Asr</strong> at the gym/mosque (~4:30)</td></tr>
+        <tr><td class="time">18:00–18:45</td><td><span class="pill p-rest">Reset</span></td><td>Home · shower · freshen up</td></tr>
+        <tr><td class="time">18:47–19:10</td><td><span class="pill p-pray">Faith</span></td><td>Maghrib prayer</td></tr>
+        <tr><td class="time">19:10–20:10</td><td><span class="pill p-fam">Family</span></td><td><strong>Wife + dinner</strong> — fully present, no laptop</td></tr>
+        <tr><td class="time">20:17–20:45</td><td><span class="pill p-pray">Faith</span></td><td>Isha prayer</td></tr>
+        <tr><td class="time">20:45–22:15</td><td><span class="pill p-self">Skills</span></td><td>Flex: LeetCode 45m · English 30m · LinkedIn 15m</td></tr>
+        <tr><td class="time">22:15–23:15</td><td><span class="pill p-fam">Wind-down</span></td><td>Family time · tomorrow's plan · <strong>screens off</strong></td></tr>
+        <tr><td class="time">23:15</td><td><span class="pill p-rest">Sleep</span></td><td>Lights out (≈4.5h core + 3.25h second sleep = ~7.5h)</td></tr>
+      </table>
+      <div class="callout co-info" style="margin-top:10px;margin-bottom:0;">Gym days (Sat–Thu) bank <b>~7–7.5h study</b> + a 2h gym block; <b>Friday is your rest day</b> (no gym, light study). That still lands you at <b>~45–48h/week</b> — sustainable. Pray <b>Asr at the gym</b>, keep lunch light before training, and make dinner your post-workout recovery meal.</div>
+    </div>
+
+    <div class="card">
+      <h3>🅱️ Variant B — Deep Work Mode <span class="pill p-fs">graduate here once sleep is stable</span></h3>
+      <p style="font-size:11px;color:var(--color-text-secondary);margin-bottom:10px;line-height:1.5;">Once your clock is fixed, the post-Fajr hours are the most powerful study time that exists — silent, fresh, zero interruptions. You shift one deep-work block into the early morning and protect a real midday nap.</p>
+      <table class="tt">
+        <tr><th>Time</th><th>Block</th><th>What</th></tr>
+        <tr><td class="time">3:48–4:15</td><td><span class="pill p-pray">Faith</span></td><td>Fajr prayer + Quran</td></tr>
+        <tr><td class="time">4:15–6:30</td><td><span class="pill p-fs">Full-stack</span></td><td><strong>Golden Deep Work</strong> — hardest concept of the day, brain at peak</td></tr>
+        <tr><td class="time">6:30–7:15</td><td><span class="pill p-self">Health</span></td><td>Exercise + breakfast</td></tr>
+        <tr><td class="time">7:15–9:30</td><td><span class="pill p-fs">Full-stack</span></td><td>Deep Work 2 — project building</td></tr>
+        <tr><td class="time">9:30–12:00</td><td><span class="pill p-uni">University</span></td><td>CS 1111 + UNIV 1002 core work</td></tr>
+        <tr><td class="time">12:02–13:30</td><td><span class="pill p-pray">Faith</span></td><td>Dhuhr + lunch + <strong>45-min qailulah nap</strong></td></tr>
+        <tr><td class="time">13:30–15:45</td><td><span class="pill p-uni">University</span></td><td>University finish + LeetCode</td></tr>
+        <tr><td class="time">15:45–18:00</td><td><span class="pill p-self">Gym</span></td><td><strong>🏋️ Gym</strong> — 4:00–5:30 + commute · pray <strong>Asr</strong> at the gym (~4:30)</td></tr>
+        <tr><td class="time">18:00–18:30</td><td><span class="pill p-rest">Reset</span></td><td>Home · shower · freshen · quick English/review if time</td></tr>
+        <tr><td class="time">18:47–19:10</td><td><span class="pill p-pray">Faith</span></td><td>Maghrib</td></tr>
+        <tr><td class="time">19:10–20:15</td><td><span class="pill p-fam">Family</span></td><td>Wife + dinner (extended)</td></tr>
+        <tr><td class="time">20:17–20:45</td><td><span class="pill p-pray">Faith</span></td><td>Isha</td></tr>
+        <tr><td class="time">20:45–22:15</td><td><span class="pill p-fam">Light</span></td><td>Light review / reading / family · screens off by 22:00</td></tr>
+        <tr><td class="time">22:30</td><td><span class="pill p-rest">Sleep</span></td><td>Lights out → 5.25h core + 45m nap ≈ 6h. Add a 1h post-Fajr sleep on heavy days.</td></tr>
+      </table>
+    </div>
+
+    <div class="card">
+      <h3>📅 Weekend shape (Friday + Saturday)</h3>
+      <div class="grid2">
+        <div>
+          <h4>Friday — Light + Family + Faith</h4>
+          <ul class="bul">
+            <li><strong>Jummah</strong> is the anchor — protect midday.</li>
+            <li><strong>Rest day — no gym.</strong> Let your body recover and grow.</li>
+            <li>Morning: catch-up on any slipped university tasks only.</li>
+            <li>Afternoon/evening: <strong>wife's content shoot + family</strong>.</li>
+            <li>No new heavy topics. This is your recharge day. Rest is part of the plan, not a failure of it.</li>
+          </ul>
+        </div>
+        <div>
+          <h4>Saturday — Full-Stack Power Day</h4>
+          <ul class="bul">
+            <li>No university deadlines pressing → <strong>5–7h deep full-stack</strong> (+ your usual gym block).</li>
+            <li>This is where the week's big project work gets done.</li>
+            <li>Ship something: a deploy, a commit streak, a finished feature.</li>
+            <li>Evening: weekly review + plan next week (see Weekly System tab).</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ TAB 3: WEEKLY SYSTEM ============ -->
+  <div class="cc-panel" id="t3">
+    <div class="sec-head">
+      <h2>🗓️ Your weekly operating system</h2>
+      <p>UoPeople weeks run <strong>Thursday → Wednesday</strong> (deadlines Wednesday night). Your full-stack week can run on the same Thu–Wed cadence so everything lines up. Below: the rhythm, then the recurring checklist you copy every week.</p>
+    </div>
+
+    <div class="card">
+      <h3>🔁 The Thursday→Wednesday rhythm</h3>
+      <table class="tt">
+        <tr><th>Day</th><th>University focus</th><th>Full-stack focus</th></tr>
+        <tr><td class="time">Thu</td><td>New units open → read; start Discussion post draft</td><td>Start week's new course module</td></tr>
+        <tr><td class="time">Fri</td><td><strong>Post Discussion early</strong> (so peers can rate you)</td><td>Light / family / wife content</td></tr>
+        <tr><td class="time">Sat</td><td>Reply to 3+ peers; Learning Journal</td><td><strong>Power day</strong> — main project build</td></tr>
+        <tr><td class="time">Sun</td><td>Written Assignment draft</td><td>Project + LeetCode</td></tr>
+        <tr><td class="time">Mon</td><td>Self-Quiz → then Graded Quiz</td><td>Self-study extras + English article</td></tr>
+        <tr><td class="time">Tue</td><td>Finalize + proofread assignment</td><td>Deploy / push / polish READMEs</td></tr>
+        <tr><td class="time">Wed</td><td><strong>SUBMIT ALL</strong> before 23:59 · peer assessments</td><td>Buffer / catch-up / weekly review</td></tr>
+      </table>
+      <div class="callout co-warn" style="margin-top:10px;margin-bottom:0;"><b>Golden rule:</b> never let a UoPeople item touch its Wednesday deadline. Post discussions by Friday, submit assignments by Tuesday. Deadline day is for emergencies only — that buffer is what keeps the whole system from collapsing when life happens.</div>
+    </div>
+
+    <div class="grid2">
+      <div class="card">
+        <h3>🎓 University — weekly (× each course)</h3>
+        <ul class="chk">
+          <li>Read <strong>all assigned units</strong> + watch any lecture videos</li>
+          <li>Write <strong>Discussion Forum</strong> post (in strong English) — by Friday</li>
+          <li>Reply to <strong>3+ peers</strong> and rate them</li>
+          <li>Complete <strong>Learning Journal</strong> entry</li>
+          <li>Take <strong>Self-Quiz</strong> (practice, aim 100%)</li>
+          <li>Submit <strong>Graded Quiz</strong></li>
+          <li>Draft + submit <strong>Written Assignment</strong> (when assigned)</li>
+          <li>Complete <strong>peer assessments</strong> (the week after submitting)</li>
+          <li>Log scores; re-study anything below 80%</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>💻 Full-stack — weekly</h3>
+        <ul class="chk">
+          <li>Finish the week's <strong>course module(s)</strong></li>
+          <li>Do the <strong>self-study extras</strong> for the week</li>
+          <li>Solve the week's <strong>3+ LeetCode / DSA</strong> problems</li>
+          <li>Build / advance the <strong>week's project</strong></li>
+          <li><strong>Git commit every day</strong> — keep the 7/7 streak</li>
+          <li>English: 1 tech video daily + journal entry + 1 recording/mock</li>
+          <li>LinkedIn: engage daily; <strong>post per plan</strong></li>
+          <li>Push code + update READMEs; deploy if it's a project week</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="grid2">
+      <div class="card">
+        <h3>❤️ Life — weekly</h3>
+        <ul class="chk">
+          <li><strong>Gym 6×</strong> (Sat–Thu; Friday is your rest day)</li>
+          <li><strong>Wife content session 1–2×</strong> (shoot/edit/brainstorm)</li>
+          <li>One protected <strong>family/rest block</strong> (Friday)</li>
+          <li>Quran daily; one longer session on Friday</li>
+          <li>Meal-prep once so weekdays run smoother</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>🧠 Sunday-night review (20 min)</h3>
+        <ul class="chk">
+          <li>Did I hit university deadlines? Any scores under 80%?</li>
+          <li>Did I complete the full-stack week? What slipped?</li>
+          <li>LeetCode count this week / running total</li>
+          <li>Commit streak intact?</li>
+          <li>Did my wife + family get real time?</li>
+          <li>Energy + sleep honest check (1–10)</li>
+          <li>Write next week's top 3 priorities</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ TAB 4: MONTHLY GOALS ============ -->
+  <div class="cc-panel" id="t4">
+    <div class="sec-head">
+      <h2>🎯 Monthly milestones (now → job)</h2>
+      <p>Zoom out. Each month has one theme and a handful of checkable outcomes. Months are mapped to your full-stack phases starting from where you are now (Week 13).</p>
+    </div>
+
+    <div class="card">
+      <h3>📍 Month 1 — JavaScript &amp; the jump to Django <span class="pill p-fs">FS Wk 13–16</span></h3>
+      <ul class="chk">
+        <li>Vanilla JS To-Do deployed; async/Fetch weather app live</li>
+        <li>First medium LeetCode solved (3Sum); ~40 problems total</li>
+        <li>TypeScript basics; Django installed with PostgreSQL + custom user model</li>
+        <li>UoPeople: all weekly work on time, no score under 80%</li>
+        <li>Wife's content: help her publish her <strong>first cooking video</strong></li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>📍 Month 2 — Become a backend developer <span class="pill p-fs">FS Wk 17–20</span></h3>
+      <ul class="chk">
+        <li>Full CRUD Django blog with auth, deployed (Railway)</li>
+        <li>First <strong>dev.to article</strong> published in English</li>
+        <li>~60–70 LeetCode total; 30-week commit streak alive</li>
+        <li>Baseline CV drafted (don't wait for week 32 — see Beast Mode)</li>
+        <li>UoPeople: <strong>survive finals week</strong> — see Integrated Plan for the plan</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>📍 Month 3 — Ship the flagship + go full-stack <span class="pill p-fs">FS Wk 21–25</span></h3>
+      <ul class="chk">
+        <li>E-commerce project deployed with one original feature + on a real VPS</li>
+        <li>Django REST API with JWT + Swagger docs</li>
+        <li>First React app deployed to Vercel; <strong>start applying to 2–3 jobs/week</strong></li>
+        <li>UoPeople <strong>Term break</strong> = full-stack catch-up sprint</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>📍 Month 4 — Full-stack integration + LMS <span class="pill p-fs">FS Wk 26–28</span></h3>
+      <ul class="chk">
+        <li>React + Django talking end-to-end (the milestone) — JWT auth working</li>
+        <li>LMS front + back deployed; 5-min demo video in English on LinkedIn</li>
+        <li>~120 LeetCode; weekly mock interviews begin</li>
+        <li>Build <strong>wife's recipe website</strong> as a real portfolio project (see Hustle tab)</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>📍 Month 5 — AI edge + job launch <span class="pill p-fs">FS Wk 29–32</span></h3>
+      <ul class="chk">
+        <li>AI chatbot (Django + React + LLM API + RAG) deployed — your differentiator</li>
+        <li>6 strong deployed projects; 200+ LeetCode; portfolio site polished</li>
+        <li><strong>10 job applications/week</strong>; Turing/Arc/Lemon.io profiles live</li>
+        <li>CV + LinkedIn fully optimized; cover letters reviewed in English</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>📍 Month 6+ — Convert (late 2026 → early 2027) <span class="pill p-fam">job hunt</span></h3>
+      <ul class="chk">
+        <li>Treat applications like a full-time job: 10/week, tracked in a sheet</li>
+        <li>2 mock interviews/week (Pramp/peers); refine after every real interview</li>
+        <li>Keep shipping: 1 feature/week, 1 article/month, daily LeetCode</li>
+        <li>Activate referrals — DM your network, ask for intros (highest ROI)</li>
+        <li>Land first paid work (freelance or job) → <strong>your dream becomes income</strong></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ============ TAB 5: INTEGRATED PLAN ============ -->
+  <div class="cc-panel" id="t5">
+    <div class="sec-head">
+      <h2>🔗 University × Full-stack — aligned</h2>
+      <p>Because both run one week at a time, here's exactly how your UoPeople term weeks line up with your full-stack weeks — and the two collision points to manage. This is the refinement that makes the two plans stop fighting each other.</p>
+    </div>
+
+    <div class="card">
+      <h3>🗺️ The alignment map</h3>
+      <div class="timeline-item"><div class="ti-week">Uni W1<br>FS W13</div><div class="ti-body"><strong>Now.</strong> JS Foundations. Both light-to-moderate — use this calm week to install the routine itself.</div></div>
+      <div class="timeline-item"><div class="ti-week">Uni W2<br>FS W14</div><div class="ti-body">Advanced JS / async (<strong>FS critical</strong>). Manageable — university week 2 is still light.</div></div>
+      <div class="timeline-item"><div class="ti-week">Uni W3<br>FS W15</div><div class="ti-body">FS module exam + TypeScript. Two exams-ish but both small. Front-load university quiz early in the week.</div></div>
+      <div class="timeline-item"><div class="ti-week">Uni W4<br>FS W16</div><div class="ti-body">Django intro (<strong>FS critical</strong>). Heaviest learning curve of the phase — keep university tight and on-time so your head is free for Django.</div></div>
+      <div class="timeline-item"><div class="ti-week">Uni W5–6<br>FS W17–18</div><div class="ti-body">Django CRUD + Auth. Steady. UoPeople written assignments appear — submit by Tuesday, always.</div></div>
+      <div class="timeline-item"><div class="ti-week">Uni W7–8<br>FS W19–20</div><div class="ti-body"><strong>Get ahead now.</strong> Django To-Do + Blog projects. Bank university work 2–3 days early this fortnight to clear runway for what's next.</div></div>
+      <div class="timeline-item"><div class="ti-week" style="color:#c2410c">Uni W9<br>FS W21</div><div class="ti-body"><strong style="color:#c2410c">⚠️ THE COLLISION.</strong> UoPeople <strong>final exams</strong> + the e-commerce project with <strong>6 live classes</strong> (your hardest 48h week). See the defuse plan below.</div></div>
+      <div class="timeline-item"><div class="ti-week">Break<br>FS W22+</div><div class="ti-body"><strong>Term break = catch-up gold.</strong> No university. Redirect your full study budget into full-stack (~45–50h/week): e-commerce extensions, VPS deployment, get ahead before the next term starts.</div></div>
+    </div>
+
+    <div class="callout co-warn">
+      <b>🛡️ How to defuse Collision Week (Uni W9 / FS W21):</b>
+      <ul class="bul" style="margin-top:8px;">
+        <li><strong>2 weeks before:</strong> start UoPeople final-exam revision early (during FS W19–20). Don't let it pile onto the collision.</li>
+        <li><strong>During the week:</strong> attend the 6 e-commerce live classes (fixed, can't move) — but <strong>cut LeetCode, English, and FS extras to near-zero</strong>. Just classes + follow along.</li>
+        <li><strong>Protect the exam:</strong> university final is graded and dated — it gets your fresh morning hours that week. E-commerce gets the live-class slots only.</li>
+        <li><strong>Defer, don't drop:</strong> the e-commerce <em>extensions</em> (your original feature, deployment) move into the term break the following week. The plan already has deployment in W22 — perfect.</li>
+        <li><strong>Sleep stays at 7.5h.</strong> This is exactly the week people sacrifice sleep and then crash both the exam and the project. Don't.</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h3>✦ Refinements to your original 8-month plan</h3>
+      <ul class="bul">
+        <li><strong>Weekly hours rebalanced to a sustainable cap.</strong> Your original plan assumed 38–48h of full-stack alone. The new target is <strong>~48h total study/week</strong>: ~18 university + ~30 full-stack during the term, with full-stack rising to <strong>~45–50h during term breaks</strong> when university pauses. Slightly lower weekly intensity, but consistent for 8 months — which beats burning out at week 12.</li>
+        <li><strong>Sleep is now line-item #1</strong>, not an afterthought. Every "critical" and "project" week explicitly keeps 7.5h. Non-negotiable.</li>
+        <li><strong>CV moved up.</strong> Original plan builds CV at Week 32 — too late. Draft a baseline CV by FS Week 20 so you can apply from Week 22 (your plan already starts applications then).</li>
+        <li><strong>Term breaks are now official catch-up sprints</strong> — the release valve that lets you protect family + sleep during term weeks without falling behind.</li>
+        <li><strong>Your wife's recipe site becomes a real project</strong> (Month 4) — portfolio piece + family time + possible income, all at once. Three goals, one block of work.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ============ TAB 6: BEAST MODE ============ -->
+  <div class="cc-panel" id="t6">
+    <div class="sec-head">
+      <h2>🚀 Beast Mode — the job-getting layer</h2>
+      <p>Your 8-month plan already covers the technical skills brilliantly. This tab adds the pieces that actually convert skills into a job offer — the things most self-taught devs miss. Do these and you won't just be qualified, you'll be visible.</p>
+    </div>
+
+    <div class="callout co-info">
+      <b>Hard truth about hiring:</b> the job doesn't go to the best coder. It goes to the <strong>most visible competent coder with the most proof and the most connections.</strong> Skills get you past the bar; visibility, proof, and referrals get you the offer. That's what this layer builds.</div>
+
+    <div class="grid2">
+      <div class="card">
+        <h3>🧱 What your plan already nails</h3>
+        <ul class="bul">
+          <li>Daily Git streak + green GitHub graph</li>
+          <li>Deployed projects with READMEs + live links</li>
+          <li>LeetCode habit from week 1; 200+ target</li>
+          <li>Docker, CI/CD, Nginx, VPS, testing — ahead of 80% of bootcamp grads</li>
+          <li>dev.to articles + LinkedIn build-in-public</li>
+          <li>AI integration — the 2026 differentiator</li>
+          <li>English communication practice baked in</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>➕ What to add (the missing edge)</h3>
+        <ul class="bul">
+          <li><strong>Referrals strategy</strong> — ~40–50% of hires come through referrals. Build relationships <em>before</em> you need them.</li>
+          <li><strong>Tech Twitter/X build-in-public</strong> — alongside LinkedIn. Huge for remote dev jobs &amp; inbound recruiters.</li>
+          <li><strong>Pramp / interviewing.io</strong> — free peer mock interviews with real humans, not just self-practice.</li>
+          <li><strong>Hacktoberfest (Oct 2026)</strong> — lands right around your FS Week 28–30. Real open-source PRs = resume gold.</li>
+          <li><strong>Cloud literacy</strong> — light AWS (EC2, S3, RDS) awareness for resume keywords; you already have VPS/Docker.</li>
+          <li><strong>One flagship capstone</strong> — pick your strongest (e-commerce or AI app), polish it to production quality, make it the story you tell.</li>
+          <li><strong>STAR behavioral answers</strong> — write 6–8 stories (a hard bug, a deadline, learning fast). Interviews are half behavioral.</li>
+          <li><strong>Application tracker</strong> — a sheet: company, date, status, follow-up. Treat the hunt like engineering.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>📈 Visibility ladder (start now, compound for months)</h3>
+      <ul class="bul">
+        <li><strong>Weekly:</strong> 1 LinkedIn post (what you built/learned) + engage on 5 devs' posts in real English.</li>
+        <li><strong>Weekly:</strong> 2–3 build-in-public tweets — screenshots of progress, a bug you fixed, a deploy.</li>
+        <li><strong>Monthly:</strong> 1 dev.to/Hashnode article. By job-hunt time you'll have a published body of work.</li>
+        <li><strong>Monthly:</strong> 3–5 genuine connections with devs working remotely from South Asia — ask for a 15-min chat, not a job.</li>
+        <li><strong>Ongoing:</strong> contribute to 1 open-source repo/month. Even docs fixes count and compound.</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h3>🎤 Interview-ready checklist (have these before applying seriously)</h3>
+      <ul class="chk">
+        <li>Solve any LeetCode <strong>easy in &lt;10 min, medium in &lt;25 min</strong></li>
+        <li>Explain <strong>your own projects' architecture</strong> out loud in 5 minutes</li>
+        <li>6–8 <strong>STAR stories</strong> written and rehearsed</li>
+        <li>Explain REST, JWT vs sessions, MVT, N+1 queries, ACID — plain English</li>
+        <li>Basic system design vocabulary (load balancer, cache, CDN, scaling)</li>
+        <li>Portfolio site + pinned GitHub repos + live demos all working</li>
+        <li>CV tailored per role; LinkedIn matches CV</li>
+        <li>Done <strong>5+ mock interviews</strong> with real people</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h3>📅 The Job Hunt Track — runs in PARALLEL from Week ~20</h3>
+      <p style="font-size:12px;color:var(--color-text-secondary);line-height:1.6;margin-bottom:8px;">The single biggest mistake is waiting until you "finish" to start applying. The hunt itself takes months — so it must overlap the last third of your studies. Treat it as its own track.</p>
+      <div class="timeline-item"><div class="ti-week">FS W18–20</div><div class="ti-body"><strong>Prep.</strong> Draft a baseline CV, polish GitHub + portfolio, define target roles: <em>junior full-stack / AI-integration / freelance</em> — local (Bangladesh) + remote.</div></div>
+      <div class="timeline-item"><div class="ti-week">FS W20–22</div><div class="ti-body"><strong>Launch soft.</strong> Optimize LinkedIn, set up Upwork/Fiverr properly, start <strong>2–3 applications/week</strong> + first small freelance bids. Begin referral outreach (15-min chats, not "hire me").</div></div>
+      <div class="timeline-item"><div class="ti-week">FS W22–28</div><div class="ti-body"><strong>Ramp.</strong> <strong>5 applications/week</strong>, 1 article/month, mock interviews start, keep shipping. First freelance gig likely lands in here.</div></div>
+      <div class="timeline-item"><div class="ti-week">FS W28–32</div><div class="ti-body"><strong>Full launch.</strong> <strong>10 applications/week</strong>, Turing/Arc/Lemon.io, 2 mock interviews/week, AI flagship project as your centerpiece.</div></div>
+      <div class="timeline-item"><div class="ti-week">2027 Q1+</div><div class="ti-body"><strong>Convert.</strong> Full-time hunt + AI specialization in parallel (see AI Career Path tab). Freelance income flowing; salaried offer is the target here.</div></div>
+    </div>
+
+    <div class="callout co-warn">
+      <b>🎯 The honest timeline (no sugar-coating):</b>
+      <ul class="bul" style="margin-top:8px;">
+        <li><strong>Skills + portfolio job-ready:</strong> ✅ end of 2026, if you stay consistent.</li>
+        <li><strong>First <em>paid</em> work (freelance/contract):</strong> ✅ achievable by end of 2026.</li>
+        <li><strong>First <em>salaried</em> junior offer in hand by Dec 31, 2026:</strong> ⚠️ possible but optimistic — treat it as a stretch goal, not the baseline.</li>
+        <li><strong>First salaried role, realistic:</strong> 🎯 Q1–Q3 2027. The market is tough for juniors right now, and a first-time search takes 3–6+ months.</li>
+        <li><strong>Landing in early-to-mid 2027 is a STRONG outcome</strong> for a complete beginner — not a failure. Reframe the goal as "job-ready + earning by end of 2026; salaried role early 2027" so you're aiming at something true.</li>
+      </ul>
+    </div>
+
+    <div class="callout co-good"> <b>The beast mindset:</b> you're not "a student hoping to get hired." From Week 22 you are <strong>a junior developer who is currently job-hunting</strong> while finishing formal training. Apply early, get rejected, collect data, improve, repeat. The people who get hired by end of 2026 are the ones who <em>started applying</em> in the middle of 2026 — not the ones who waited until they felt "ready."
+    </div>
+  </div>
+
+  <!-- ============ TAB 7: SLEEP / FAMILY / HUSTLE ============ -->
+  <div class="cc-panel" id="t7">
+    <div class="sec-head">
+      <h2>😴 Sleep · 👰 Family · 💸 Side hustle</h2>
+      <p>The human systems that keep the whole machine running. Skip these and everything else collapses in a month. These aren't the "soft" parts — they're the foundation.</p>
+    </div>
+
+    <div class="card">
+      <h3>😴 The sleep-repair protocol</h3>
+      <p style="font-size:11px;color:var(--color-text-secondary);margin-bottom:8px;line-height:1.5;">Bad sleep is the root of your "can't manage everything" feeling. Fix this first — it multiplies every other hour. Give it ~2 weeks of strictness.</p>
+      <ul class="bul">
+        <li><strong>Fixed wake = Fajr.</strong> Same time every single day, including weekends. This is the master switch. Variable wake time is what breaks sleep.</li>
+        <li><strong>Fixed lights-out</strong> (≈23:15 Variant A). Set a 22:45 "wind-down" alarm — not a wake alarm, a <em>sleep</em> alarm.</li>
+        <li><strong>Screens off 45 min before bed.</strong> Blue light + dopamine = the #1 sleep killer for developers. Read paper, journal, talk to your wife instead.</li>
+        <li><strong>No caffeine after Asr</strong> (~4:30pm). It has a 6-hour half-life and will sabotage you silently.</li>
+        <li><strong>Qailulah nap</strong> (15–25 min after Dhuhr) — Sunnah and proven to restore afternoon focus. Set an alarm; don't oversleep it.</li>
+        <li><strong>Morning light immediately</strong> after your second sleep — step outside 5 min. Anchors your body clock.</li>
+        <li><strong>If you fail one night, do NOT sleep in.</strong> Wake at Fajr anyway. One rough day fixes the clock faster than "catching up" ever will.</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h3>👰 Marriage + your wife's content launch</h3>
+      <p style="font-size:11px;color:var(--color-text-secondary);margin-bottom:8px;line-height:1.5;">Your marriage isn't a competing priority — it's your support system for this whole journey. A happy home is a productivity multiplier. Protect it deliberately.</p>
+      <ul class="bul">
+        <li><strong>Daily:</strong> the post-Maghrib dinner block is sacred — laptop closed, fully present. One protected hour beats five distracted ones.</li>
+        <li><strong>Weekly:</strong> 1–2 dedicated sessions for her content — Friday shoot + one weekday brainstorm/edit.</li>
+        <li><strong>You both study at UoPeople</strong> — sync your study blocks so you're "working alongside" each other. Shared silence is connection too.</li>
+        <li><strong>Her content = your skills lab.</strong> Helping film/edit teaches you video editing, thumbnails, SEO, basic branding — all reusable for your dev personal brand.</li>
+        <li><strong>The big idea:</strong> build her a <strong>recipe website</strong> as one of your real projects (Django + React). She gets a professional platform; you get a flagship portfolio piece with a real user. Win-win-win.</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h3>💸 Side hustle — pocket money without derailing the goal</h3>
+      <div class="callout co-warn" style="margin-bottom:10px;">
+        <b>Timing matters:</b> do <strong>not</strong> chase income before ~FS Week 22. Right now, every hour spent on a $20 gig is an hour stolen from the skills that earn you a $1,500/month job. Build the asset first, monetize second.
+      </div>
+      <h4>Phase 1 (now → Week 22): build, don't earn</h4>
+      <ul class="bul">
+        <li>Set up Upwork/Fiverr profiles professionally and let them sit (your plan already does this at W24).</li>
+        <li>Your "income" right now is skills + portfolio + visibility. That's the highest-paying investment available.</li>
+      </ul>
+      <h4>Phase 2 (Week 22+): first real money</h4>
+      <ul class="bul">
+        <li><strong>Micro-gigs:</strong> small Django/web fixes, bug fixes, simple landing pages ($30–150). Reviews matter more than the money early.</li>
+        <li><strong>Tutoring:</strong> you're ahead in CS — tutor beginners in Python/intro CS (UoPeople peers, local students). High $/hour, reinforces your basics.</li>
+        <li><strong>Build-in-public content:</strong> document your journey; monetizes slowly via audience → opportunities.</li>
+        <li><strong>Wife's content channel:</strong> as it grows (ads/affiliate/sponsorships), it becomes shared household income you helped build.</li>
+      </ul>
+      <div class="callout co-good" style="margin-top:6px;margin-bottom:0;">
+        <b>Cap it:</b> keep side-hustle under ~5h/week until you're employed. Pocket money is nice; the job is the prize. Don't trade the prize for pocket money.
+      </div>
+    </div>
+
+    <div class="callout co-info">
+      <b>One last thing.</b> You wrote "I must not leave any chance" — that energy is your superpower, but it's also the thing that burns people out by month two. The beast that conquers the industry isn't the one who sprints hardest for three weeks. It's the one who shows up at Fajr, does the blocks, protects sleep and family, and is <strong>still standing in month eight.</strong> Consistency is the cheat code. You've already got the plan of someone who's serious — now go run it.
+    </div>
+  </div>
+
+  <!-- ============ TAB 8: AI CAREER PATH ============ -->
+  <div class="cc-panel" id="t8">
+    <div class="sec-head">
+      <h2>🤖 Your AI engineering future — the 1000% honest version</h2>
+      <p>No sugar-coating. Here's whether "AI engineer" is the right target, which roles are actually in demand, what survives the AI shake-up, the brutal truths, and the exact skills to add so you never have to throw away what you learned.</p>
+    </div>
+
+    <div class="callout co-good">
+      <b>The headline, straight up:</b> Yes — aim to become an <strong>AI engineer</strong>. And here's the relief: <strong>your current path is already the on-ramp to it.</strong> Full-stack (Python → Django → DRF → React → AI integration) is exactly what an <em>AI Application Engineer</em> is built on. You are not choosing between full-stack and AI — AI engineering is full-stack <em>plus</em> a specialization layer. Nothing you're learning gets wasted.
+    </div>
+
+    <div class="card">
+      <h3>🧭 First, pick the RIGHT kind of "AI engineer"</h3>
+      <p style="font-size:12px;color:var(--color-text-secondary);line-height:1.6;margin-bottom:8px;">"AI engineer" means very different jobs. Choosing the wrong one wastes years. Here's the map:</p>
+      <table class="tt">
+        <tr><th>Role</th><th>What they do</th><th>Needs</th><th>For you?</th></tr>
+        <tr><td><strong>AI Engineer</strong><br>(application layer)</td><td>Builds products <em>using</em> existing models — RAG, agents, prompts, LLM APIs, retrieval</td><td>Strong software/full-stack + LLM integration</td><td><span class="pill p-pray">✅ YOUR LANE</span></td></tr>
+        <tr><td><strong>ML Engineer</strong><br>(model layer)</td><td>Trains, tunes & deploys ML models from data</td><td>Heavy math/stats, often MS/PhD</td><td><span class="pill p-rest">⚠️ much harder, later</span></td></tr>
+        <tr><td><strong>Data Scientist</strong></td><td>Turns data into insights/statistical models</td><td>Statistics, analysis, math</td><td><span class="pill p-rest">➖ different path</span></td></tr>
+      </table>
+      <div class="callout co-info" style="margin-top:10px;margin-bottom:0;">In 2026, most product teams need <strong>AI engineers (application layer), not ML engineers</strong> — because most teams <em>integrate</em> models rather than build them from scratch (<a href="https://www.a.team/talent/guides/what-is-an-ai-engineer" target="_blank">a.team</a>). That's the lane your skills already point at. <b>Don't get lured into the ML-research path</b> thinking it's "more real AI" — it's a separate, math-heavy, far more competitive career that isn't realistic in your timeframe.</div>
+    </div>
+
+    <div class="card">
+      <h3>📊 What's actually in demand (2026 data, not vibes)</h3>
+      <ul class="bul">
+        <li><strong>AI/ML roles are exploding</strong> — one analysis cites ~143% year-over-year growth (<a href="https://www.nucamp.co/blog/ai-engineer-vs-ml-engineer-vs-data-scientist-in-2026-what-s-the-difference" target="_blank">Nucamp</a>).</li>
+        <li><strong>The roles being CUT:</strong> QA automation, script-heavy data work, and front-end templating (<a href="https://www.finalroundai.com/blog/future-proof-tech-career-ai-2026" target="_blank">FinalRound</a>). Pure "make-the-page-pretty" junior work is the most exposed.</li>
+        <li><strong>The roles in DEMAND:</strong> AI product leads, ML-infra engineers, and <strong>senior generalists who can own an entire system end-to-end</strong> (<a href="https://www.finalroundai.com/blog/future-proof-tech-career-ai-2026" target="_blank">FinalRound</a>). The hardest jobs to fill — open 6–9 months — are engineers fluent in AI who go deep in code <em>and</em> understand the business (<a href="https://www.cio.com/article/4184685/the-11-hardest-it-roles-to-fill-in-2026-and-whats-changed.html" target="_blank">CIO</a>).</li>
+        <li><strong>Raw coding is becoming "table stakes"</strong> — AI assists it now, so it's a smaller differentiator than it was (<a href="https://plainenglish.io/artificial-intelligence/10-ai-skills-developers-need-to-stay-relevant-in-2026" target="_blank">Plain English</a>). The edge moves to judgment, systems, and AI fluency.</li>
+      </ul>
+      <p style="font-size:10px;color:var(--color-text-tertiary);margin-top:8px;font-style:italic;">Sources rephrased/summarized for compliance with licensing.</p>
+    </div>
+
+    <div class="card">
+      <h3>🛡️ The durable moat — what AI won't replace</h3>
+      <p style="font-size:12px;color:var(--color-text-secondary);line-height:1.6;margin-bottom:8px;">These are the skills that pay <em>more</em> now than before AI, and they're where you should aim your growth (<a href="https://blog.vibecoder.me/skills-that-matter-when-ai-writes-code" target="_blank">Vibe Coder</a>, <a href="https://educative.io/blog/will-ai-replace-software-developers" target="_blank">Educative</a>):</p>
+      <ul class="bul">
+        <li><strong>Architecture & systems thinking</strong> — decomposing a fuzzy problem into systems that survive change.</li>
+        <li><strong>Debugging in production</strong> & refactoring tangled AI-generated code.</li>
+        <li><strong>Security thinking</strong> and <strong>evaluation design</strong> (knowing if AI output is actually correct).</li>
+        <li><strong>Prompt engineering</strong> and orchestrating AI tools well.</li>
+        <li><strong>Written communication</strong> — clear PRs, docs, async updates (your English work feeds this directly).</li>
+        <li><strong>Taking responsibility for code running in production</strong> — no model does this for you.</li>
+      </ul>
+      <div class="callout co-good" style="margin-top:10px;margin-bottom:0;"><b>Why your CS degree matters here:</b> these durable skills rest on fundamentals — data structures, algorithms, systems, networks. Your UoPeople degree builds exactly that moat. Bootcamp-only devs often lack it. Finishing the degree (even slowly) is a long-term advantage, not a distraction.</div>
+    </div>
+
+    <div class="callout co-warn">
+      <b>🔥 The brutal truths (you asked for zero sugar-coating):</b>
+      <ul class="bul" style="margin-top:8px;">
+        <li><strong>The entry-level market is genuinely contracting.</strong> You're entering at a hard time. Accept it, and out-work it with proof and AI specialization.</li>
+        <li><strong>"I can build a CRUD app" is no longer enough.</strong> AI does basic CRUD cheaply. You must ship real, AI-powered products and think in systems — not just finish tutorials.</li>
+        <li><strong>ML research / model-training is NOT your path</strong> (no math/grad background, brutal competition). Chasing it would waste months. Application-layer AI is where you win.</li>
+        <li><strong>From Bangladesh, your realistic first doors are</strong> freelance, local startups/agencies, and remote-junior — in that rough order. Big-tech remote is a later stretch, not the first move.</li>
+        <li><strong>Tooling churns fast.</strong> LangChain today, something else tomorrow. Bet on <em>patterns</em> (RAG, agents, evals) and fundamentals, not on memorizing one library.</li>
+        <li><strong>The degree won't be finished by 2026 — and that's fine.</strong> Skills + portfolio get the first job; the degree compounds over years.</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h3>🗺️ Your 18-month roadmap (now → established AI engineer)</h3>
+      <div class="timeline-item"><div class="ti-week">2026<br>now–Dec</div><div class="ti-body"><strong>Finish the 8-month full-stack plan.</strong> Become a deployable full-stack dev with an AI-integrated flagship. Land first freelance income. Start the job hunt (Beast Mode tab).</div></div>
+      <div class="timeline-item"><div class="ti-week">2027<br>Q1–Q2</div><div class="ti-body"><strong>AI Engineer specialization</strong> (track below) <em>in parallel with</em> landing your first salaried role (full-stack or AI-integration). University can stay at 2 courses until the job is secured.</div></div>
+      <div class="timeline-item"><div class="ti-week">2027<br>Q2–Q4</div><div class="ti-body"><strong>Establish as an AI Application Engineer.</strong> Deepen one domain, ship agentic/RAG features at work, raise rate/salary. Now employed → ramp university to 3–4 courses.</div></div>
+      <div class="timeline-item"><div class="ti-week">2028+</div><div class="ti-body"><strong>Senior AI engineer, specialist, or technical founder.</strong> Agents/RAG infra, or build your own AI product (strong option from Bangladesh). Degree progressing steadily in the background.</div></div>
+    </div>
+
+    <div class="card">
+      <h3>🚀 AI Engineer Specialization Track — after Week 32 (~8–10 weeks, early 2027)</h3>
+      <p style="font-size:12px;color:var(--color-text-secondary);line-height:1.6;margin-bottom:8px;">You can't cram all of this into the 8-month plan as a beginner — and you shouldn't. Finish full-stack first, then run this focused track to convert "dev who can call an AI API" into "AI engineer."</p>
+      <ul class="chk">
+        <li><strong>FastAPI</strong> — the standard for serving LLM/AI backends (pairs with your Django knowledge)</li>
+        <li><strong>Vector databases + embeddings</strong> — start with <strong>pgvector</strong> (runs on your existing PostgreSQL — zero new infra), then Pinecone/Qdrant/Chroma</li>
+        <li><strong>RAG done properly</strong> — chunking, embeddings, retrieval, re-ranking (not just "stuff text in a prompt")</li>
+        <li><strong>AI agents + tool/function calling</strong> — the 2026 frontier; agentic apps that take actions</li>
+        <li><strong>LLM evaluation & guardrails</strong> — measure correctness, reduce hallucination (a rare, paid skill)</li>
+        <li><strong>Structured prompt engineering</strong> — system prompts, few-shot, output schemas</li>
+        <li><strong>Streaming + WebSockets</strong> — real-time chat UX</li>
+        <li><strong>AI observability</strong> — token/cost tracking + logging LLM calls (Langfuse / LangSmith)</li>
+        <li><strong>Light cloud</strong> — AWS/GCP basics (EC2, S3, RDS) for resume keywords</li>
+        <li><strong>🏆 Flagship:</strong> one genuinely impressive <strong>agentic RAG product</strong>, deployed, with evals — your interview centerpiece</li>
+        <li><strong>Open source:</strong> contribute to one AI/LLM project (real PRs = strong signal)</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h3>✦ Small refinements to weave into your CURRENT plan now</h3>
+      <p style="font-size:12px;color:var(--color-text-secondary);line-height:1.6;margin-bottom:8px;">No overwhelm — these are tiny additions to weeks you'll already be doing:</p>
+      <ul class="bul">
+        <li><strong>Week 23 (DRF):</strong> spend 30 min learning <em>when</em> to reach for <strong>FastAPI</strong> vs Django for AI microservices. Awareness only.</li>
+        <li><strong>Week 25+ (React):</strong> add <strong>Next.js basics</strong> after plain React — most React + AI-app jobs use it (and the Vercel AI SDK).</li>
+        <li><strong>Week 31 (AI chatbot):</strong> build it as a real <strong>RAG app using pgvector</strong> on your Postgres — you already have the database, so this is almost free.</li>
+        <li><strong>Week 31:</strong> add one tiny <strong>eval</strong> — a script that checks whether your chatbot's answers are correct. Almost no junior does this; it's a huge signal.</li>
+        <li><strong>Week 30 (Cursor/Copilot):</strong> keep using them, but always understand the generated code — "<strong>refactoring AI-built code</strong>" is now a paid skill, not a shortcut.</li>
+      </ul>
+    </div>
+
+    <div class="callout co-good">
+      <b>Bottom line:</b> You picked the right destination. The path you're on doesn't need to change — it needs a <strong>specialization layer on top</strong> and a realistic timeline. Be the engineer who is fluent in AI, can build and ship a real system end-to-end, and takes responsibility for it in production. That person is exactly who the 2026–2027 market is short of. Build toward <em>that</em>, and you don't waste a single thing you learn.
+    </div>
+  </div>
+
+  <!-- ============ TAB 9: PRINCIPLES ============ -->
+  <div class="cc-panel" id="t9">
+    <div class="sec-head">
+      <h2>🔑 The principles — read these on the hard days</h2>
+      <p>The plans and trackers are maybe 20% of whether you make it. This is the other 80% — the stuff that can't fit in a schedule. When motivation is gone and a concept won't click, come back here.</p>
+    </div>
+
+    <div class="callout co-warn">
+      <b>The one truth above all:</b> almost nobody who fails at this fails from lack of intelligence. <strong>They quit in months 2–4</strong>, when the novelty wears off and the dopamine dries up. The people who get hired are simply the ones <em>still standing at month eight.</em> You don't need to be the smartest — you need to be the one who kept showing up on the boring days.
+    </div>
+
+    <div class="card">
+      <h3>🪨 The 3 that decide everything</h3>
+      <ul class="bul">
+        <li><strong>1. Don't quit — that's the whole game.</strong> Motivation will leave you; discipline and your Fajr-anchored routine carry you when it does. Consistency &gt; intensity, every time.</li>
+        <li><strong>2. Build more than you watch.</strong> Tutorial hell is the #1 beginner trap — consuming videos <em>feels</em> productive but teaches little. For every hour you watch, spend two building with no tutorial open. Struggling 30 min before looking <em>is</em> the learning.</li>
+        <li><strong>3. Protect your body and your marriage like curriculum.</strong> A tired, broken body can't code — guard sleep, movement, eyes, posture now. And make your wife a teammate, not a bystander: show her the plan, tell her the <em>why</em>. A supported spouse is a superpower; an abandoned one ends the journey.</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h3>🚀 The accelerators (these halve your timeline)</h3>
+      <ul class="bul">
+        <li><strong>4. Get a human in your corner.</strong> A mentor or accountability partner beats any course. Find them in dev Discords, Khulna/Dhaka meetups, UoPeople peers. Ask for 15 minutes, not a job — relationships built before you need them become referrals (~40–50% of hires).</li>
+        <li><strong>5. Teach what you learn.</strong> A post, an article, or explaining out loud to your wife. If you can't explain it simply, you don't understand it yet. Cements knowledge + builds proof + grows network — triple duty.</li>
+        <li><strong>6. Build things real people use.</strong> Your wife's recipe site, a tool for a local shop — these beat ten toy projects because you get a real story: "people use this, here's what broke at 2am and how I fixed it."</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h3>🧭 The mindset (run your own race)</h3>
+      <ul class="bul">
+        <li><strong>7. Measure inputs, not outcomes.</strong> You can't control "get a job by X." You can control applications sent, projects shipped, problems solved, commits made. Obsess over the inputs — the outcome follows.</li>
+        <li><strong>8. Stop comparing to LinkedIn.</strong> Nobody posts their struggles. Comparison is poison for a beginner. Compare yourself only to who you were last month.</li>
+        <li><strong>9. Pick the stack, ignore shiny objects.</strong> Depth in Python/Django/React/AI beats shallow exposure to ten hyped frameworks. Finish what you started.</li>
+        <li><strong>10. Your faith is an asset — use it.</strong> Five daily prayers structure your time better than any app. Set your <em>niyyah</em>, practice gratitude on hard days, pair <em>tawakkul</em> with real effort: do your best, then trust the outcome. It's one of the strongest anti-burnout tools that exists — drink from that well.</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h3>🛟 Two safety nets</h3>
+      <ul class="bul">
+        <li><strong>Money:</strong> financial stress derails more dreams than any technical problem. Start small freelance income by ~Week 22 (see your Career Launchpad) — not for the money itself, but so money worries never force you to quit.</li>
+        <li><strong>Falling behind:</strong> you <em>will</em> have weeks where life wins. That's not failure — it's why the 🔥 Remaining tab exists. Don't spiral, don't restart. Open the backlog, clear the red items, keep moving.</li>
+      </ul>
+    </div>
+
+    <div class="callout co-good">
+      <b>The honest bottom line:</b> you already have more going for you than most — a clear plan, real work ethic, faith, a supportive partner, and the AI niche the market actually wants. The only variable left is <strong>whether you keep going when it stops being exciting.</strong> That's the whole secret. Be consistent, stay healthy, protect your marriage, build real things, and don't quit — and the job stops being a maybe and becomes a matter of time.
+    </div>
+  </div>
+
+</div>
+
+<script>
+  function ccSw(btn, id){
+    document.querySelectorAll('.cc-btn').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('.cc-panel').forEach(p=>p.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    document.querySelector('.cc-wrap').scrollIntoView({behavior:'smooth', block:'start'});
+  }
+</script>
