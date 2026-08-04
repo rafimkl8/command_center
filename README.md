@@ -4,7 +4,7 @@ My personal operating system for becoming a **job-ready, AI-fluent full-stack de
 
 Everything here is a self-contained HTML page (no build step). Open the **hub** and navigate from there.
 
-> **▶️ Live hub:** https://wasir-codes.github.io/claude/
+> **▶️ Live hub:** https://rafimkl8.github.io/command_center/
 > *(enable once via repo Settings → Pages → Deploy from branch → `main` → `/root`)*
 
 ---

@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#0f1720">
+<title>Recovery Audit — Weeks 1–19</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500;600&family=Geist:wght@300;400;500;600;700&display=swap');
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Geist', sans-serif; background: #eef2f6; color: #11181c; padding: 18px 12px 60px; }
+  .wrap { max-width: 880px; margin: 0 auto; }
+
+  .header { background: linear-gradient(135deg,#0f766e,#1d4ed8); color:#fff; border-radius:14px; padding:18px 20px; margin-bottom:14px; }
+  .header h1 { font-size:19px; font-weight:700; }
+  .header p { font-size:12px; opacity:.92; margin-top:7px; line-height:1.55; }
+  .header .row { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-top:12px; }
+  .header label { font-size:12px; opacity:.9; }
+  .header select { font-family:inherit; font-size:13px; font-weight:600; padding:5px 9px; border-radius:7px; border:none; color:#11181c; }
+  .saved { font-size:10px; opacity:.85; font-family:'Geist Mono',monospace; margin-left:auto; }
+
+  .tabs { display:flex; gap:6px; margin-bottom:16px; flex-wrap:wrap; }
+  .tb { padding:9px 15px; border-radius:22px; font-size:12.5px; font-weight:600; cursor:pointer; border:1px solid #d4dbe0; background:#fff; color:#5b6770; }
+  .tb.active { background:#11181c; color:#fff; border-color:#11181c; }
+  .tb .cnt { font-family:'Geist Mono',monospace; font-size:10px; background:#ef4444; color:#fff; border-radius:9px; padding:1px 6px; margin-left:4px; }
+  .tb.active .cnt { background:#fff; color:#ef4444; }
+
+  .view.hidden { display:none; }
+  .card { background:#fff; border-radius:12px; padding:15px 17px; margin-bottom:14px; box-shadow:0 2px 8px rgba(0,0,0,.05); }
+
+  .stats { display:grid; grid-template-columns:repeat(4,1fr); gap:9px; margin-bottom:14px; }
+  .stat { background:#fff; border-radius:11px; padding:13px 8px; text-align:center; box-shadow:0 2px 8px rgba(0,0,0,.05); }
+  .stat .n { font-family:'Geist Mono',monospace; font-size:21px; font-weight:700; color:#0f766e; }
+  .stat .l { font-size:9px; color:#8a949c; margin-top:5px; text-transform:uppercase; letter-spacing:.03em; line-height:1.35; }
+  @media (max-width:620px){ .stats{ grid-template-columns:repeat(2,1fr);} }
+
+  .progwrap { margin-bottom:12px; }
+  .progwrap .lab { display:flex; justify-content:space-between; font-size:11px; color:#5b6770; margin-bottom:6px; font-weight:600; }
+  .track { height:11px; background:#e3e8ec; border-radius:6px; overflow:hidden; }
+  .fill { height:100%; border-radius:6px; transition:width .3s; }
+  .foot { text-align:center; font-size:10px; color:#8a949c; font-style:italic; margin-top:6px; line-height:1.5; }
+
+  .toolbar { display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-bottom:14px; }
+  .toolbar button { font-family:inherit; font-size:11.5px; font-weight:600; padding:7px 12px; border-radius:8px; border:1px solid #d4dbe0; background:#fff; color:#38444c; cursor:pointer; }
+  .toolbar button.on { background:#0f766e; color:#fff; border-color:#0f766e; }
+
+  .trk { border:1px solid #e3e8ec; border-radius:11px; margin-bottom:11px; overflow:hidden; }
+  .trk-h { display:flex; align-items:center; gap:9px; padding:12px 14px; cursor:pointer; background:#f8fafc; flex-wrap:wrap; }
+  .trk-h .ord { font-family:'Geist Mono',monospace; font-size:10px; font-weight:700; color:#fff; background:#0f766e; border-radius:6px; padding:2px 7px; flex-shrink:0; }
+  .trk-h .nm { font-size:13.5px; font-weight:700; }
+  .trk-h .wk { font-family:'Geist Mono',monospace; font-size:10px; color:#8a949c; }
+  .trk-h .badge { margin-left:auto; font-family:'Geist Mono',monospace; font-size:10px; font-weight:700; padding:3px 8px; border-radius:7px; white-space:nowrap; }
+  .trk-h .badge.debt { background:#fde8e8; color:#c2410c; }
+  .trk-h .badge.clear { background:#e6f6ec; color:#15803d; }
+  .trk-h .badge.todo { background:#eef2f6; color:#8a949c; }
+  .trk-why { font-size:11px; color:#5b6770; line-height:1.5; padding:0 14px 11px; background:#f8fafc; }
+  .trk-b { padding:6px 14px 12px; display:none; }
+  .trk.open .trk-b { display:block; }
+
+  .wkh { font-family:'Geist Mono',monospace; font-size:10.5px; font-weight:700; color:#1d4ed8; margin:14px 0 3px; text-transform:uppercase; letter-spacing:.04em; }
+  .wkt { font-size:12px; font-weight:600; color:#11181c; margin-bottom:8px; }
+  .cath { font-size:10px; font-weight:700; color:#8a949c; text-transform:uppercase; letter-spacing:.05em; margin:11px 0 4px; }
+
+  .task { padding:8px 0; border-bottom:1px solid #f0f3f5; }
+  .task:last-child { border-bottom:none; }
+  .task .txt { font-size:12.5px; color:#38444c; line-height:1.5; margin-bottom:7px; }
+  .seg { display:flex; gap:5px; flex-wrap:wrap; }
+  .seg button { font-family:'Geist Mono',monospace; font-size:10.5px; font-weight:600; padding:5px 9px; border-radius:7px; border:1px solid #d4dbe0; background:#fff; color:#8a949c; cursor:pointer; white-space:nowrap; }
+  .seg button:hover { border-color:#8a949c; }
+  .seg button.sel[data-v="0"] { background:#dc2626; color:#fff; border-color:#dc2626; }
+  .seg button.sel[data-v="1"] { background:#ea580c; color:#fff; border-color:#ea580c; }
+  .seg button.sel[data-v="2"] { background:#0891b2; color:#fff; border-color:#0891b2; }
+  .seg button.sel[data-v="3"] { background:#16a34a; color:#fff; border-color:#16a34a; }
+
+  .scalekey { font-size:11px; color:#5b6770; line-height:1.7; background:#f5f8fa; border-left:3px solid #0f766e; border-radius:6px; padding:11px 13px; margin-bottom:14px; }
+  .scalekey b { color:#11181c; }
+  .scalekey .k { font-family:'Geist Mono',monospace; font-weight:700; }
+
+  .qsec { margin-bottom:18px; }
+  .qsec h3 { font-size:13px; font-weight:700; margin-bottom:3px; display:flex; align-items:center; gap:8px; flex-wrap:wrap; }
+  .qsec h3 .ord { font-family:'Geist Mono',monospace; font-size:10px; font-weight:700; color:#fff; background:#0f766e; border-radius:6px; padding:2px 7px; }
+  .qsec h3 .hh { font-family:'Geist Mono',monospace; font-size:10.5px; color:#b45309; background:#fef6ec; padding:2px 8px; border-radius:7px; margin-left:auto; }
+  .qsec .sub { font-size:11px; color:#5b6770; line-height:1.5; margin-bottom:9px; }
+  label.q { display:flex; align-items:flex-start; gap:9px; font-size:12px; color:#38444c; line-height:1.45; padding:7px 0; border-bottom:1px solid #f0f3f5; cursor:pointer; }
+  label.q input { width:15px; height:15px; margin-top:2px; cursor:pointer; flex-shrink:0; accent-color:#16a34a; }
+  label.q.done span.t { text-decoration:line-through; color:#aeb6bc; }
+  label.q .wn { font-family:'Geist Mono',monospace; font-size:10px; font-weight:700; min-width:32px; flex-shrink:0; color:#c2410c; }
+  label.q .tag { font-family:'Geist Mono',monospace; font-size:9px; padding:1px 5px; border-radius:5px; flex-shrink:0; }
+  label.q .tag.n0 { background:#fde8e8; color:#b91c1c; }
+  label.q .tag.n1 { background:#fdeee2; color:#c2410c; }
+
+  .empty { font-size:12.5px; color:#5b6770; line-height:1.6; padding:6px 0; }
+  .empty b { color:#15803d; }
+
+  .cap { font-size:12px; line-height:1.65; background:#f0fdf4; border:1px solid #bbf7d0; border-radius:9px; padding:12px 14px; margin-bottom:14px; color:#14532d; }
+  .cap b { font-weight:700; }
+  .cap.warn { background:#fef6ec; border-color:#fed7aa; color:#7c2d12; }
+
+  h2.sec { font-size:15px; font-weight:700; margin:22px 0 9px; padding-bottom:7px; border-bottom:2px solid #e3e8ec; }
+  h2.sec:first-child { margin-top:0; }
+  .sprint { font-size:12.5px; color:#38444c; line-height:1.65; }
+  .sprint p { margin-bottom:10px; }
+  .sprint ul { margin:0 0 12px 18px; }
+  .sprint li { margin-bottom:6px; }
+  .sprint b { color:#11181c; }
+  table.sp { width:100%; border-collapse:collapse; font-size:11.5px; margin-bottom:14px; }
+  table.sp th { text-align:left; padding:7px 8px; background:#f8fafc; font-size:10px; text-transform:uppercase; letter-spacing:.04em; color:#5b6770; border-bottom:1px solid #e3e8ec; }
+  table.sp td { padding:7px 8px; border-bottom:1px solid #f0f3f5; vertical-align:top; line-height:1.5; }
+  table.sp td.d { font-family:'Geist Mono',monospace; font-size:10.5px; font-weight:700; color:#0f766e; white-space:nowrap; }
+  .rule { font-size:12.5px; line-height:1.6; padding:10px 13px; border-radius:8px; background:#f5f8fa; border-left:3px solid #1d4ed8; margin-bottom:9px; }
+  .rule b { color:#11181c; }
+  .backlink { display:inline-block; font-size:11.5px; color:#1d4ed8; text-decoration:none; font-weight:600; margin-bottom:12px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="backlink" href="index.html">‹ Back to hub</a>
+
+  <div class="header">
+    <h1>🩺 Recovery Audit</h1>
+    <p>Score what you <em>actually</em> know from Week 1 onward — honestly. Vague debt feels infinite. A scored list is finite, and a finite list can be finished.</p>
+    <div class="row">
+      <label for="thruSel">Audit weeks 1 through</label>
+      <select id="thruSel"></select>
+      <span class="saved" id="savedMsg">Auto-saved in this browser ✓</span>
+    </div>
+  </div>
+
+  <div class="tabs">
+    <button class="tb active" data-v="audit">🔍 Audit <span class="cnt" id="cScored">0</span></button>
+    <button class="tb" data-v="queue">🔥 Debt Queue <span class="cnt" id="cDebt">0</span></button>
+    <button class="tb" data-v="sprint">🗓 Sprint Plan</button>
+  </div>
+
+  <!-- ================= AUDIT ================= -->
+  <div class="view" id="view-audit">
+    <div class="stats">
+      <div class="stat"><div class="n" id="sScored">0</div><div class="l">Items scored</div></div>
+      <div class="stat"><div class="n" id="sDebt" style="color:#dc2626">0</div><div class="l">Real debt items</div></div>
+      <div class="stat"><div class="n" id="sHours" style="color:#b45309">0h</div><div class="l">Est. hours to clear</div></div>
+      <div class="stat"><div class="n" id="sMast" style="color:#16a34a">—</div><div class="l">Avg mastery /3</div></div>
+    </div>
+
+    <div class="card">
+      <div class="progwrap"><div class="lab"><span>Audit completed</span><span id="pAuditTxt">0%</span></div><div class="track"><div class="fill" id="pAudit" style="background:linear-gradient(90deg,#0f766e,#16a34a); width:0%"></div></div></div>
+      <div class="foot">You cannot fix what you have not measured. Finish the audit before you study anything.</div>
+    </div>
+
+    <div class="scalekey">
+      Score every item with the answer that is <b>true</b>, not the one that feels better:<br>
+      <span class="k">0</span> — never really did this<br>
+      <span class="k">1</span> — <b>AI did it for me / I saw it but cannot reproduce it</b><br>
+      <span class="k">2</span> — I can do it with docs open &nbsp;<b>← this is fine, this is not debt</b><br>
+      <span class="k">3</span> — I can do it cold, I could teach it<br>
+      Only <b>0</b> and <b>1</b> become debt. Professionals work at 2 all day long.
+    </div>
+
+    <div class="toolbar">
+      <button id="btnCore" class="on">Core only (course + project)</button>
+      <button id="btnAll">Everything</button>
+      <button id="btnExpand">Expand all</button>
+      <button id="btnCopy">📋 Copy summary</button>
+    </div>
+
+    <div id="auditBody"></div>
+  </div>
+
+  <!-- ================= QUEUE ================= -->
+  <div class="view hidden" id="view-queue">
+    <div id="capBox"></div>
+    <div class="card">
+      <div id="queueBody"></div>
+    </div>
+    <div class="foot">Order is dependency order, not calendar order. Clear a track before starting the next one — otherwise you build on sand again.</div>
+  </div>
+
+  <!-- ================= SPRINT ================= -->
+  <div class="view hidden" id="view-sprint">
+    <div class="card sprint">
+      <h2 class="sec">The one rule that changes everything</h2>
+      <div class="rule"><b>AI may explain, review, and quiz me. AI may not author.</b> The moment AI writes it, your brain marks the problem "solved" and files nothing. That is exactly how you arrived at Week 19 feeling empty.</div>
+      <div class="rule"><b>25 minutes cold, then help.</b> Every problem gets a genuine solo attempt on a timer before anything else opens.</div>
+      <div class="rule"><b>Blank page before every topic.</b> Write what you remember from memory first. Then study. Then rewrite. The gap between the two is the only thing that actually stuck.</div>
+      <div class="rule"><b>Reconstruct from empty.</b> Every topic ends with you building one small thing — 20 to 40 lines — from an empty file, no reference, no tab open.</div>
+      <div class="rule"><b>Revisit at +2 days and +7 days.</b> Ten minutes, blank page. This is what turns a week of study into knowledge you still own in November.</div>
+
+      <h2 class="sec">Term break sprint — Aug 15 to Sep 2</h2>
+      <p>Nineteen days with no university load. This window is roughly the size of your entire conceptual debt. It will not come again before the job hunt starts.</p>
+      <table class="sp">
+        <tr><th>Dates</th><th>Focus</th></tr>
+        <tr><td class="d">Aug 5–14</td><td><b>Finish the audit + survive finals.</b> No new backfill topics. Score every week 1–19 honestly. Keep up with the current module.</td></tr>
+        <tr><td class="d">Aug 15–19</td><td><b>Track 1 + 2.</b> Python/OOP gaps first (they are load-bearing), then straight into Django core: models, ORM, migrations, views, URLs.</td></tr>
+        <tr><td class="d">Aug 20–26</td><td><b>Django deep + SQL together.</b> Write the ORM query, then read the SQL it generates. Learn both sides of the same coin at once.</td></tr>
+        <tr><td class="d">Aug 27–Sep 2</td><td><b>JavaScript core</b> — the 20% React needs: array methods, destructuring, promises, async/await, fetch. Then the integration build.</td></tr>
+        <tr><td class="d">Sep 3 →</td><td><b>Back to dual-track.</b> HTML/CSS mop-up on demand. Current modules at full depth again.</td></tr>
+      </table>
+      <p><b>Daily shape during the break:</b> 6 focused hours, 6 days a week, one full day off. Not 12 hours. You are rebuilding from a fragile place, and a plan that burns you out in week one is worse than no plan.</p>
+      <ul>
+        <li><b>Morning block (post-Fajr, ~3h)</b> — hardest new concept of the day. This is your best brain; do not spend it on video.</li>
+        <li><b>Afternoon block (~2h)</b> — reconstruct from empty. Build the small thing. No tutorials.</li>
+        <li><b>Evening (~1h)</b> — spaced review of +2 day and +7 day items, then write the day's one-paragraph explanation.</li>
+        <li><b>Evenings after Isha belong to your wife.</b> Non-negotiable, not a reward for finishing.</li>
+      </ul>
+
+      <h2 class="sec">Why this makes you an engineer, not a coder</h2>
+      <p>Writing code from a clear spec is the part AI genuinely took. That was the old entry-level job and it is not coming back. What went <em>up</em> in value is everything around it: deciding what to build, decomposing a vague problem, spotting the subtly wrong answer, knowing what breaks at 10x load.</p>
+      <p><b>You cannot review what you cannot read.</b> That is the whole argument. The person who can only prompt is the person who gets replaced; the person who can verify is the one who gets paid. Your instinct to learn this properly is not idealism — it is the employability strategy.</p>
+      <p>So from now on, every project gets three sentences written in its README:</p>
+      <ul>
+        <li>Why did I choose this design over the obvious alternative?</li>
+        <li>What breaks first if traffic goes up 10x?</li>
+        <li>What would I do differently with another week?</li>
+      </ul>
+      <p>Three sentences. No extra study hours. That is the judgment muscle that separates the two job titles, and it is also the exact material interviews are made of.</p>
+    </div>
+  </div>
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+<script src="weeks.js"></script>
+<script src="sync.js"></script>
+<script>
+var WEEKS = window.WEEKS;
+
+function load(k,d){ try{ var v=JSON.parse(localStorage.getItem(k)); return v===null?d:v; }catch(e){ return d; } }
+function save(k,v){ localStorage.setItem(k, JSON.stringify(v)); flash(); if(window.CloudSync) window.CloudSync.push(); }
+var flashT;
+function flash(){ var m=document.getElementById('savedMsg'); if(!m)return; m.textContent='Saved '+new Date().toLocaleTimeString()+' ✓'; clearTimeout(flashT); flashT=setTimeout(function(){ m.textContent='Auto-saved in this browser ✓'; },1800); }
+
+var SCORE = load('rc_score', {});   // taskId -> 0|1|2|3
+var CLEAR = load('rc_done', {});    // taskId -> 1  (debt item worked off)
+var THRU  = load('rc_thru', 19);
+var mode  = 'core';
+var view  = 'audit';
+
+var CATW = { course:0.32, extra:0.18, leet:0.12, project:0.25, git:0.05, eng:0.08 };
+var CATL = { course:'Course / core', project:'Project', extra:'Self-study', leet:'LeetCode / DSA', git:'Git / GitHub', eng:'English' };
+var CORE = ['course','project'];
+var ALL  = ['course','project','extra','leet','git','eng'];
+
+// Dependency order — what unblocks what, not what came first on the calendar.
+var TRACKS = [
+  { key:'python',  name:'Python & OOP',     weeks:[1,2,3,4,5,6],
+    why:'Load-bearing. Django models are just OOP wearing a hat — a gap here silently becomes a Django gap.' },
+  { key:'django',  name:'Django',           weeks:[16,17,18],
+    why:'Your actual front line. Weeks 19–24 are all Django projects, so this debt is being charged interest right now.' },
+  { key:'sql',     name:'Databases & SQL',  weeks:[7,8,9],
+    why:'You cannot reason about the ORM — or debug it — without reading the SQL underneath.' },
+  { key:'js',      name:'JavaScript',       weeks:[13,14,15],
+    why:'Blocks React at Week 25. You have about six weeks of runway, so it is urgent but not first.' },
+  { key:'web',     name:'HTML & CSS',       weeks:[10,11,12],
+    why:'Needed lightly for templates now, properly at React. Cheapest thing to defer — defer it deliberately.' },
+  { key:'current', name:'Current module',   weeks:[19],
+    why:'Do not add new debt while you clear old debt. This is the line you hold.' }
+];
+
+function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+function weekByN(n){ for(var i=0;i<WEEKS.length;i++){ if(WEEKS[i].n===n) return WEEKS[i]; } return null; }
+function tid(n,cat,i){ return n+'_'+cat+'_'+i; }
+function cats(){ return mode==='core' ? CORE : ALL; }
+
+function taskHours(w,cat){
+  var arr=(w.cats[cat]||[]); if(!arr.length) return 0;
+  var tot=0; ALL.forEach(function(c){ if((w.cats[c]||[]).length) tot+=CATW[c]; });
+  if(!tot) return 0;
+  return (w.hrs * (CATW[cat]/tot)) / arr.length;
+}
+// Relearning is faster than first learning: a "1" already has recognition to build on.
+function debtHours(w,cat,sc){ return taskHours(w,cat) * (sc===0 ? 0.75 : 0.45); }
+
+function trackWeeks(t){ return t.weeks.filter(function(n){ return n<=THRU; }); }
+
+function scan(t){
+  var o={ total:0, scored:0, debt:0, hours:0, sum:0, items:[] };
+  trackWeeks(t).forEach(function(n){
+    var w=weekByN(n); if(!w) return;
+    cats().forEach(function(cat){
+      (w.cats[cat]||[]).forEach(function(txt,i){
+        var id=tid(n,cat,i); o.total++;
+        var sc=SCORE[id];
+        if(sc===undefined) return;
+        o.scored++; o.sum+=sc;
+        if(sc<=1){
+          o.debt++;
+          if(!CLEAR[id]){
+            var h=debtHours(w,cat,sc); o.hours+=h;
+            o.items.push({ id:id, n:n, cat:cat, txt:txt, sc:sc, h:h });
+          }
+        }
+      });
+    });
+  });
+  return o;
+}
+
+function totals(){
+  var g={ total:0, scored:0, debt:0, hours:0, sum:0, open:0 };
+  TRACKS.forEach(function(t){
+    var s=scan(t);
+    g.total+=s.total; g.scored+=s.scored; g.debt+=s.debt; g.hours+=s.hours; g.sum+=s.sum; g.open+=s.items.length;
+  });
+  return g;
+}
+
+// ---------- audit view ----------
+function renderAudit(){
+  var body=document.getElementById('auditBody'), html='';
+  TRACKS.forEach(function(t,ti){
+    var s=scan(t);
+    var wl=trackWeeks(t);
+    if(!wl.length) return;
+    var badge = s.scored===0
+      ? '<span class="badge todo">not scored</span>'
+      : (s.debt>0
+          ? '<span class="badge debt">'+s.debt+' gap'+(s.debt===1?'':'s')+' · '+Math.round(s.hours)+'h</span>'
+          : '<span class="badge clear">solid ✓</span>');
+    html+='<div class="trk" data-trk="'+t.key+'">'
+      + '<div class="trk-h" data-toggle="'+t.key+'">'
+      +   '<span class="ord">'+(ti+1)+'</span>'
+      +   '<span class="nm">'+esc(t.name)+'</span>'
+      +   '<span class="wk">W'+wl[0]+'–'+wl[wl.length-1]+' · '+s.scored+'/'+s.total+'</span>'
+      +   badge
+      + '</div>'
+      + '<div class="trk-why">'+esc(t.why)+'</div>'
+      + '<div class="trk-b">';
+    wl.forEach(function(n){
+      var w=weekByN(n); if(!w) return;
+      html+='<div class="wkh">Week '+n+'</div><div class="wkt">'+esc(w.title)+'</div>';
+      cats().forEach(function(cat){
+        var arr=w.cats[cat]||[]; if(!arr.length) return;
+        html+='<div class="cath">'+CATL[cat]+'</div>';
+        arr.forEach(function(txt,i){
+          var id=tid(n,cat,i), sc=SCORE[id];
+          html+='<div class="task"><div class="txt">'+esc(txt)+'</div><div class="seg" data-id="'+id+'">';
+          [[0,'0 · never'],[1,'1 · AI did it'],[2,'2 · with docs'],[3,'3 · cold']].forEach(function(p){
+            html+='<button data-v="'+p[0]+'" class="'+(sc===p[0]?'sel':'')+'">'+p[1]+'</button>';
+          });
+          html+='</div></div>';
+        });
+      });
+    });
+    html+='</div></div>';
+  });
+  body.innerHTML=html;
+
+  var g=totals();
+  document.getElementById('sScored').textContent=g.scored;
+  document.getElementById('sDebt').textContent=g.debt;
+  document.getElementById('sHours').textContent=Math.round(g.hours)+'h';
+  document.getElementById('sMast').textContent = g.scored? (g.sum/g.scored).toFixed(1) : '—';
+  var pct = g.total? Math.round(g.scored/g.total*100) : 0;
+  document.getElementById('pAudit').style.width=pct+'%';
+  document.getElementById('pAuditTxt').textContent=pct+'%';
+  document.getElementById('cScored').textContent=g.total-g.scored;
+  document.getElementById('cDebt').textContent=g.open;
+}
+
+// ---------- queue view ----------
+function renderQueue(){
+  var g=totals();
+  var cap=document.getElementById('capBox');
+  if(g.scored===0){
+    cap.innerHTML='<div class="cap warn">Nothing scored yet. Open the <b>Audit</b> tab and start with <b>Python &amp; OOP</b> — about 30 items, roughly half an hour. You will almost certainly find it is mostly 2s and 3s, and that alone will calm you down.</div>';
+  } else {
+    var BREAK=90;                       // ~6h/day x 6 days x ~2.7 weeks, Aug 15 - Sep 2
+    var h=Math.round(g.hours);
+    var after=h-BREAK;
+    if(h<=BREAK){
+      cap.innerHTML='<div class="cap">Your measured debt is <b>~'+h+' focused hours</b>. The Aug 15 – Sep 2 term break gives you roughly <b>90 hours</b> at a sustainable 6h/day, 6 days a week.<br><br><b>The break is bigger than the debt.</b> That is arithmetic from your own numbers, not encouragement.</div>';
+    } else {
+      cap.innerHTML='<div class="cap warn">Your measured debt is <b>~'+h+' focused hours</b>. The term break covers about <b>90</b> of them, leaving <b>~'+after+'h</b> — roughly <b>'+Math.ceil(after/12)+' weeks</b> at 12h/week of backfill after Sep 3.<br><br>That still lands you clear well before Week 28, where the job launch starts. Clear the tracks in order and do not skip ahead.</div>';
+    }
+  }
+
+  var body=document.getElementById('queueBody'), html='';
+  var any=false;
+  TRACKS.forEach(function(t,ti){
+    var s=scan(t);
+    if(!s.items.length) return;
+    any=true;
+    s.items.sort(function(a,b){
+      if(a.n!==b.n) return a.n-b.n;
+      if(a.sc!==b.sc) return a.sc-b.sc;
+      return CORE.indexOf(b.cat)-CORE.indexOf(a.cat);
+    });
+    html+='<div class="qsec"><h3><span class="ord">'+(ti+1)+'</span>'+esc(t.name)
+        + '<span class="hh">~'+Math.round(s.hours)+'h left</span></h3>'
+        + '<div class="sub">'+esc(t.why)+'</div>';
+    s.items.forEach(function(it){
+      html+='<label class="q"><input type="checkbox" data-clear="'+it.id+'">'
+          + '<span class="wn">W'+it.n+'</span>'
+          + '<span class="tag n'+it.sc+'">'+(it.sc===0?'never':'AI did it')+'</span>'
+          + '<span class="t">'+esc(it.txt)+'</span></label>';
+    });
+    html+='</div>';
+  });
+  if(!any && g.scored>0){
+    html='<div class="empty">Nothing in the queue. Either you have not scored enough yet, or <b>you have cleared everything you marked as a gap</b> — in which case stop auditing and go build the integration project.</div>';
+  }
+  if(!any && g.scored===0){ html='<div class="empty">Score some items first and your prioritised queue will build itself here.</div>'; }
+  body.innerHTML=html;
+}
+
+function renderAll(){ renderAudit(); renderQueue(); }
+
+// ---------- events ----------
+document.getElementById('auditBody').addEventListener('click', function(e){
+  var h=e.target.closest('.trk-h');
+  if(h){ h.parentNode.classList.toggle('open'); return; }
+  var b=e.target.closest('.seg button');
+  if(b){
+    var id=b.parentNode.getAttribute('data-id'), v=parseInt(b.getAttribute('data-v'),10);
+    if(SCORE[id]===v){ delete SCORE[id]; } else { SCORE[id]=v; }
+    save('rc_score',SCORE);
+    var open=[];
+    document.querySelectorAll('.trk.open').forEach(function(t){ open.push(t.getAttribute('data-trk')); });
+    renderAll();
+    open.forEach(function(k){ var el=document.querySelector('.trk[data-trk="'+k+'"]'); if(el) el.classList.add('open'); });
+  }
+});
+
+document.getElementById('queueBody').addEventListener('change', function(e){
+  var cb=e.target.closest('input[data-clear]');
+  if(!cb) return;
+  var id=cb.getAttribute('data-clear');
+  if(cb.checked){ CLEAR[id]=1; } else { delete CLEAR[id]; }
+  save('rc_done',CLEAR);
+  renderAll();
+});
+
+document.querySelectorAll('.tb').forEach(function(btn){
+  btn.onclick=function(){
+    view=btn.getAttribute('data-v');
+    document.querySelectorAll('.tb').forEach(function(b){ b.classList.toggle('active', b===btn); });
+    ['audit','queue','sprint'].forEach(function(v){
+      document.getElementById('view-'+v).classList.toggle('hidden', v!==view);
+    });
+  };
+});
+
+document.getElementById('btnCore').onclick=function(){ mode='core'; this.classList.add('on'); document.getElementById('btnAll').classList.remove('on'); renderAll(); };
+document.getElementById('btnAll').onclick=function(){ mode='all'; this.classList.add('on'); document.getElementById('btnCore').classList.remove('on'); renderAll(); };
+document.getElementById('btnExpand').onclick=function(){
+  var els=document.querySelectorAll('.trk');
+  var anyClosed=false; els.forEach(function(t){ if(!t.classList.contains('open')) anyClosed=true; });
+  els.forEach(function(t){ t.classList.toggle('open', anyClosed); });
+};
+
+document.getElementById('btnCopy').onclick=function(){
+  var g=totals(), lines=['RECOVERY AUDIT — weeks 1-'+THRU,'scored '+g.scored+'/'+g.total+' · debt '+g.debt+' items · ~'+Math.round(g.hours)+'h',''];
+  TRACKS.forEach(function(t){
+    var s=scan(t); if(!trackWeeks(t).length) return;
+    lines.push('## '+t.name+' — scored '+s.scored+'/'+s.total+', gaps '+s.debt+', ~'+Math.round(s.hours)+'h');
+    s.items.forEach(function(it){ lines.push('  ['+(it.sc===0?'never':'AI-did-it')+'] W'+it.n+' ('+it.cat+') '+it.txt); });
+    lines.push('');
+  });
+  var txt=lines.join('\n');
+  function done(){ var b=document.getElementById('btnCopy'); b.textContent='✓ Copied — paste it to Kiro'; setTimeout(function(){ b.textContent='📋 Copy summary'; },2600); }
+  if(navigator.clipboard && navigator.clipboard.writeText){ navigator.clipboard.writeText(txt).then(done, function(){ alert(txt); }); }
+  else { alert(txt); }
+};
+
+// ---------- init ----------
+(function init(){
+  var sel=document.getElementById('thruSel');
+  for(var i=6;i<=40;i++){ var o=document.createElement('option'); o.value=i; o.textContent='Week '+i; if(i===THRU) o.selected=true; sel.appendChild(o); }
+  sel.onchange=function(){ THRU=parseInt(this.value,10); save('rc_thru',THRU); renderAll(); };
+  renderAll();
+  var first=document.querySelector('.trk');
+  if(first) first.classList.add('open');
+})();
+
+function reloadFromStorage(){
+  SCORE=load('rc_score',{}); CLEAR=load('rc_done',{}); THRU=load('rc_thru',19);
+  document.getElementById('thruSel').value=THRU;
+  renderAll();
+}
+if(window.CloudSync){ window.CloudSync.start({ keys:['rc_score','rc_done','rc_thru'], onData: reloadFromStorage }); }
+</script>
+</body>
+</html>
