@@ -53,6 +53,8 @@
   .trk-h .badge.debt { background:#fde8e8; color:#c2410c; }
   .trk-h .badge.clear { background:#e6f6ec; color:#15803d; }
   .trk-h .badge.todo { background:#eef2f6; color:#8a949c; }
+  .trk-h .due { font-family:'Geist Mono',monospace; font-size:9.5px; font-weight:700; color:#1d4ed8; background:#eef3fd; border:1px solid #cddcf6; border-radius:6px; padding:2px 7px; white-space:nowrap; }
+  .qsec h3 .due { font-family:'Geist Mono',monospace; font-size:9.5px; font-weight:700; color:#1d4ed8; background:#eef3fd; border:1px solid #cddcf6; border-radius:6px; padding:2px 7px; white-space:nowrap; }
   .trk-why { font-size:11px; color:#5b6770; line-height:1.5; padding:0 14px 11px; background:#f8fafc; }
   .trk-b { padding:6px 14px 12px; display:none; }
   .trk.open .trk-b { display:block; }
@@ -266,6 +268,53 @@
         <tr><td class="d">Sep 6 →</td><td>SQL mop-up, then JavaScript at 12h/week — React does not land until module 25.</td></tr>
       </table>
 
+      <h2 class="sec">Phase 4 — Sep 6 to Oct 3: SQL, JavaScript, CSS</h2>
+      <p>These three are scheduled by <b>when they are actually needed</b>, not by when they appeared on the calendar. Working out the real deadline for each is what makes the load survivable.</p>
+      <table class="sp">
+        <tr><th>Track</th><th>Needed by</th><th>Because</th></tr>
+        <tr><td><b>SQL / databases</b></td><td class="d">Sep 12</td><td>Already being paid off inside module 21. Print <code>queryset.query</code>, read the SQL Django wrote, and learn joins, indexes and N+1 from your own output. A ~12h mop-up Sep 6–12 finishes it.</td></tr>
+        <tr><td><b>JavaScript</b></td><td class="d">Oct 3</td><td>The real wall is <b>module 26 — hooks and state</b>, not module 25. Module 25 is JSX, components and props, which survives moderate JavaScript. Hooks and async data fetching do not.</td></tr>
+        <tr><td><b>HTML / CSS</b></td><td class="d">Sep 26</td><td>Partly absorbed already through Django templates in module 21. Only four things in CSS are conceptual; the rest is lookup, forever, for everyone.</td></tr>
+      </table>
+
+      <p><b>JavaScript — learn this subset and nothing else for now:</b></p>
+      <ul>
+        <li><code>let</code>/<code>const</code> and scope · arrow functions · template literals</li>
+        <li><b>Array methods: <code>map</code>, <code>filter</code>, <code>reduce</code>, <code>find</code></b> — <code>map</code> alone is most of what you write in React</li>
+        <li>Objects, destructuring, spread — this is how props work</li>
+        <li><code>import</code>/<code>export</code> modules</li>
+        <li><b>Promises, <code>async</code>/<code>await</code>, <code>fetch</code>, try/catch</b> — every real React app talks to your DRF API this way</li>
+        <li>Just enough DOM and events to understand what React is doing <em>for</em> you</li>
+      </ul>
+      <p><b>Deliberately skipped:</b> JavaScript classes (React is hooks now), prototypes, generators, deep closure theory, TypeScript. None of it blocks you before 2027, and chasing it is how the JavaScript track quietly turns into another three months.</p>
+
+      <p><b>CSS — there are exactly four conceptual things:</b> the box model, flexbox, grid, and media queries. Those are layout <em>models</em>, so they must be understood. Every other CSS property is reference material you look up until you stop needing to — nobody memorises <code>justify-content</code>. Flexbox Froggy and Grid Garden together are about three hours and cover two of the four. Budget one weekend, not a sprint, and stop feeling guilty about the rest.</p>
+
+      <h2 class="sec">The whole thing on one page</h2>
+      <table class="sp">
+        <tr><th>Dates</th><th>Backfill</th><th>Live course</th></tr>
+        <tr><td class="d">Aug 5–11</td><td>Python in Django's vocabulary</td><td>Module 20 — last AI-assisted submission</td></tr>
+        <tr><td class="d">Aug 12–14</td><td>Port the To-Do app to Django</td><td>Module 20 wrap</td></tr>
+        <tr><td class="d">Aug 16–Sep 5</td><td>Django (via the project itself) + SQL by reading your own queries</td><td><b>Module 21 e-commerce — your own work from here on</b></td></tr>
+        <tr><td class="d">Sep 6–12</td><td>SQL mop-up (~12h)</td><td>Module 22 — exam + deployment</td></tr>
+        <tr><td class="d">Sep 13–26</td><td>JavaScript core + the CSS weekend</td><td>Modules 23–24 — DRF, LMS backend</td></tr>
+        <tr><td class="d">Sep 27–Oct 3</td><td>JavaScript finish (async, fetch)</td><td>Module 25 — React intro</td></tr>
+        <tr><td class="d">Oct 4 →</td><td><b>Debt cleared. Normal plan resumes.</b> DSA restarts as 2–3 problems a week.</td><td>Module 26 onward at full depth</td></tr>
+      </table>
+      <p>Two months. Then you are a student who is caught up, not a student who is behind — and comfortably before module 28, where the job launch begins.</p>
+      <p><b>One assumption to check:</b> this assumes modules 22 onward run about a week each, the way everything before module 21 did. If any of them are double-length like module 21, tell me and the September dates shift — in your favour, not against.</p>
+
+      <h2 class="sec">When life happens: what to cut, in order</h2>
+      <p>You are now scheduled continuously from Aug 5 to Oct 3, and your wife's family situation is still unresolved. Something will go wrong, because something always does. So decide the sacrifice order <em>now</em>, while you are calm, instead of at midnight while you are not:</p>
+      <ol class="steps" style="margin-left:18px">
+        <li><b>Cut first:</b> CSS depth. Learn it on demand and accept ugly.</li>
+        <li><b>Then:</b> LeetCode and DSA. Already parked; keep them parked longer.</li>
+        <li><b>Then:</b> project polish — READMEs, deployment, styling. Working and ugly beats unfinished and pretty.</li>
+        <li><b>Then:</b> module project <em>scope</em>. Build three honest pages instead of ten.</li>
+        <li><b>Last resort:</b> slip the JavaScript deadline into module 26 and take one rough React module.</li>
+      </ol>
+      <p><b>Never cut these, in any circumstance:</b> sleep, the evenings that belong to your wife, or the reconstruct-from-empty step. The first two break you. The third quietly turns studying back into watching, which is the exact failure that cost you modules 8–18 — and it is the one that hides, because it still feels like work.</p>
+
       <h2 class="sec">How long do you keep using AI? Until Aug 16.</h2>
       <p>A real answer, not a comforting one: <b>module 20 is the last assignment you lean on AI for.</b> From module 21 onward — Aug 16 — you write what you submit.</p>
       <p>That is credible because of the sequence, not because of willpower. Aug 5–14 gives you Python's class system and a Django CRUD app you built yourself. A cart and a product list are the same skills with one more relationship. By Aug 16 you will not need the crutch for the thing in front of you.</p>
@@ -358,18 +407,18 @@ var HFACTOR = { concept:{0:0.75,1:0.45}, habit:{0:0.25,1:0.15}, practice:{0:0,1:
 
 // Dependency order — what unblocks what, not what came first on the calendar.
 var TRACKS = [
-  { key:'python',  name:'Python & OOP',     weeks:[1,2,3,4,5,6],
-    why:'Load-bearing. Django models are just OOP wearing a hat — a gap here silently becomes a Django gap.' },
-  { key:'django',  name:'Django',           weeks:[16,17,18],
-    why:'Your actual front line. Modules 19–24 are all Django projects, so this debt is being charged interest right now.' },
-  { key:'sql',     name:'Databases & SQL',  weeks:[7,8,9],
-    why:'You cannot reason about the ORM — or debug it — without reading the SQL underneath.' },
-  { key:'js',      name:'JavaScript',       weeks:[13,14,15],
-    why:'Blocks React at Module 25. You have about six weeks of runway, so it is urgent but not first.' },
-  { key:'web',     name:'HTML & CSS',       weeks:[10,11,12],
-    why:'Needed lightly for templates now, properly at React. Cheapest thing to defer — defer it deliberately.' },
-  { key:'current', name:'Current module',   weeks:[19],
-    why:'Do not add new debt while you clear old debt. This is the line you hold.' }
+  { key:'python',  name:'Python & OOP',     weeks:[1,2,3,4,5,6], due:'Aug 14',
+    why:'Load-bearing. Django models are just OOP wearing a hat — a gap here silently becomes a Django gap. Clearing now, Aug 5–14.' },
+  { key:'django',  name:'Django',           weeks:[16,17,18], due:'Sep 5',
+    why:'Your front line. Modules 19–24 are all Django, so this debt is charged interest daily. Cleared by building module 21 yourself.' },
+  { key:'sql',     name:'Databases & SQL',  weeks:[7,8,9], due:'Sep 12',
+    why:'Mostly paid off inside module 21 by reading the SQL your own ORM queries emit. Short mop-up after, Sep 6–12.' },
+  { key:'js',      name:'JavaScript',       weeks:[13,14,15], due:'Oct 3',
+    why:'Hard deadline: module 26 (hooks and state), not module 25. Sep 6 – Oct 3. Only the React-critical subset — see the Sprint tab.' },
+  { key:'web',     name:'HTML & CSS',       weeks:[10,11,12], due:'Sep 26',
+    why:'Four conceptual things only: box model, flexbox, grid, media queries. The rest of CSS is lookup forever. One weekend, not a sprint.' },
+  { key:'current', name:'Current module',   weeks:[19], due:'ongoing',
+    why:'Do not add new debt while clearing old debt. This is the line you hold.' }
 ];
 
 function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
@@ -440,6 +489,7 @@ function renderAudit(){
       +   '<span class="ord">'+(ti+1)+'</span>'
       +   '<span class="nm">'+esc(t.name)+'</span>'
       +   '<span class="wk">M'+wl[0]+'–'+wl[wl.length-1]+' · '+s.scored+'/'+s.total+'</span>'
+      +   '<span class="due">by '+t.due+'</span>'
       +   badge
       + '</div>'
       + '<div class="trk-why">'+esc(t.why)+'</div>'
@@ -523,6 +573,7 @@ function renderQueue(){
     });
     var hrs=items.reduce(function(x,it){ return x+it.h; },0);
     html+='<div class="qsec"><h3><span class="ord">'+(ti+1)+'</span>'+esc(t.name)
+        + '<span class="due">by '+t.due+'</span>'
         + '<span class="hh">'+items.length+' item'+(items.length===1?'':'s')+' · ~'+Math.round(hrs)+'h</span></h3>'
         + '<div class="sub">'+esc(t.why)+'</div>';
     items.forEach(function(it){
