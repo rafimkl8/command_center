@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#0f1720">
-<title>Recovery Audit — Weeks 1–19</title>
+<title>Recovery Audit — Modules 1–19</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500;600&family=Geist:wght@300;400;500;600;700&display=swap');
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -134,9 +134,9 @@
 
   <div class="header">
     <h1>🩺 Recovery Audit</h1>
-    <p>Score what you <em>actually</em> know from Week 1 onward — honestly. Vague debt feels infinite. A scored list is finite, and a finite list can be finished.</p>
+    <p>Score what you <em>actually</em> know from Module 1 onward — honestly. Vague debt feels infinite. A scored list is finite, and a finite list can be finished.</p>
     <div class="row">
-      <label for="thruSel">Audit weeks 1 through</label>
+      <label for="thruSel">Audit modules 1 through</label>
       <select id="thruSel"></select>
       <span class="saved" id="savedMsg">Auto-saved in this browser ✓</span>
     </div>
@@ -200,18 +200,18 @@
   <div class="view hidden" id="view-sprint">
     <div class="card sprint">
       <h2 class="sec">The one rule that changes everything</h2>
-      <div class="rule"><b>AI may explain, review, and quiz me. AI may not author.</b> The moment AI writes it, your brain marks the problem "solved" and files nothing. That is exactly how you arrived at Week 19 feeling empty.</div>
+      <div class="rule"><b>AI may explain, review, and quiz me. AI may not author.</b> The moment AI writes it, your brain marks the problem "solved" and files nothing. That is exactly how you arrived at Module 19 feeling empty.</div>
       <div class="rule"><b>25 minutes cold, then help.</b> Every problem gets a genuine solo attempt on a timer before anything else opens.</div>
       <div class="rule"><b>Blank page before every topic.</b> Write what you remember from memory first. Then study. Then rewrite. The gap between the two is the only thing that actually stuck.</div>
       <div class="rule"><b>Reconstruct from empty.</b> Every topic ends with you building one small thing — 20 to 40 lines — from an empty file, no reference, no tab open.</div>
       <div class="rule"><b>Revisit at +2 days and +7 days.</b> Ten minutes, blank page. This is what turns a week of study into knowledge you still own in November.</div>
-      <div class="rule"><b>If you do use AI to ship something, log it as a <span style="font-family:'Geist Mono',monospace">1</span> in the audit in the same sitting.</b> Not later, not next week — before you close the laptop. What damaged Weeks 8–18 was not using AI. It was using AI and not writing it down, so the gap went silent and compounded for three months. A tracked debt is survivable. An invisible one is what put you here.</div>
+      <div class="rule"><b>If you do use AI to ship something, log it as a <span style="font-family:'Geist Mono',monospace">1</span> in the audit in the same sitting.</b> Not later, not next week — before you close the laptop. What damaged Modules 8–18 was not using AI. It was using AI and not writing it down, so the gap went silent and compounded for three months. A tracked debt is survivable. An invisible one is what put you here.</div>
 
       <h2 class="sec">The two holes are one hole</h2>
-      <p>The audit says Weeks 3–4 are a gap and <em>all</em> of Django is a gap. Those are not two problems. Django is not a new language stacked on Python — it is Python's class system with a database bolted on. Everything you flagged in Week 4 is something Django uses on every single page.</p>
+      <p>The audit says Modules 3–4 are a gap and <em>all</em> of Django is a gap. Those are not two problems. Django is not a new language stacked on Python — it is Python's class system with a database bolted on. Everything you flagged in Module 4 is something Django uses on every single page.</p>
       <p>So do not study Python and then study Django. <b>Learn the Python in Django's vocabulary</b> and every hour counts twice:</p>
       <table class="sp">
-        <tr><th>What you flagged in Weeks 3–4</th><th>What it already is in Django</th></tr>
+        <tr><th>What you flagged in Modules 3–4</th><th>What it already is in Django</th></tr>
         <tr><td>classes, <code>__init__</code>, attributes, methods</td><td>a model — <code>class Task(models.Model)</code></td></tr>
         <tr><td>inheritance, overriding, <code>super()</code></td><td><code>models.Model</code>, <code>class Meta</code>, <code>AbstractUser</code>, class-based views</td></tr>
         <tr><td><code>__str__</code>, <code>__repr__</code>, <code>__eq__</code></td><td>the <code>__str__</code> on every model — it is literally what the admin displays</td></tr>
@@ -238,7 +238,7 @@
 
       <h2 class="sec">Phase 2 — Aug 12 to 14: the bridge</h2>
       <p>Now build the same app again, in Django. Same domain, so every ounce of attention goes to <em>what Django adds</em> rather than to the problem itself.</p>
-      <p><b>And look at what Week 19 actually is: "Django To-Do App Project."</b> Your backfill deliverable and your current assignment are the same artifact. You are not choosing between catching up and keeping up.</p>
+      <p><b>And look at what Module 19 actually is: "Django To-Do App Project."</b> Your backfill deliverable and your current assignment are the same artifact. You are not choosing between catching up and keeping up.</p>
       <table class="sp">
         <tr><th>Day</th><th>Work</th></tr>
         <tr><td class="d">Aug 12</td><td><code>startproject</code>, <code>startapp</code>, settings, your <code>Task</code> as a real model, <code>makemigrations</code>, <code>migrate</code>, register it in the admin. <b>Seeing your own class appear in the Django admin is the moment Django stops being magic.</b></td></tr>
@@ -246,19 +246,51 @@
         <tr><td class="d">Aug 14</td><td><code>ModelForm</code> and full CRUD through the browser. Push it. <em>Then</em> let AI review it — "what would a senior change?" Git habits in the same sitting (~3h clears 11 items).</td></tr>
       </table>
 
-      <h2 class="sec">Phase 3 — Aug 15 to Sep 2: Django properly, SQL alongside</h2>
+      <h2 class="sec">Phase 3 — Aug 16 to Sep 5: module 21 <em>is</em> your Django course</h2>
+      <p><b>Module 21 runs Aug 16 – Sep 5 with 6 classes, and the university break is Aug 15 – Sep 2.</b> One module, three weeks, no university load. That is not a collision — it is the single best container you will ever get for learning Django, because the e-commerce project <em>needs</em> exactly the Django you are missing.</p>
+      <p><b>So module 21 is not homework competing with your recovery. Module 21 is the curriculum.</b> Learn each thing the moment the project demands it:</p>
+      <table class="sp">
+        <tr><th>What the project needs</th><th>What you are actually learning</th></tr>
+        <tr><td>products, categories, orders</td><td>ForeignKey, ManyToMany, <code>related_name</code>, migrations on real relationships</td></tr>
+        <tr><td>product listing and filtering</td><td><code>filter</code>/<code>exclude</code>/<code>annotate</code>/<code>select_related</code>, and the N+1 problem</td></tr>
+        <tr><td>the cart</td><td>sessions, request lifecycle, state that is not in the database</td></tr>
+        <tr><td>checkout and "my orders"</td><td>auth, <code>login_required</code>, tying rows to a user</td></tr>
+        <tr><td>any page that feels slow</td><td>print <code>queryset.query</code>, read the SQL Django wrote, learn joins and indexes from your own output</td></tr>
+      </table>
+      <p>That last row is how SQL gets paid off almost for free. You are not studying SQL as a subject; you are reading the queries your own code generates and asking why they look like that.</p>
       <table class="sp">
         <tr><th>Dates</th><th>Focus</th></tr>
-        <tr><td class="d">Aug 15–19</td><td><b>Relationships and the ORM.</b> ForeignKey, ManyToMany, <code>related_name</code>, <code>filter</code>/<code>exclude</code>/<code>annotate</code>/<code>select_related</code>. Rebuild the Week 20 blog yourself.</td></tr>
-        <tr><td class="d">Aug 20–25</td><td><b>Auth, forms, class-based views</b> — and SQL in the same sessions. Print <code>queryset.query</code>, read the SQL the ORM emits, then learn joins, indexes and the N+1 problem from your own output. This is why SQL costs far less than the audit estimates.</td></tr>
-        <tr><td class="d">Aug 26–Sep 2</td><td><b>The integration build.</b> Django + PostgreSQL with real relationships, deployed. From empty. This is the exam that proves the debt is paid.</td></tr>
-        <tr><td class="d">Sep 3 →</td><td>SQL mop-up (~1 week), then JavaScript at 12h/week — React does not land until Week 25.</td></tr>
+        <tr><td class="d">Aug 16–22</td><td>Models and relationships for the real schema. Products and categories listing in a browser. Attend classes 1–2.</td></tr>
+        <tr><td class="d">Aug 23–29</td><td>Cart with sessions, auth, forms. Attend classes 3–4. Start reading the SQL your queries emit.</td></tr>
+        <tr><td class="d">Aug 30–Sep 5</td><td>Checkout, order history, deploy it. Attend classes 5–6. <b>Submit your own work.</b></td></tr>
+        <tr><td class="d">Sep 6 →</td><td>SQL mop-up, then JavaScript at 12h/week — React does not land until module 25.</td></tr>
       </table>
 
-      <h2 class="sec">Weeks 20–24: the part I will not pretend about</h2>
-      <p>Six consecutive Django weeks are in front of you and you are starting from zero. You will <b>not</b> do the Week 20 blog and the Week 21 e-commerce project at full depth. Decide that now, deliberately, instead of discovering it in a panic at 2am.</p>
-      <p><b>Week 21 — 48 hours, 6 live classes.</b> Attend every class; the exposure is worth real money even when you follow only half. Take notes. Then build the <em>smallest honest slice</em> yourself: product list, product detail, add to cart. Nothing else.</p>
-      <p>An ugly three-page shop you can explain line by line beats a complete storefront you cannot. The first one is a portfolio piece and an interview story. The second is a liability that will be exposed in twenty minutes by anyone competent.</p>
+      <h2 class="sec">How long do you keep using AI? Until Aug 16.</h2>
+      <p>A real answer, not a comforting one: <b>module 20 is the last assignment you lean on AI for.</b> From module 21 onward — Aug 16 — you write what you submit.</p>
+      <p>That is credible because of the sequence, not because of willpower. Aug 5–14 gives you Python's class system and a Django CRUD app you built yourself. A cart and a product list are the same skills with one more relationship. By Aug 16 you will not need the crutch for the thing in front of you.</p>
+      <p><b>For module 20 this week, use AI like this instead of the way you have been:</b></p>
+      <ul>
+        <li>Read the assignment and write, in plain words, what you think the solution needs. Ten minutes, before AI sees it.</li>
+        <li>Let AI produce it.</li>
+        <li>Then spend twenty minutes making it yours: for every line you do not understand, ask <em>"explain this line, why is it needed, what breaks without it?"</em> — never "write me the next part".</li>
+        <li>Break it on purpose. Delete a line, read the error, put it back yourself. Errors are the cheapest teacher you have.</li>
+        <li><b>Log every concept you could not have written as a <span style="font-family:'Geist Mono',monospace">1</span> in the audit, in the same sitting.</b></li>
+        <li>Three sentences in the README: what it does, why it is built this way, what you still do not understand.</li>
+      </ul>
+      <p>That turns a submission worth nothing into one worth maybe forty percent — and, more importantly, it leaves a visible debt instead of a silent one.</p>
+      <p>Do not expect module 21 to be pretty. Attend all six classes; the exposure is worth real money even when you follow half of it. Then build the <em>smallest honest slice</em> yourself. An ugly three-page shop you can explain line by line beats a complete storefront you cannot — the first is a portfolio piece and an interview story, the second is a liability any competent interviewer strips in twenty minutes.</p>
+
+      <h2 class="sec">Parked on purpose — do not touch these yet</h2>
+      <p>Deciding what to <em>abandon</em> is the whole skill here. These are deliberately parked, not forgotten:</p>
+      <table class="sp">
+        <tr><th>Item</th><th>Why it waits</th></tr>
+        <tr><td><b>All unwatched DSA recordings</b> (modules 11–19)</td><td>DSA is interview preparation, and your interviews are 2027. It is not a prerequisite for Django, DRF, React or AI work — not one line of it. It is also the most seductive thing on your list, because it feels like real computer science and it is measurable. Resume it in September as 2–3 problems a week, and solve problems rather than watch lectures. The recordings will still exist in October.</td></tr>
+        <tr><td><b>The module 18 recording</b> (Django auth, advanced queries)</td><td>On the critical path, but useless to you right now — you would understand none of it. You will learn auth and queries properly during module 21, and by then this recording is optional revision.</td></tr>
+        <tr><td><b>Recordings of anything you missed</b></td><td>Attend classes <em>live</em>, never chase recordings. Live costs the hour once and keeps you with the cohort; recordings are a debt that compounds while you sleep. If you miss one, it is gone — accept that and move on.</td></tr>
+        <tr><td><b>Module 19 class 2, running now</b></td><td>Your instinct to not follow along was correct and it was good judgement, not avoidance. Sit in it, keep a running list of words you do not recognise yet, and do not try to code along. You will build this exact app yourself on Aug 12–14.</td></tr>
+        <tr><td><b>LeetCode, HTML/CSS polish, TypeScript</b></td><td>None of it blocks anything before October.</td></tr>
+      </table>
       <h2 class="sec">Daily shape — and the part that is not negotiable</h2>
       <p><b>Before the break (Aug 5–14):</b> about 4 focused hours a day. <b>During the break:</b> 6 focused hours, 6 days a week, one full day off. Not 12 hours. You are rebuilding from a fragile place, and a plan that burns you out in week one is worse than no plan at all.</p>
       <ul>
@@ -329,11 +361,11 @@ var TRACKS = [
   { key:'python',  name:'Python & OOP',     weeks:[1,2,3,4,5,6],
     why:'Load-bearing. Django models are just OOP wearing a hat — a gap here silently becomes a Django gap.' },
   { key:'django',  name:'Django',           weeks:[16,17,18],
-    why:'Your actual front line. Weeks 19–24 are all Django projects, so this debt is being charged interest right now.' },
+    why:'Your actual front line. Modules 19–24 are all Django projects, so this debt is being charged interest right now.' },
   { key:'sql',     name:'Databases & SQL',  weeks:[7,8,9],
     why:'You cannot reason about the ORM — or debug it — without reading the SQL underneath.' },
   { key:'js',      name:'JavaScript',       weeks:[13,14,15],
-    why:'Blocks React at Week 25. You have about six weeks of runway, so it is urgent but not first.' },
+    why:'Blocks React at Module 25. You have about six weeks of runway, so it is urgent but not first.' },
   { key:'web',     name:'HTML & CSS',       weeks:[10,11,12],
     why:'Needed lightly for templates now, properly at React. Cheapest thing to defer — defer it deliberately.' },
   { key:'current', name:'Current module',   weeks:[19],
@@ -407,14 +439,14 @@ function renderAudit(){
       + '<div class="trk-h" data-toggle="'+t.key+'">'
       +   '<span class="ord">'+(ti+1)+'</span>'
       +   '<span class="nm">'+esc(t.name)+'</span>'
-      +   '<span class="wk">W'+wl[0]+'–'+wl[wl.length-1]+' · '+s.scored+'/'+s.total+'</span>'
+      +   '<span class="wk">M'+wl[0]+'–'+wl[wl.length-1]+' · '+s.scored+'/'+s.total+'</span>'
       +   badge
       + '</div>'
       + '<div class="trk-why">'+esc(t.why)+'</div>'
       + '<div class="trk-b">';
     wl.forEach(function(n){
       var w=weekByN(n); if(!w) return;
-      html+='<div class="wkh">Week '+n+'</div><div class="wkt">'+esc(w.title)+'</div>';
+      html+='<div class="wkh">Module '+n+'</div><div class="wkt">'+esc(w.title)+'</div>';
       cats().forEach(function(cat){
         var arr=w.cats[cat]||[]; if(!arr.length) return;
         html+='<div class="cath">'+CATL[cat]+'</div>';
@@ -464,12 +496,12 @@ function renderQueue(){
     var RUNWAY=PRE+BREAK;
     var h=Math.round(g.hours);
     if(h<=PRE){
-      cap.innerHTML='<div class="cap">Counted debt: <b>~'+h+' focused hours</b>. You have roughly <b>'+PRE+'h</b> before the term even ends on Aug 14, and another <b>'+BREAK+'h</b> in the break.<br><br><b>You can clear this before the break starts.</b> Then the whole break goes to Django and SQL, which is where you actually need it.</div>';
+      cap.innerHTML='<div class="cap">Counted debt: <b>~'+h+' focused hours</b>. You have roughly <b>'+PRE+'h</b> before the university term ends on Aug 14, and another <b>'+BREAK+'h</b> during module 21 (Aug 16 – Sep 5, no university load).<br><br><b>You can clear this before module 21 even starts.</b></div>';
     } else if(h<=RUNWAY){
-      cap.innerHTML='<div class="cap">Counted debt: <b>~'+h+' focused hours</b>. Runway before Sep 3: <b>~'+PRE+'h</b> now (Aug 5–14, university light) plus <b>~'+BREAK+'h</b> in the term break = <b>~'+RUNWAY+'h</b>.<br><br><b>The runway is bigger than the debt.</b> That is arithmetic from your own numbers, not encouragement.</div>';
+      cap.innerHTML='<div class="cap">Counted debt: <b>~'+h+' focused hours</b>. Runway to Sep 5: <b>~'+PRE+'h</b> now (Aug 5–14, university light) plus <b>~'+BREAK+'h</b> across module 21 (Aug 16 – Sep 5, no university load) = <b>~'+RUNWAY+'h</b>.<br><br><b>The runway is bigger than the debt</b> — and module 21 is not competing for those hours, because the e-commerce project <em>is</em> the Django practice. That is arithmetic from your own numbers, not encouragement.</div>';
     } else {
       var after=h-RUNWAY;
-      cap.innerHTML='<div class="cap warn">Counted debt: <b>~'+h+' focused hours</b>. Runway before Sep 3 is <b>~'+RUNWAY+'h</b> ('+PRE+'h now + '+BREAK+'h in the break), leaving <b>~'+after+'h</b> — about <b>'+Math.ceil(after/12)+' more week'+(Math.ceil(after/12)===1?'':'s')+'</b> at 12h/week after Sep 3.<br><br>That still lands you clear before Week 28, where the job launch starts. Clear the tracks in order and do not skip ahead.</div>';
+      cap.innerHTML='<div class="cap warn">Counted debt: <b>~'+h+' focused hours</b>. Runway to Sep 5 is <b>~'+RUNWAY+'h</b> ('+PRE+'h now + '+BREAK+'h across module 21), leaving <b>~'+after+'h</b> — about <b>'+Math.ceil(after/12)+' more week'+(Math.ceil(after/12)===1?'':'s')+'</b> at 12h/week after that.<br><br>That still lands you clear before module 28, where the job launch starts. Clear the tracks in order and do not skip ahead.</div>';
     }
   }
 
@@ -495,7 +527,7 @@ function renderQueue(){
         + '<div class="sub">'+esc(t.why)+'</div>';
     items.forEach(function(it){
       html+='<label class="q"><input type="checkbox" data-clear="'+it.id+'">'
-          + '<span class="wn">W'+it.n+'</span>'
+          + '<span class="wn">M'+it.n+'</span>'
           + '<span class="tag tier '+it.tier+'">'+it.tier+'</span>'
           + '<span class="tag n'+it.sc+'">'+(it.sc===0?'never':'AI did it')+'</span>'
           + '<span class="t">'+esc(it.txt)+'</span></label>';
@@ -559,7 +591,7 @@ document.getElementById('btnExpand').onclick=function(){
 
 document.getElementById('btnCopy').onclick=function(){
   var g=totals();
-  var lines=['RECOVERY AUDIT — weeks 1-'+THRU,
+  var lines=['RECOVERY AUDIT — modules 1-'+THRU,
              'scored '+g.scored+'/'+g.total+' · flagged '+g.debt+' items · ~'+Math.round(g.hours)+'h counted',
              'concept '+g.tier.concept+' · habit '+g.tier.habit+' · practice '+g.tier.practice+' · unused-resources '+g.tier.resource,
              ''];
@@ -580,7 +612,7 @@ document.getElementById('btnCopy').onclick=function(){
 // ---------- init ----------
 (function init(){
   var sel=document.getElementById('thruSel');
-  for(var i=6;i<=40;i++){ var o=document.createElement('option'); o.value=i; o.textContent='Week '+i; if(i===THRU) o.selected=true; sel.appendChild(o); }
+  for(var i=6;i<=40;i++){ var o=document.createElement('option'); o.value=i; o.textContent='Module '+i; if(i===THRU) o.selected=true; sel.appendChild(o); }
   sel.onchange=function(){ THRU=parseInt(this.value,10); save('rc_thru',THRU); renderAll(); };
   renderAll();
   var first=document.querySelector('.trk');
