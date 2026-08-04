@@ -89,6 +89,22 @@
   label.q .tag.n0 { background:#fde8e8; color:#b91c1c; }
   label.q .tag.n1 { background:#fdeee2; color:#c2410c; }
 
+  .tierrow { display:flex; align-items:flex-start; gap:9px; padding:7px 0; border-bottom:1px solid #f0f3f5; }
+  .tierrow:last-child { border-bottom:none; }
+  .tchip { font-family:'Geist Mono',monospace; font-size:11px; font-weight:700; color:#fff; border-radius:6px; padding:2px 8px; flex-shrink:0; min-width:30px; text-align:center; }
+  .tchip.concept { background:#dc2626; }
+  .tchip.habit { background:#ea580c; }
+  .tchip.practice { background:#0891b2; }
+  .tchip.resource { background:#8a949c; }
+  .tname { font-size:12px; font-weight:700; flex-shrink:0; min-width:118px; }
+  .tnote { font-size:11px; color:#5b6770; line-height:1.5; }
+  @media (max-width:620px){ .tierrow{ flex-wrap:wrap; } .tname{ min-width:0; } .tnote{ flex-basis:100%; } }
+  label.q .tag.tier { color:#fff; }
+  label.q .tag.tier.concept { background:#dc2626; }
+  label.q .tag.tier.habit { background:#ea580c; }
+  label.q .tag.tier.practice { background:#0891b2; }
+  label.q .tag.tier.resource { background:#8a949c; }
+
   .empty { font-size:12.5px; color:#5b6770; line-height:1.6; padding:6px 0; }
   .empty b { color:#15803d; }
 
@@ -135,11 +151,12 @@
   <!-- ================= AUDIT ================= -->
   <div class="view" id="view-audit">
     <div class="stats">
-      <div class="stat"><div class="n" id="sScored">0</div><div class="l">Items scored</div></div>
-      <div class="stat"><div class="n" id="sDebt" style="color:#dc2626">0</div><div class="l">Real debt items</div></div>
+      <div class="stat"><div class="n" id="sConcept" style="color:#dc2626">0</div><div class="l">Concept debt<br>(the real gaps)</div></div>
+      <div class="stat"><div class="n" id="sHabit" style="color:#ea580c">0</div><div class="l">Habit debt<br>(cheap to clear)</div></div>
       <div class="stat"><div class="n" id="sHours" style="color:#b45309">0h</div><div class="l">Est. hours to clear</div></div>
       <div class="stat"><div class="n" id="sMast" style="color:#16a34a">—</div><div class="l">Avg mastery /3</div></div>
     </div>
+    <div class="card" id="tierBox"></div>
 
     <div class="card">
       <div class="progwrap"><div class="lab"><span>Audit completed</span><span id="pAuditTxt">0%</span></div><div class="track"><div class="fill" id="pAudit" style="background:linear-gradient(90deg,#0f766e,#16a34a); width:0%"></div></div></div>
@@ -152,7 +169,8 @@
       <span class="k">1</span> — <b>AI did it for me / I saw it but cannot reproduce it</b><br>
       <span class="k">2</span> — I can do it with docs open &nbsp;<b>← this is fine, this is not debt</b><br>
       <span class="k">3</span> — I can do it cold, I could teach it<br>
-      Only <b>0</b> and <b>1</b> become debt. Professionals work at 2 all day long.
+      Only <b>0</b> and <b>1</b> become debt. Professionals work at 2 all day long.<br><br>
+      Flagged items are then split into <b>four tiers</b> (breakdown below). Only <b>concept</b> and <b>habit</b> debt is charged hours — an unwatched YouTube video is not a missing skill, and treating it like one is how a recoverable gap starts to feel like a catastrophe.
     </div>
 
     <div class="toolbar">
@@ -168,6 +186,10 @@
   <!-- ================= QUEUE ================= -->
   <div class="view hidden" id="view-queue">
     <div id="capBox"></div>
+    <div class="toolbar">
+      <button id="btnQCore" class="on">Concept + habit only</button>
+      <button id="btnQAll">Include practice + resources</button>
+    </div>
     <div class="card">
       <div id="queueBody"></div>
     </div>
@@ -184,15 +206,31 @@
       <div class="rule"><b>Reconstruct from empty.</b> Every topic ends with you building one small thing — 20 to 40 lines — from an empty file, no reference, no tab open.</div>
       <div class="rule"><b>Revisit at +2 days and +7 days.</b> Ten minutes, blank page. This is what turns a week of study into knowledge you still own in November.</div>
 
-      <h2 class="sec">Term break sprint — Aug 15 to Sep 2</h2>
-      <p>Nineteen days with no university load. This window is roughly the size of your entire conceptual debt. It will not come again before the job hunt starts.</p>
+      <h2 class="sec">Phase 1 — Aug 5 to 14: rebuild the Python foundation</h2>
+      <p>University assignments are done and next week is light, so this window is real study time, not scraps. The audit found the gap is concentrated in <b>Week 3 (functions, files, exceptions) and Week 4 (all of OOP)</b> — which is precisely why Django feels like magic you cannot control. Your own Week 4 note predicted it.</p>
+      <p>One artifact carries almost all of this debt: <b>rebuild the OOP To-Do app from an empty folder.</b> It forces functions, scope, files, exceptions, classes, inheritance and dunder methods to all be real at the same time.</p>
+      <table class="sp">
+        <tr><th>Day</th><th>Work</th></tr>
+        <tr><td class="d">Aug 5</td><td>Score Django + SQL <em>core only</em> in the audit (15 min). Then functions: parameters, return, scope, <code>*args/**kwargs</code>. Blank page → learn → write 5 functions from empty.</td></tr>
+        <tr><td class="d">Aug 6</td><td>Decorators and lambda. Write your own <code>@timer</code> and <code>@log</code> from scratch. This is what makes Django views stop looking like magic.</td></tr>
+        <tr><td class="d">Aug 7</td><td>Files and exceptions. A script that reads/writes JSON and survives: missing file, corrupt JSON, bad input. From empty.</td></tr>
+        <tr><td class="d">Aug 8</td><td>Iterators and generators — why <code>yield</code> exists. Write one generator. Django QuerySets are lazy for exactly this reason.</td></tr>
+        <tr><td class="d">Aug 9</td><td>OOP 1: classes, <code>__init__</code>, instance vs class attributes, methods. Build a <code>Task</code> class from empty.</td></tr>
+        <tr><td class="d">Aug 10</td><td>OOP 2: inheritance, method overriding, polymorphism. Build a small hierarchy from empty.</td></tr>
+        <tr><td class="d">Aug 11</td><td>OOP 3: <code>__str__</code>, <code>__repr__</code>, <code>__eq__</code>, properties, encapsulation. This <em>is</em> a Django model.</td></tr>
+        <tr><td class="d">Aug 12</td><td><b>The rebuild.</b> OOP To-Do app, empty folder: <code>Task</code>, <code>TodoList</code>, <code>FileManager</code>, JSON persistence, real error handling. No AI. No old repo. No tutorial.</td></tr>
+        <tr><td class="d">Aug 13</td><td>Finish and debug it. Write the README yourself in English. Push as a <em>new</em> repo. <em>Then</em> let AI review it — "what would a senior change?" — and read the critique.</td></tr>
+        <tr><td class="d">Aug 14</td><td>Git habits in one sitting (~3h clears 11 items): branching, stash, diff, log, tags, <code>.env</code>, <code>.gitignore</code>, GitHub flow — all on the repo you just built. Then score JS + HTML core.</td></tr>
+      </table>
+
+      <h2 class="sec">Phase 2 — Aug 15 to Sep 2: the term break</h2>
+      <p>Nineteen days, no university load. With Python solid, this entire window goes to the front line: <b>Django and SQL</b>, which is what Weeks 19–24 are made of.</p>
       <table class="sp">
         <tr><th>Dates</th><th>Focus</th></tr>
-        <tr><td class="d">Aug 5–14</td><td><b>Finish the audit + survive finals.</b> No new backfill topics. Score every week 1–19 honestly. Keep up with the current module.</td></tr>
-        <tr><td class="d">Aug 15–19</td><td><b>Track 1 + 2.</b> Python/OOP gaps first (they are load-bearing), then straight into Django core: models, ORM, migrations, views, URLs.</td></tr>
-        <tr><td class="d">Aug 20–26</td><td><b>Django deep + SQL together.</b> Write the ORM query, then read the SQL it generates. Learn both sides of the same coin at once.</td></tr>
-        <tr><td class="d">Aug 27–Sep 2</td><td><b>JavaScript core</b> — the 20% React needs: array methods, destructuring, promises, async/await, fetch. Then the integration build.</td></tr>
-        <tr><td class="d">Sep 3 →</td><td><b>Back to dual-track.</b> HTML/CSS mop-up on demand. Current modules at full depth again.</td></tr>
+        <tr><td class="d">Aug 15–21</td><td><b>Django core.</b> Models, ORM, migrations, views, URLs, templates, admin. Build one small app end to end from an empty project.</td></tr>
+        <tr><td class="d">Aug 22–28</td><td><b>Django deep + SQL together.</b> Write the ORM query, then read the SQL it emits. Joins, indexes, the N+1 problem. Two sides of one coin.</td></tr>
+        <tr><td class="d">Aug 29–Sep 2</td><td><b>The integration build</b> — the debt-clearing exam. Django + a real Postgres schema with joins, deployed. From empty.</td></tr>
+        <tr><td class="d">Sep 3 →</td><td><b>Dual-track resumes.</b> JavaScript backfill at 12h/week (React lands Week 25). HTML/CSS on demand. Current modules at full depth.</td></tr>
       </table>
       <p><b>Daily shape during the break:</b> 6 focused hours, 6 days a week, one full day off. Not 12 hours. You are rebuilding from a fragile place, and a plan that burns you out in week one is worse than no plan.</p>
       <ul>
@@ -232,12 +270,31 @@ var SCORE = load('rc_score', {});   // taskId -> 0|1|2|3
 var CLEAR = load('rc_done', {});    // taskId -> 1  (debt item worked off)
 var THRU  = load('rc_thru', 19);
 var mode  = 'core';
+var qmode = 'core';
 var view  = 'audit';
 
 var CATW = { course:0.32, extra:0.18, leet:0.12, project:0.25, git:0.05, eng:0.08 };
 var CATL = { course:'Course / core', project:'Project', extra:'Self-study', leet:'LeetCode / DSA', git:'Git / GitHub', eng:'English' };
 var CORE = ['course','project'];
 var ALL  = ['course','project','extra','leet','git','eng'];
+
+/* Not all debt is the same kind of debt, and conflating them is exactly what
+   makes the total feel hopeless. An unwatched YouTube video is not a missing
+   skill. Tiering them keeps the headline number honest. */
+var TIER  = { course:'concept', project:'concept', git:'habit', eng:'habit', leet:'practice', extra:'resource' };
+var TIERS = ['concept','habit','practice','resource'];
+var TIERMETA = {
+  concept:  { label:'Concept debt',
+              note:'Genuine gaps in understanding. These block everything downstream. Counted in full.' },
+  habit:    { label:'Habit debt',
+              note:'Learned once by doing, then simply practised — branching, .env, commit messages, explaining out loud. Counted at a quarter.' },
+  practice: { label:'Practice debt',
+              note:'Interview preparation. A steady drip from now until 2027, not a backfill sprint. Not counted as recovery hours.' },
+  resource: { label:'Unused resources',
+              note:'Videos and articles you never opened. These are means, not skills — if you have the concept, the item is void. Not counted.' }
+};
+// concept gaps cost real relearning time; habits cost a fraction; the rest cost none.
+var HFACTOR = { concept:{0:0.75,1:0.45}, habit:{0:0.25,1:0.15}, practice:{0:0,1:0}, resource:{0:0,1:0} };
 
 // Dependency order — what unblocks what, not what came first on the calendar.
 var TRACKS = [
@@ -267,12 +324,14 @@ function taskHours(w,cat){
   return (w.hrs * (CATW[cat]/tot)) / arr.length;
 }
 // Relearning is faster than first learning: a "1" already has recognition to build on.
-function debtHours(w,cat,sc){ return taskHours(w,cat) * (sc===0 ? 0.75 : 0.45); }
+function debtHours(w,cat,sc){ return taskHours(w,cat) * HFACTOR[TIER[cat]][sc]; }
 
 function trackWeeks(t){ return t.weeks.filter(function(n){ return n<=THRU; }); }
 
+function emptyTier(){ var o={}; TIERS.forEach(function(k){ o[k]=0; }); return o; }
+
 function scan(t){
-  var o={ total:0, scored:0, debt:0, hours:0, sum:0, items:[] };
+  var o={ total:0, scored:0, debt:0, hours:0, sum:0, items:[], tier:emptyTier() };
   trackWeeks(t).forEach(function(n){
     var w=weekByN(n); if(!w) return;
     cats().forEach(function(cat){
@@ -282,10 +341,10 @@ function scan(t){
         if(sc===undefined) return;
         o.scored++; o.sum+=sc;
         if(sc<=1){
-          o.debt++;
+          o.debt++; o.tier[TIER[cat]]++;
           if(!CLEAR[id]){
             var h=debtHours(w,cat,sc); o.hours+=h;
-            o.items.push({ id:id, n:n, cat:cat, txt:txt, sc:sc, h:h });
+            o.items.push({ id:id, n:n, cat:cat, tier:TIER[cat], txt:txt, sc:sc, h:h });
           }
         }
       });
@@ -295,10 +354,11 @@ function scan(t){
 }
 
 function totals(){
-  var g={ total:0, scored:0, debt:0, hours:0, sum:0, open:0 };
+  var g={ total:0, scored:0, debt:0, hours:0, sum:0, open:0, tier:emptyTier() };
   TRACKS.forEach(function(t){
     var s=scan(t);
     g.total+=s.total; g.scored+=s.scored; g.debt+=s.debt; g.hours+=s.hours; g.sum+=s.sum; g.open+=s.items.length;
+    TIERS.forEach(function(k){ g.tier[k]+=s.tier[k]; });
   });
   return g;
 }
@@ -345,10 +405,18 @@ function renderAudit(){
   body.innerHTML=html;
 
   var g=totals();
-  document.getElementById('sScored').textContent=g.scored;
-  document.getElementById('sDebt').textContent=g.debt;
+  document.getElementById('sConcept').textContent=g.tier.concept;
+  document.getElementById('sHabit').textContent=g.tier.habit;
   document.getElementById('sHours').textContent=Math.round(g.hours)+'h';
   document.getElementById('sMast').textContent = g.scored? (g.sum/g.scored).toFixed(1) : '—';
+
+  var tb='<div class="lab" style="display:flex;justify-content:space-between;font-size:11px;color:#5b6770;font-weight:600;margin-bottom:9px"><span>How the '+g.debt+' flagged item'+(g.debt===1?'':'s')+' break down</span><span>'+Math.round(g.hours)+'h counted</span></div>';
+  TIERS.forEach(function(k){
+    tb+='<div class="tierrow"><span class="tchip '+k+'">'+g.tier[k]+'</span>'
+      + '<span class="tname">'+TIERMETA[k].label+'</span>'
+      + '<span class="tnote">'+TIERMETA[k].note+'</span></div>';
+  });
+  document.getElementById('tierBox').innerHTML=tb;
   var pct = g.total? Math.round(g.scored/g.total*100) : 0;
   document.getElementById('pAudit').style.width=pct+'%';
   document.getElementById('pAuditTxt').textContent=pct+'%';
@@ -363,13 +431,17 @@ function renderQueue(){
   if(g.scored===0){
     cap.innerHTML='<div class="cap warn">Nothing scored yet. Open the <b>Audit</b> tab and start with <b>Python &amp; OOP</b> — about 30 items, roughly half an hour. You will almost certainly find it is mostly 2s and 3s, and that alone will calm you down.</div>';
   } else {
-    var BREAK=90;                       // ~6h/day x 6 days x ~2.7 weeks, Aug 15 - Sep 2
+    var PRE=40;                         // Aug 5-14, university load light, ~4h/day
+    var BREAK=90;                       // Aug 15 - Sep 2, no university, ~6h/day x 6 days
+    var RUNWAY=PRE+BREAK;
     var h=Math.round(g.hours);
-    var after=h-BREAK;
-    if(h<=BREAK){
-      cap.innerHTML='<div class="cap">Your measured debt is <b>~'+h+' focused hours</b>. The Aug 15 – Sep 2 term break gives you roughly <b>90 hours</b> at a sustainable 6h/day, 6 days a week.<br><br><b>The break is bigger than the debt.</b> That is arithmetic from your own numbers, not encouragement.</div>';
+    if(h<=PRE){
+      cap.innerHTML='<div class="cap">Counted debt: <b>~'+h+' focused hours</b>. You have roughly <b>'+PRE+'h</b> before the term even ends on Aug 14, and another <b>'+BREAK+'h</b> in the break.<br><br><b>You can clear this before the break starts.</b> Then the whole break goes to Django and SQL, which is where you actually need it.</div>';
+    } else if(h<=RUNWAY){
+      cap.innerHTML='<div class="cap">Counted debt: <b>~'+h+' focused hours</b>. Runway before Sep 3: <b>~'+PRE+'h</b> now (Aug 5–14, university light) plus <b>~'+BREAK+'h</b> in the term break = <b>~'+RUNWAY+'h</b>.<br><br><b>The runway is bigger than the debt.</b> That is arithmetic from your own numbers, not encouragement.</div>';
     } else {
-      cap.innerHTML='<div class="cap warn">Your measured debt is <b>~'+h+' focused hours</b>. The term break covers about <b>90</b> of them, leaving <b>~'+after+'h</b> — roughly <b>'+Math.ceil(after/12)+' weeks</b> at 12h/week of backfill after Sep 3.<br><br>That still lands you clear well before Week 28, where the job launch starts. Clear the tracks in order and do not skip ahead.</div>';
+      var after=h-RUNWAY;
+      cap.innerHTML='<div class="cap warn">Counted debt: <b>~'+h+' focused hours</b>. Runway before Sep 3 is <b>~'+RUNWAY+'h</b> ('+PRE+'h now + '+BREAK+'h in the break), leaving <b>~'+after+'h</b> — about <b>'+Math.ceil(after/12)+' more week'+(Math.ceil(after/12)===1?'':'s')+'</b> at 12h/week after Sep 3.<br><br>That still lands you clear before Week 28, where the job launch starts. Clear the tracks in order and do not skip ahead.</div>';
     }
   }
 
@@ -377,26 +449,33 @@ function renderQueue(){
   var any=false;
   TRACKS.forEach(function(t,ti){
     var s=scan(t);
-    if(!s.items.length) return;
+    var items = qmode==='core'
+      ? s.items.filter(function(it){ return it.tier==='concept' || it.tier==='habit'; })
+      : s.items;
+    if(!items.length) return;
     any=true;
-    s.items.sort(function(a,b){
+    items.sort(function(a,b){
+      var ta=TIERS.indexOf(a.tier), tb2=TIERS.indexOf(b.tier);
+      if(ta!==tb2) return ta-tb2;                       // concept first, resources last
       if(a.n!==b.n) return a.n-b.n;
       if(a.sc!==b.sc) return a.sc-b.sc;
       return CORE.indexOf(b.cat)-CORE.indexOf(a.cat);
     });
+    var hrs=items.reduce(function(x,it){ return x+it.h; },0);
     html+='<div class="qsec"><h3><span class="ord">'+(ti+1)+'</span>'+esc(t.name)
-        + '<span class="hh">~'+Math.round(s.hours)+'h left</span></h3>'
+        + '<span class="hh">'+items.length+' item'+(items.length===1?'':'s')+' · ~'+Math.round(hrs)+'h</span></h3>'
         + '<div class="sub">'+esc(t.why)+'</div>';
-    s.items.forEach(function(it){
+    items.forEach(function(it){
       html+='<label class="q"><input type="checkbox" data-clear="'+it.id+'">'
           + '<span class="wn">W'+it.n+'</span>'
+          + '<span class="tag tier '+it.tier+'">'+it.tier+'</span>'
           + '<span class="tag n'+it.sc+'">'+(it.sc===0?'never':'AI did it')+'</span>'
           + '<span class="t">'+esc(it.txt)+'</span></label>';
     });
     html+='</div>';
   });
   if(!any && g.scored>0){
-    html='<div class="empty">Nothing in the queue. Either you have not scored enough yet, or <b>you have cleared everything you marked as a gap</b> — in which case stop auditing and go build the integration project.</div>';
+    html='<div class="empty">Nothing in the queue at this filter. Either you have not scored enough yet, or <b>you have cleared every concept and habit gap you flagged</b> — in which case stop auditing and go build the integration project.</div>';
   }
   if(!any && g.scored===0){ html='<div class="empty">Score some items first and your prioritised queue will build itself here.</div>'; }
   body.innerHTML=html;
@@ -441,6 +520,9 @@ document.querySelectorAll('.tb').forEach(function(btn){
 
 document.getElementById('btnCore').onclick=function(){ mode='core'; this.classList.add('on'); document.getElementById('btnAll').classList.remove('on'); renderAll(); };
 document.getElementById('btnAll').onclick=function(){ mode='all'; this.classList.add('on'); document.getElementById('btnCore').classList.remove('on'); renderAll(); };
+document.getElementById('btnQCore').onclick=function(){ qmode='core'; this.classList.add('on'); document.getElementById('btnQAll').classList.remove('on'); renderQueue(); };
+document.getElementById('btnQAll').onclick=function(){ qmode='all'; this.classList.add('on'); document.getElementById('btnQCore').classList.remove('on'); renderQueue(); };
+
 document.getElementById('btnExpand').onclick=function(){
   var els=document.querySelectorAll('.trk');
   var anyClosed=false; els.forEach(function(t){ if(!t.classList.contains('open')) anyClosed=true; });
@@ -448,11 +530,17 @@ document.getElementById('btnExpand').onclick=function(){
 };
 
 document.getElementById('btnCopy').onclick=function(){
-  var g=totals(), lines=['RECOVERY AUDIT — weeks 1-'+THRU,'scored '+g.scored+'/'+g.total+' · debt '+g.debt+' items · ~'+Math.round(g.hours)+'h',''];
+  var g=totals();
+  var lines=['RECOVERY AUDIT — weeks 1-'+THRU,
+             'scored '+g.scored+'/'+g.total+' · flagged '+g.debt+' items · ~'+Math.round(g.hours)+'h counted',
+             'concept '+g.tier.concept+' · habit '+g.tier.habit+' · practice '+g.tier.practice+' · unused-resources '+g.tier.resource,
+             ''];
   TRACKS.forEach(function(t){
     var s=scan(t); if(!trackWeeks(t).length) return;
-    lines.push('## '+t.name+' — scored '+s.scored+'/'+s.total+', gaps '+s.debt+', ~'+Math.round(s.hours)+'h');
-    s.items.forEach(function(it){ lines.push('  ['+(it.sc===0?'never':'AI-did-it')+'] W'+it.n+' ('+it.cat+') '+it.txt); });
+    lines.push('## '+t.name+' — scored '+s.scored+'/'+s.total+', flagged '+s.debt
+             + ' (concept '+s.tier.concept+', habit '+s.tier.habit+'), ~'+Math.round(s.hours)+'h');
+    s.items.slice().sort(function(a,b){ return TIERS.indexOf(a.tier)-TIERS.indexOf(b.tier) || a.n-b.n; })
+      .forEach(function(it){ lines.push('  ['+it.tier+'/'+(it.sc===0?'never':'AI-did-it')+'] W'+it.n+' ('+it.cat+') '+it.txt); });
     lines.push('');
   });
   var txt=lines.join('\n');
