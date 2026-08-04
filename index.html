@@ -24,6 +24,9 @@
   a.tile .t { font-size:14px; font-weight:700; margin-top:6px; }
   a.tile .d { font-size:11px; color:#5b6770; margin-top:3px; line-height:1.45; }
   a.tile .sync { font-size:9px; font-weight:700; color:#0f766e; background:#e6f4f1; border-radius:6px; padding:2px 7px; display:inline-block; margin-top:8px; }
+  a.tile.start { border:2px solid #0f766e; margin-bottom:11px; }
+  a.tile.start .d { font-size:12px; }
+  a.tile .pill { font-size:9px; font-weight:700; color:#fff; background:#0f766e; border-radius:6px; padding:2px 7px; vertical-align:middle; margin-left:6px; letter-spacing:.05em; }
   .sec { background:#fff; border-radius:13px; padding:18px 20px; margin-bottom:16px; box-shadow:0 2px 8px rgba(0,0,0,.05); }
   .sec h2 { font-size:15px; font-weight:700; margin-bottom:8px; }
   .sec p, .sec li { font-size:12.5px; color:#38444c; line-height:1.6; }
@@ -43,6 +46,13 @@
     <h1>⚙️ My Command Center</h1>
     <p>Everything in one place — the plan, trackers, routines, and career playbook. The two trackers sync across your iPhone and laptop once you set up the sync code (guide below). Add this page to your home screen for an app-like feel.</p>
   </div>
+
+  <a class="tile start" href="recovery.html">
+    <div class="ic">🩺</div>
+    <div class="t">Recovery Audit <span class="pill">START HERE</span></div>
+    <div class="d">Score what you <em>actually</em> know from Week 1 onward. Turns "I'm hopelessly behind" into a finite, ordered queue with an hour count — then hands you the Aug 15 – Sep 2 sprint plan.</div>
+    <span class="sync">☁ syncs across devices</span>
+  </a>
 
   <div class="grid">
     <a class="tile" href="command_center.html"><div class="ic">🧭</div><div class="t">Command Center</div><div class="d">Master dashboard — routine, time budget, plan alignment, principles.</div></a>
@@ -84,7 +94,7 @@ service cloud.firestore {
     <ol class="steps">
       <li>On GitHub, open this repo → <b>Settings → Pages</b>.</li>
       <li>Under <b>Source</b>, pick <b>Deploy from a branch</b> → branch <b>main</b> → folder <b>/(root)</b> → <b>Save</b>.</li>
-      <li>After a minute your site is live at <code>https://wasir-codes.github.io/claude/</code> — open that on your iPhone and laptop, and bookmark / add to home screen.</li>
+      <li>After a minute your site is live at <code>https://rafimkl8.github.io/command_center/</code> — open that on your iPhone and laptop, and bookmark / add to home screen.</li>
     </ol>
     <div class="note"><b>iPhone home-screen app:</b> open the link in Safari → tap <b>Share → Add to Home Screen</b>. It opens fullscreen like a real app — no APK or App Store needed.</div>
   </div>
