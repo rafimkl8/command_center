@@ -118,8 +118,17 @@
   h2.sec:first-child { margin-top:0; }
   .sprint { font-size:12.5px; color:#38444c; line-height:1.65; }
   .sprint p { margin-bottom:10px; }
-  .sprint ul { margin:0 0 12px 18px; }
+  .sprint ul, .sprint ol { margin:0 0 12px 20px; }
   .sprint li { margin-bottom:6px; }
+  .loop { display:flex; align-items:flex-start; gap:11px; padding:10px 0; border-bottom:1px solid #f0f3f5; }
+  .loop:last-child { border-bottom:none; }
+  .loop .t { font-family:'Geist Mono',monospace; font-size:10.5px; font-weight:700; color:#fff; background:#0f766e; border-radius:6px; padding:3px 8px; flex-shrink:0; min-width:56px; text-align:center; }
+  .loop .b { font-size:12.5px; line-height:1.55; }
+  .loop .b b { color:#11181c; }
+  .floor { font-size:12.5px; line-height:1.65; background:#fef6ec; border:1px solid #fed7aa; border-radius:9px; padding:12px 14px; margin:12px 0; color:#7c2d12; }
+  .floor b { color:#c2410c; }
+  .warn-list { font-size:12.5px; line-height:1.6; }
+  .warn-list li { margin-bottom:7px; }
   .sprint b { color:#11181c; }
   table.sp { width:100%; border-collapse:collapse; font-size:11.5px; margin-bottom:14px; }
   table.sp th { text-align:left; padding:7px 8px; background:#f8fafc; font-size:10px; text-transform:uppercase; letter-spacing:.04em; color:#5b6770; border-bottom:1px solid #e3e8ec; }
@@ -201,6 +210,34 @@
   <!-- ================= SPRINT ================= -->
   <div class="view hidden" id="view-sprint">
     <div class="card sprint">
+      <h2 class="sec">Start here — your first hour</h2>
+      <p>The planning is finished. Tomorrow morning, one hour, no decisions to make:</p>
+      <div class="loop"><span class="t">0:00</span><span class="b"><b>Blank page, 10 minutes.</b> Write from memory, nothing open: what is scope? What does a function return? What is the difference between a parameter and an argument? What do <code>*args</code> and <code>**kwargs</code> do? It will be short and it will be uncomfortable. That is the measurement, not the failure.</span></div>
+      <div class="loop"><span class="t">0:10</span><span class="b"><b>Learn, 30 minutes, one source only.</b> Functions and scope. Stop at 30 minutes even if you are mid-sentence. One source — not four tabs.</span></div>
+      <div class="loop"><span class="t">0:40</span><span class="b"><b>Empty file, 20 minutes, no reference.</b> Write five functions: one with a default parameter, one returning two values, one taking <code>*args</code>, one taking <code>**kwargs</code>, one that mutates a list passed into it — and notice what that does.</span></div>
+      <div class="loop"><span class="t">1:00</span><span class="b"><b>Close the laptop.</b> Done for the day on backfill.</span></div>
+      <p><b>The goal of hour one is not to learn functions.</b> It is to prove the loop works — that you can go from not knowing to having written something yourself, in sixty minutes, without AI. Once you have done that once, you have a repeatable unit and the remaining two months are just that unit pointed at different topics.</p>
+
+      <h2 class="sec">The daily loop — the only thing you have to maintain</h2>
+      <p>Do not try to maintain a two-month plan. Maintain <em>one shape of day</em>, and let the plan tell you which topic to point it at. The topic changes constantly. <b>The loop never changes.</b></p>
+      <div class="loop"><span class="t">10 min</span><span class="b">Blank page from memory, before anything opens.</span></div>
+      <div class="loop"><span class="t">40 min</span><span class="b">Learn, timeboxed, one source. AI may explain and quiz. AI may not author.</span></div>
+      <div class="loop"><span class="t">40 min</span><span class="b"><b>Rebuild from empty.</b> The step that does the actual work. Never skip it.</span></div>
+      <div class="loop"><span class="t">10 min</span><span class="b">Explain it in one paragraph, in English. This is your English track — not extra work.</span></div>
+      <div class="loop"><span class="t">2 min</span><span class="b">Tick it in the audit. Log anything AI wrote as a <span style="font-family:'Geist Mono',monospace">1</span>.</span></div>
+      <p>Roughly 100 minutes of real work. Everything else in a study day is support.</p>
+
+      <div class="floor"><b>Define your floor now, before you need it.</b> On the worst day — hospital, family crisis, no sleep — the minimum is <b>one 20-minute loop</b>: 5 minutes blank page, 10 learning, 5 rebuilding. That is a complete day. It counts.<br><br>You had no floor in module 8, so the floor became zero, and zero days are what compound into eleven-module gaps. A 20-minute day is not a broken streak. It is the streak.</div>
+
+      <h2 class="sec">Daily shape — and the part that is not negotiable</h2>
+      <p><b>Before the break (Aug 5–14):</b> about 4 focused hours a day. <b>During the break:</b> 6 focused hours, 6 days a week, one full day off. Not 12 hours. You are rebuilding from a fragile place, and a plan that burns you out in week one is worse than no plan at all.</p>
+      <ul>
+        <li><b>Morning block (post-Fajr, ~3h)</b> — hardest new concept of the day. This is your best brain; do not spend it on video.</li>
+        <li><b>Afternoon block (~2h)</b> — reconstruct from empty. Build the small thing. No tutorials.</li>
+        <li><b>Evening (~1h)</b> — spaced review of +2 day and +7 day items, then write the day's one-paragraph explanation.</li>
+        <li><b>Evenings after Isha belong to your wife.</b> Non-negotiable, not a reward for finishing.</li>
+      </ul>
+
       <h2 class="sec">The one rule that changes everything</h2>
       <div class="rule"><b>AI may explain, review, and quiz me. AI may not author.</b> The moment AI writes it, your brain marks the problem "solved" and files nothing. That is exactly how you arrived at Module 19 feeling empty.</div>
       <div class="rule"><b>25 minutes cold, then help.</b> Every problem gets a genuine solo attempt on a timer before anything else opens.</div>
@@ -304,6 +341,35 @@
       <p>Two months. Then you are a student who is caught up, not a student who is behind — and comfortably before module 28, where the job launch begins.</p>
       <p><b>One assumption to check:</b> this assumes modules 22 onward run about a week each, the way everything before module 21 did. If any of them are double-length like module 21, tell me and the September dates shift — in your favour, not against.</p>
 
+      <h2 class="sec">The Friday checkpoint — 30 minutes, non-negotiable</h2>
+      <p><b>Modules 8–18 did not fail because the plan was wrong. They failed because nothing ever forced the drift to become visible.</b> By the time you felt it, it was three months deep. This is the fix, and it is thirty minutes a week:</p>
+      <ol>
+        <li>Open the audit. Tick what you cleared. <b>Log anything AI wrote as a <span style="font-family:'Geist Mono',monospace">1</span></b> — that is the whole safety mechanism.</li>
+        <li>Look at the deadline chips on each track. Am I on pace for the next one, honestly?</li>
+        <li>If behind: pick <em>one</em> thing to cut, using the sacrifice order below. Cut it deliberately, write it down, do not just hope.</li>
+        <li>Three sentences: what I learned, what is still fuzzy, what I am doing next week.</li>
+      </ol>
+      <p>Thirty minutes. That is the entire governance layer. Skip it for two weeks in a row and you are back in the situation that put you here — not because you stopped working, but because you stopped being able to see.</p>
+
+      <h2 class="sec">Track three numbers. Ignore the rest.</h2>
+      <ul>
+        <li><b>Did I do a loop today?</b> Yes or no. Even the 20-minute floor counts as yes.</li>
+        <li><b>Concept debt count.</b> One number, from the audit. It should fall every single week.</li>
+        <li><b>Did I submit my own work?</b> From Aug 16 onward this is yes or no, and nothing else.</li>
+      </ul>
+      <p>LeetCode totals, commit streaks, article counts, applications sent — all real, all later. Tracking them now just gives you more ways to feel behind.</p>
+
+      <h2 class="sec">Early warning signs — catch the slide at week one</h2>
+      <p>These are the specific behaviours that preceded the last collapse. Two of them in one week is a signal, not a character flaw:</p>
+      <ul class="warn-list">
+        <li>You skip the blank page because <em>"I already know this one."</em> You do not — that is what the blank page is for.</li>
+        <li><b>You skip the rebuild-from-empty because time is short.</b> This is the dangerous one. It is the only step that actually builds anything, and cutting it does not feel like cutting anything.</li>
+        <li>You watch a class recording instead of building something. Comfort disguised as diligence.</li>
+        <li>You open AI before the 25 minutes are up.</li>
+        <li><b>You reorganise the tracker instead of studying.</b> Tidying the system feels like progress and produces nothing. Watch for this one especially — the system is finished now.</li>
+      </ul>
+      <p>The response to a warning sign is never to quit the day. It is to <b>shrink the day to the floor</b> and keep the chain intact.</p>
+
       <h2 class="sec">When life happens: what to cut, in order</h2>
       <p>You are now scheduled continuously from Aug 5 to Oct 3, and your wife's family situation is still unresolved. Something will go wrong, because something always does. So decide the sacrifice order <em>now</em>, while you are calm, instead of at midnight while you are not:</p>
       <ol class="steps" style="margin-left:18px">
@@ -340,14 +406,6 @@
         <tr><td><b>Module 19 class 2, running now</b></td><td>Your instinct to not follow along was correct and it was good judgement, not avoidance. Sit in it, keep a running list of words you do not recognise yet, and do not try to code along. You will build this exact app yourself on Aug 12–14.</td></tr>
         <tr><td><b>LeetCode, HTML/CSS polish, TypeScript</b></td><td>None of it blocks anything before October.</td></tr>
       </table>
-      <h2 class="sec">Daily shape — and the part that is not negotiable</h2>
-      <p><b>Before the break (Aug 5–14):</b> about 4 focused hours a day. <b>During the break:</b> 6 focused hours, 6 days a week, one full day off. Not 12 hours. You are rebuilding from a fragile place, and a plan that burns you out in week one is worse than no plan at all.</p>
-      <ul>
-        <li><b>Morning block (post-Fajr, ~3h)</b> — hardest new concept of the day. This is your best brain; do not spend it on video.</li>
-        <li><b>Afternoon block (~2h)</b> — reconstruct from empty. Build the small thing. No tutorials.</li>
-        <li><b>Evening (~1h)</b> — spaced review of +2 day and +7 day items, then write the day's one-paragraph explanation.</li>
-        <li><b>Evenings after Isha belong to your wife.</b> Non-negotiable, not a reward for finishing.</li>
-      </ul>
 
       <h2 class="sec">Why this makes you an engineer, not a coder</h2>
       <p>Writing code from a clear spec is the part AI genuinely took. That was the old entry-level job and it is not coming back. What went <em>up</em> in value is everything around it: deciding what to build, decomposing a vague problem, spotting the subtly wrong answer, knowing what breaks at 10x load.</p>
