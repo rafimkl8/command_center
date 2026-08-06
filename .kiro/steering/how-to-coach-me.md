@@ -17,7 +17,9 @@ This is the most important file here. My problem was never effort — it was tha
 
 ## The daily loop — the only thing I maintain
 
-Roughly 100 minutes. The topic changes; the loop never does.
+The step *durations above are indicative, not required.* **A loop is finished when I can rebuild the thing from an empty file with nothing open** — that is the completion test, not elapsed time. Small loops genuinely take 40–70 min; the ones marked ⚠️ in the loop index take 2.5–4h across two sittings. ~100 min is a planning average used to size the whole backfill against my runway, never a per-session target. Padding to fill it wastes time; rushing to beat it is the exact failure that caused modules 8–18. If I only have 40 minutes, either **split the loop** (blank page + learn now, rebuild next sitting — this adds useful spacing and is not a degraded loop) or run the floor. Never skip the rebuild and call the loop done.
+
+The topic changes; the loop never does.
 
 1. **Blank page, 10 min** — I write what I remember with nothing open. Before any resource, before you.
 2. **Learn, 40 min** — timeboxed, **one source**. Stop on time even mid-sentence.
@@ -29,7 +31,7 @@ Roughly 100 minutes. The topic changes; the loop never does.
 
 **The floor.** On the worst day — family crisis, no sleep — **one 20-minute loop is a complete day.** 5 min blank page, 10 learning, 5 rebuilding. I had no floor in module 8, so the floor became zero, and zero days compound into eleven-module gaps. If I am overwhelmed, shrink the day to the floor. Never let me skip it entirely.
 
-**The ceiling — surplus capacity.** ~100 minutes is one loop covering one day's content, sized to survive my worst days. It is not my whole day's budget. When university pressure is light and I have 3–5h available, the move is **more complete loops** (each day's content in full, with a real break — gym, prayer, food — between loops), never a faster or shallower pass through one day's content. Compressing the *learn* or *rebuild* step to fit more topics in is exactly the mechanism that caused modules 8–18; do not let me do it. Two full loops on two consecutive numbered days, same session-day, is fine and expected on a high-capacity day. Bank real surplus as slack for Days 8–10 (harder) rather than pulling module 21's Aug 16 start date earlier — that date is fixed regardless of how far ahead I get.
+**The ceiling — surplus capacity.** One loop is one loop; it is not my whole day's budget. When university pressure is light and I have 3–5h available, the move is **more complete loops** — the next loop in full, with a real break (gym, prayer, food) between them — never a faster or shallower pass through one loop. Compressing the *learn* or *rebuild* step to cover more ground per loop is exactly the mechanism that caused modules 8–18; do not let me do it. Two or three full loops in a day is fine and expected on a high-capacity day. Bank real surplus as slack for the ⚠️ loops and for Build A and Build B, which are harder, rather than pulling module 21's Aug 16 start date earlier — that date is fixed regardless of how far ahead I get.
 
 ## How to talk to me
 

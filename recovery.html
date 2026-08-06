@@ -262,30 +262,54 @@
         <tr><td>iterators, generators, laziness</td><td>QuerySets are lazy — they do not touch the database until you iterate</td></tr>
       </table>
 
-      <h2 class="sec">Phase 1 — Days 1–7: Python, named for its Django payoff</h2>
-      <p>Each day: blank page from memory → learn → rebuild from empty. Never the other order.</p>
-      <p><b>Days are numbered, not dated, on purpose.</b> Miss a day and the numbers do not move — you simply do Day N the next time you sit down. Started <b>Aug 6</b>, so Day 7 lands about <b>Aug 12</b>. The only fixed anchor is module 21 on <b>Aug 16</b>.</p>
+      <h2 class="sec">The live course calendar</h2>
       <table class="sp">
-        <tr><th>Day</th><th>Work</th></tr>
-        <tr><td class="d">Day 1</td><td>Functions: parameters, return, scope, <code>*args/**kwargs</code>. Write 5 from an empty file.</td></tr>
-        <tr><td class="d">Day 2</td><td>Decorators. Write your own <code>@timer</code> and <code>@log</code> from scratch. Then read Django's <code>@login_required</code> and see that it is the same thing.</td></tr>
-        <tr><td class="d">Day 3</td><td>Classes: <code>__init__</code>, instance vs class attributes, methods. Build a <code>Task</code> class from empty. <b>You are writing a model and do not know it yet.</b></td></tr>
-        <tr><td class="d">Day 4</td><td>Inheritance, overriding, <code>super()</code>, polymorphism. A small hierarchy from empty.</td></tr>
-        <tr><td class="d">Day 5</td><td>Dunder methods, <code>@property</code>, encapsulation. Add <code>__str__</code> and a computed property to your <code>Task</code>.</td></tr>
-        <tr><td class="d">Day 6</td><td>Files and exceptions, plus 30 minutes on generators and laziness. Custom exception classes.</td></tr>
-        <tr><td class="d">Day 7</td><td><b>Rebuild the OOP To-Do app from an empty folder.</b> <code>Task</code>, <code>TodoList</code>, <code>FileManager</code>, JSON persistence, real error handling. No AI, no old repo, no tutorial.</td></tr>
+        <tr><th>Dates</th><th>What is running</th></tr>
+        <tr><td class="d">done</td><td><b>Module 19</b> (Django To-Do). <b>Classes are finished</b> — only the quiz and assignment remain.</td></tr>
+        <tr><td class="d">Aug 6–8</td><td><b>No new module content. Three free days</b> — almost everything goes to recovery loops.</td></tr>
+        <tr><td class="d">Aug 9–15</td><td><b>Module 20</b> — "Building a Full Functional Blog Project from Scratch <em>with AI</em>". AI use here is the module's own stated method, so it is the curriculum, not a shortcut. Still log what AI writes as a <span style="font-family:'Geist Mono',monospace">1</span>.</td></tr>
+        <tr><td class="d">Aug 16–Sep 5</td><td><b>Module 21</b> — e-commerce, 2 weeks, 6 live classes. University break Aug 15 – Sep 2, so no term load. <b>From here you submit your own work.</b></td></tr>
+        <tr><td class="d">Sep 6 →</td><td>Module 22 (exam + deployment), 23 (DRF), 24 (LMS backend), 25 (React intro), 26 (hooks — the JavaScript wall)</td></tr>
       </table>
+      <p><b>Every day has exactly two jobs:</b> the recovery loop, which gets your best hours, and whatever the live course needs, which gets the leftovers. Never the other order.</p>
+      <p><b>Realistic target:</b> L1–L13 and Build A done by Aug 15. L14–L20 and Build B during module 21's first week, alongside its classes. Do not pretend all of it lands before Aug 16 — it does not need to.</p>
 
-      <h2 class="sec">Phase 2 — Days 8–10: the bridge (about Aug 13–15)</h2>
-      <p>Now build the same app again, in Django. Same domain, so every ounce of attention goes to <em>what Django adds</em> rather than to the problem itself.</p>
-      <p><b>And look at what Module 19 actually is: "Django To-Do App Project."</b> Your backfill deliverable and your current assignment are the same artifact. You are not choosing between catching up and keeping up.</p>
+      <h2 class="sec">Phase 1 — L1 to L13 + Build A: Python, named for its Django payoff</h2>
+      <p>Every loop: blank page from memory → learn → rebuild from empty → explain it → log it. Never another order.</p>
+      <p><b>Progress is a loop number, not a date.</b> Say "I'm on L6". Miss a day and the number does not move. <b>A loop ends when you can rebuild the thing from an empty file</b> — not at a timer. Loops marked <b>⚠️</b> normally take two sittings; that is expected.</p>
       <table class="sp">
-        <tr><th>Day</th><th>Work</th></tr>
-        <tr><td class="d">Day 8</td><td><code>startproject</code>, <code>startapp</code>, settings, your <code>Task</code> as a real model, <code>makemigrations</code>, <code>migrate</code>, register it in the admin. <b>Seeing your own class appear in the Django admin is the moment Django stops being magic.</b></td></tr>
-        <tr><td class="d">Day 9</td><td>Views, URLs, templates. Get the task list rendering in a browser. Understand the request → URL → view → template → response path.</td></tr>
-        <tr><td class="d">Day 10</td><td><code>ModelForm</code> and full CRUD through the browser. Push it. <em>Then</em> let AI review it — "what would a senior change?" Git habits in the same sitting (~3h clears 11 items).</td></tr>
+        <tr><th>Loop</th><th>Topics in it</th></tr>
+        <tr><td class="d">L1</td><td><code>def</code>, parameters vs arguments, <code>return</code>, returning two values, default parameters</td></tr>
+        <tr><td class="d">L2</td><td>Scope (local/global/enclosing), <code>*args</code>, <code>**kwargs</code>, the mutable-default trap</td></tr>
+        <tr><td class="d">L3</td><td>Functions as objects (passing and returning functions), <code>lambda</code></td></tr>
+        <tr><td class="d">L4 ⚠️</td><td><b>Decorators</b> — wrapping, <code>@</code> syntax. Then read Django's <code>@login_required</code> and see it is the same thing.</td></tr>
+        <tr><td class="d">L5</td><td>Classes: <code>class</code>, <code>__init__</code>, <code>self</code>, instance attributes, methods. <b>You are writing a model and do not know it yet.</b></td></tr>
+        <tr><td class="d">L6</td><td>Class vs instance attributes, <code>@staticmethod</code>, <code>@classmethod</code></td></tr>
+        <tr><td class="d">L7</td><td>Inheritance, method overriding, <code>super()</code></td></tr>
+        <tr><td class="d">L8</td><td>Polymorphism, abstract classes (<code>ABC</code>)</td></tr>
+        <tr><td class="d">L9</td><td>Dunders: <code>__str__</code>, <code>__repr__</code>, <code>__eq__</code>, <code>__len__</code></td></tr>
+        <tr><td class="d">L10</td><td><code>@property</code>, encapsulation</td></tr>
+        <tr><td class="d">L11</td><td>Files, paths, reading and writing JSON</td></tr>
+        <tr><td class="d">L12</td><td><code>try</code>/<code>except</code>/<code>else</code>/<code>finally</code>, <code>raise</code>, custom exception classes</td></tr>
+        <tr><td class="d">L13</td><td>Iterators, generators, <code>yield</code>, laziness — why QuerySets are lazy</td></tr>
+        <tr><td class="d">Build A</td><td><b>≈3 loops. Rebuild the OOP To-Do app from an empty folder.</b> <code>Task</code>, <code>TodoList</code>, <code>FileManager</code>, JSON persistence, real error handling. No AI, no old repo, no tutorial. No blank page — the whole thing is the rebuild step.</td></tr>
       </table>
-      <p>If days 8–10 spill a little into module 21, that is fine — module 21 runs three weeks and its first days are setup and classes. The bridge work <em>is</em> Django practice.</p>
+      <p><b>Deliberately cut from module 4: design patterns</b> (Singleton, Factory, Builder). Django does not need them and they land far better once you have felt the problem they solve. If anything suggests them, say no.</p>
+
+      <h2 class="sec">Phase 2 — L14 to L20 + Build B: the bridge into Django</h2>
+      <p>Now build the same app again, in Django. Same domain, so every ounce of attention goes to <em>what Django adds</em> rather than to the problem itself.</p>
+      <p><b>And look at what Module 19 actually is: "Django To-Do App Project."</b> Your backfill deliverable and your course assignment are the same artifact. You are not choosing between catching up and keeping up.</p>
+      <table class="sp">
+        <tr><th>Loop</th><th>Topics in it</th></tr>
+        <tr><td class="d">L14</td><td><code>startproject</code>, <code>startapp</code>, settings, and how a request actually flows through Django</td></tr>
+        <tr><td class="d">L15</td><td>Models, <code>makemigrations</code>, <code>migrate</code>, register in admin. <b>Seeing your own class appear in the Django admin is the moment Django stops being magic.</b></td></tr>
+        <tr><td class="d">L16</td><td>Views and URLs — the request → URL → view → response path</td></tr>
+        <tr><td class="d">L17</td><td>Templates and context</td></tr>
+        <tr><td class="d">L18–19 ⚠️</td><td>Forms, <code>ModelForm</code>, validation</td></tr>
+        <tr><td class="d">L20</td><td>CRUD wiring — create, update, delete</td></tr>
+        <tr><td class="d">Build B</td><td><b>≈3 loops. The same To-Do app, in Django.</b> Push it. <em>Then</em> let AI review it — "what would a senior change?" Git habits in the same sitting (~3h clears 11 items).</td></tr>
+      </table>
+      <p>Spilling into module 21 is fine — it runs three weeks and its first days are setup and classes. The bridge work <em>is</em> Django practice either way, so never rush a loop to hit a date.</p>
 
       <h2 class="sec">Phase 3 — Aug 16 to Sep 5: module 21 <em>is</em> your Django course</h2>
       <p><b>Module 21 runs Aug 16 – Sep 5 with 6 classes, and the university break is Aug 15 – Sep 2.</b> One module, three weeks, no university load. That is not a collision — it is the single best container you will ever get for learning Django, because the e-commerce project <em>needs</em> exactly the Django you are missing.</p>
@@ -299,12 +323,20 @@
         <tr><td>any page that feels slow</td><td>print <code>queryset.query</code>, read the SQL Django wrote, learn joins and indexes from your own output</td></tr>
       </table>
       <p>That last row is how SQL gets paid off almost for free. You are not studying SQL as a subject; you are reading the queries your own code generates and asking why they look like that.</p>
+      <p>The remaining Django loops land here, driven by what the project needs:</p>
+      <table class="sp">
+        <tr><th>Loop</th><th>Topics in it</th></tr>
+        <tr><td class="d">L21–22 ⚠️</td><td><b>ForeignKey, ManyToMany, <code>related_name</code></b> — the most important Django loops you will do. Products, categories, orders.</td></tr>
+        <tr><td class="d">L23–24 ⚠️</td><td>ORM queries: <code>filter</code>, <code>exclude</code>, <code>get</code>, <code>order_by</code>, <code>annotate</code>, <code>select_related</code></td></tr>
+        <tr><td class="d">L25–26 ⚠️</td><td>Auth: login, logout, signup, <code>login_required</code>, <code>request.user</code> — needed for checkout and "my orders"</td></tr>
+        <tr><td class="d">L27</td><td>Class-based views</td></tr>
+      </table>
       <table class="sp">
         <tr><th>Dates</th><th>Focus</th></tr>
-        <tr><td class="d">Aug 16–22</td><td>Models and relationships for the real schema. Products and categories listing in a browser. Attend classes 1–2.</td></tr>
-        <tr><td class="d">Aug 23–29</td><td>Cart with sessions, auth, forms. Attend classes 3–4. Start reading the SQL your queries emit.</td></tr>
+        <tr><td class="d">Aug 16–22</td><td>Models and relationships for the real schema (L21–22). Products and categories listing in a browser. Attend classes 1–2.</td></tr>
+        <tr><td class="d">Aug 23–29</td><td>Cart with sessions, auth (L25–26), forms. Attend classes 3–4. Start reading the SQL your queries emit.</td></tr>
         <tr><td class="d">Aug 30–Sep 5</td><td>Checkout, order history, deploy it. Attend classes 5–6. <b>Submit your own work.</b></td></tr>
-        <tr><td class="d">Sep 6 →</td><td>SQL mop-up, then JavaScript at 12h/week — React does not land until module 25.</td></tr>
+        <tr><td class="d">Sep 6 →</td><td>SQL mop-up, then JavaScript — React does not land until module 25.</td></tr>
       </table>
 
       <h2 class="sec">Phase 4 — Sep 6 to Oct 3: SQL, JavaScript, CSS</h2>
@@ -316,24 +348,32 @@
         <tr><td><b>HTML / CSS</b></td><td class="d">Sep 26</td><td>Partly absorbed already through Django templates in module 21. Only four things in CSS are conceptual; the rest is lookup, forever, for everyone.</td></tr>
       </table>
 
-      <p><b>JavaScript — learn this subset and nothing else for now:</b></p>
-      <ul>
-        <li><code>let</code>/<code>const</code> and scope · arrow functions · template literals</li>
-        <li><b>Array methods: <code>map</code>, <code>filter</code>, <code>reduce</code>, <code>find</code></b> — <code>map</code> alone is most of what you write in React</li>
-        <li>Objects, destructuring, spread — this is how props work</li>
-        <li><code>import</code>/<code>export</code> modules</li>
-        <li><b>Promises, <code>async</code>/<code>await</code>, <code>fetch</code>, try/catch</b> — every real React app talks to your DRF API this way</li>
-        <li>Just enough DOM and events to understand what React is doing <em>for</em> you</li>
-      </ul>
-      <p><b>Deliberately skipped:</b> JavaScript classes (React is hooks now), prototypes, generators, deep closure theory, TypeScript. None of it blocks you before 2027, and chasing it is how the JavaScript track quietly turns into another three months.</p>
-
-      <p><b>CSS — there are exactly four conceptual things:</b> the box model, flexbox, grid, and media queries. Those are layout <em>models</em>, so they must be understood. Every other CSS property is reference material you look up until you stop needing to — nobody memorises <code>justify-content</code>. Flexbox Froggy and Grid Garden together are about three hours and cover two of the four. Budget one weekend, not a sprint, and stop feeling guilty about the rest.</p>
+      <table class="sp">
+        <tr><th>Loop</th><th>Topics in it</th></tr>
+        <tr><td class="d">L28</td><td>SQL: <code>SELECT</code>, <code>WHERE</code>, <code>ORDER BY</code>, <code>LIMIT</code></td></tr>
+        <tr><td class="d">L29 ⚠️</td><td><b>JOINs</b></td></tr>
+        <tr><td class="d">L30</td><td><code>GROUP BY</code>, aggregates, <code>HAVING</code></td></tr>
+        <tr><td class="d">L31</td><td>Keys, indexes, <code>EXPLAIN</code>, the N+1 problem</td></tr>
+        <tr><td class="d">L32</td><td>Normalization — 1NF, 2NF, 3NF</td></tr>
+        <tr><td class="d">L33</td><td>JS: <code>let</code>/<code>const</code>, scope, arrow functions, template literals</td></tr>
+        <tr><td class="d">L34–35 ⚠️</td><td><b>Array methods: <code>map</code>, <code>filter</code>, <code>reduce</code>, <code>find</code></b> — <code>map</code> alone is most of what you write in React</td></tr>
+        <tr><td class="d">L36</td><td>Objects, destructuring, spread, <code>import</code>/<code>export</code> — this is how props work</td></tr>
+        <tr><td class="d">L37–38 ⚠️</td><td><b>Promises, <code>async</code>/<code>await</code>, try/catch</b> — how every React app talks to your DRF API</td></tr>
+        <tr><td class="d">L39</td><td><code>fetch</code> and error handling</td></tr>
+        <tr><td class="d">L40</td><td>Just enough DOM and events to see what React does <em>for</em> you</td></tr>
+        <tr><td class="d">L41</td><td>CSS: the box model</td></tr>
+        <tr><td class="d">L42</td><td>Flexbox — Flexbox Froggy <em>is</em> the rebuild step</td></tr>
+        <tr><td class="d">L43</td><td>Grid — Grid Garden <em>is</em> the rebuild step</td></tr>
+        <tr><td class="d">L44</td><td>Media queries, responsive</td></tr>
+      </table>
+      <p><b>JavaScript — deliberately skipped:</b> JavaScript classes (React is hooks now), prototypes, generators, deep closure theory, TypeScript. None of it blocks you before 2027, and chasing it is how the JavaScript track quietly turns into another three months.</p>
+      <p><b>CSS is only four conceptual things</b> — L41 to L44. Those are layout <em>models</em>, so they must be understood. Every other CSS property is reference material you look up until you stop needing to; nobody memorises <code>justify-content</code>. Budget one weekend, not a sprint, and stop feeling guilty about the rest.</p>
 
       <h2 class="sec">The whole thing on one page</h2>
       <table class="sp">
         <tr><th>Dates</th><th>Backfill</th><th>Live course</th></tr>
-        <tr><td class="d">Aug 6–12</td><td>Python in Django's vocabulary (Days 1–7)</td><td>Module 20 — last AI-assisted submission</td></tr>
-        <tr><td class="d">Aug 13–15</td><td>Port the To-Do app to Django (Days 8–10)</td><td>Module 20 wrap</td></tr>
+        <tr><td class="d">Aug 6–8</td><td>L1–L6 — three free days, ~2 loops/day</td><td>Module 19 quiz + assignment only</td></tr>
+        <tr><td class="d">Aug 9–15</td><td>L7–L13 + Build A</td><td>Module 20 blog — <b>last</b> AI-assisted submission</td></tr>
         <tr><td class="d">Aug 16–Sep 5</td><td>Django (via the project itself) + SQL by reading your own queries</td><td><b>Module 21 e-commerce — your own work from here on</b></td></tr>
         <tr><td class="d">Sep 6–12</td><td>SQL mop-up (~12h)</td><td>Module 22 — exam + deployment</td></tr>
         <tr><td class="d">Sep 13–26</td><td>JavaScript core + the CSS weekend</td><td>Modules 23–24 — DRF, LMS backend</td></tr>
@@ -468,7 +508,7 @@ var HFACTOR = { concept:{0:0.75,1:0.45}, habit:{0:0.25,1:0.15}, practice:{0:0,1:
 // Dependency order — what unblocks what, not what came first on the calendar.
 var TRACKS = [
   { key:'python',  name:'Python & OOP',     weeks:[1,2,3,4,5,6], due:'Aug 14',
-    why:'Load-bearing. Django models are just OOP wearing a hat — a gap here silently becomes a Django gap. Clearing now, Days 1–7 (about Aug 6–12).' },
+    why:'Load-bearing. Django models are just OOP wearing a hat — a gap here silently becomes a Django gap. Clearing now: L1–L13 then Build A.' },
   { key:'django',  name:'Django',           weeks:[16,17,18], due:'Sep 5',
     why:'Your front line. Modules 19–24 are all Django, so this debt is charged interest daily. Cleared by building module 21 yourself.' },
   { key:'sql',     name:'Databases & SQL',  weeks:[7,8,9], due:'Sep 12',
