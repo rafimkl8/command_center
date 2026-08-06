@@ -55,9 +55,21 @@ I do **not** rebuild every module. I rebuild the minimum set of artifacts that t
 
 **Module 20's blog is never rebuilt.** Module 21's e-commerce teaches everything it would, and more. Log it as debt, let 21 absorb it, move on. Module 5's Weather app is likewise superseded by DRF (module 23).
 
+## Live course calendar (confirmed)
+
+| Dates | Module |
+|---|---|
+| — | **Module 19** (Django To-Do). **Classes finished.** Only the quiz and assignment remain. |
+| **Aug 6–8** | **No new module content.** A three-day gap before module 20 — pure recovery time. |
+| **Aug 9–15** | **Module 20** — "Building a Full Functional Blog Project from Scratch **with AI**". AI use is the module's own stated method, so using it here is the curriculum, not a shortcut. |
+| **Aug 16 – Sep 5** | **Module 21** — e-commerce, 2 weeks, 6 live classes. University break is Aug 15 – Sep 2, so no term load. |
+| Sep 6+ | Module 22 (exam + production deployment), then 23 DRF, 24 LMS backend, 25 React. |
+
 ## Schedule
 
 Phases 1–2 use **numbered days, not dates** — miss a day and the numbers do not move. Started Aug 6.
+
+**Every day has exactly two jobs:** (1) the recovery loop, which gets the best hours, and (2) whatever the live course needs, which gets the leftovers and may use AI until Aug 16. Never the other order.
 
 - **Days 1–7 — Python in Django's vocabulary.** functions → decorators → classes → inheritance → dunders/`@property` → files/exceptions → rebuild the OOP To-Do from empty.
 - **Days 8–10 — the bridge.** Same app in Django: project/model/migrations/admin → views/URLs/templates → `ModelForm` CRUD + git habits. Spilling into module 21 is fine.
