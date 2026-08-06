@@ -211,7 +211,7 @@
   <div class="view hidden" id="view-sprint">
     <div class="card sprint">
       <h2 class="sec">Start here — your first hour</h2>
-      <p>The planning is finished. Tomorrow morning, one hour, no decisions to make:</p>
+      <p>The planning is finished. <b>Day 1</b>, one hour, no decisions to make:</p>
       <div class="loop"><span class="t">0:00</span><span class="b"><b>Blank page, 10 minutes.</b> Write from memory, nothing open: what is scope? What does a function return? What is the difference between a parameter and an argument? What do <code>*args</code> and <code>**kwargs</code> do? It will be short and it will be uncomfortable. That is the measurement, not the failure.</span></div>
       <div class="loop"><span class="t">0:10</span><span class="b"><b>Learn, 30 minutes, one source only.</b> Functions and scope. Stop at 30 minutes even if you are mid-sentence. One source — not four tabs.</span></div>
       <div class="loop"><span class="t">0:40</span><span class="b"><b>Empty file, 20 minutes, no reference.</b> Write five functions: one with a default parameter, one returning two values, one taking <code>*args</code>, one taking <code>**kwargs</code>, one that mutates a list passed into it — and notice what that does.</span></div>
@@ -230,7 +230,7 @@
       <div class="floor"><b>Define your floor now, before you need it.</b> On the worst day — hospital, family crisis, no sleep — the minimum is <b>one 20-minute loop</b>: 5 minutes blank page, 10 learning, 5 rebuilding. That is a complete day. It counts.<br><br>You had no floor in module 8, so the floor became zero, and zero days are what compound into eleven-module gaps. A 20-minute day is not a broken streak. It is the streak.</div>
 
       <h2 class="sec">Daily shape — and the part that is not negotiable</h2>
-      <p><b>Before the break (Aug 5–14):</b> about 4 focused hours a day. <b>During the break:</b> 6 focused hours, 6 days a week, one full day off. Not 12 hours. You are rebuilding from a fragile place, and a plan that burns you out in week one is worse than no plan at all.</p>
+      <p><b>Before the break (Aug 6–15):</b> about 4 focused hours a day. <b>During the break:</b> 6 focused hours, 6 days a week, one full day off. Not 12 hours. You are rebuilding from a fragile place, and a plan that burns you out in week one is worse than no plan at all.</p>
       <ul>
         <li><b>Morning block (post-Fajr, ~3h)</b> — hardest new concept of the day. This is your best brain; do not spend it on video.</li>
         <li><b>Afternoon block (~2h)</b> — reconstruct from empty. Build the small thing. No tutorials.</li>
@@ -262,28 +262,30 @@
         <tr><td>iterators, generators, laziness</td><td>QuerySets are lazy — they do not touch the database until you iterate</td></tr>
       </table>
 
-      <h2 class="sec">Phase 1 — Aug 5 to 11: Python, named for its Django payoff</h2>
+      <h2 class="sec">Phase 1 — Days 1–7: Python, named for its Django payoff</h2>
       <p>Each day: blank page from memory → learn → rebuild from empty. Never the other order.</p>
+      <p><b>Days are numbered, not dated, on purpose.</b> Miss a day and the numbers do not move — you simply do Day N the next time you sit down. Started <b>Aug 6</b>, so Day 7 lands about <b>Aug 12</b>. The only fixed anchor is module 21 on <b>Aug 16</b>.</p>
       <table class="sp">
         <tr><th>Day</th><th>Work</th></tr>
-        <tr><td class="d">Aug 5</td><td>Functions: parameters, return, scope, <code>*args/**kwargs</code>. Write 5 from an empty file.</td></tr>
-        <tr><td class="d">Aug 6</td><td>Decorators. Write your own <code>@timer</code> and <code>@log</code> from scratch. Then read Django's <code>@login_required</code> and see that it is the same thing.</td></tr>
-        <tr><td class="d">Aug 7</td><td>Classes: <code>__init__</code>, instance vs class attributes, methods. Build a <code>Task</code> class from empty. <b>You are writing a model and do not know it yet.</b></td></tr>
-        <tr><td class="d">Aug 8</td><td>Inheritance, overriding, <code>super()</code>, polymorphism. A small hierarchy from empty.</td></tr>
-        <tr><td class="d">Aug 9</td><td>Dunder methods, <code>@property</code>, encapsulation. Add <code>__str__</code> and a computed property to your <code>Task</code>.</td></tr>
-        <tr><td class="d">Aug 10</td><td>Files and exceptions, plus 30 minutes on generators and laziness. Custom exception classes.</td></tr>
-        <tr><td class="d">Aug 11</td><td><b>Rebuild the OOP To-Do app from an empty folder.</b> <code>Task</code>, <code>TodoList</code>, <code>FileManager</code>, JSON persistence, real error handling. No AI, no old repo, no tutorial.</td></tr>
+        <tr><td class="d">Day 1</td><td>Functions: parameters, return, scope, <code>*args/**kwargs</code>. Write 5 from an empty file.</td></tr>
+        <tr><td class="d">Day 2</td><td>Decorators. Write your own <code>@timer</code> and <code>@log</code> from scratch. Then read Django's <code>@login_required</code> and see that it is the same thing.</td></tr>
+        <tr><td class="d">Day 3</td><td>Classes: <code>__init__</code>, instance vs class attributes, methods. Build a <code>Task</code> class from empty. <b>You are writing a model and do not know it yet.</b></td></tr>
+        <tr><td class="d">Day 4</td><td>Inheritance, overriding, <code>super()</code>, polymorphism. A small hierarchy from empty.</td></tr>
+        <tr><td class="d">Day 5</td><td>Dunder methods, <code>@property</code>, encapsulation. Add <code>__str__</code> and a computed property to your <code>Task</code>.</td></tr>
+        <tr><td class="d">Day 6</td><td>Files and exceptions, plus 30 minutes on generators and laziness. Custom exception classes.</td></tr>
+        <tr><td class="d">Day 7</td><td><b>Rebuild the OOP To-Do app from an empty folder.</b> <code>Task</code>, <code>TodoList</code>, <code>FileManager</code>, JSON persistence, real error handling. No AI, no old repo, no tutorial.</td></tr>
       </table>
 
-      <h2 class="sec">Phase 2 — Aug 12 to 14: the bridge</h2>
+      <h2 class="sec">Phase 2 — Days 8–10: the bridge (about Aug 13–15)</h2>
       <p>Now build the same app again, in Django. Same domain, so every ounce of attention goes to <em>what Django adds</em> rather than to the problem itself.</p>
       <p><b>And look at what Module 19 actually is: "Django To-Do App Project."</b> Your backfill deliverable and your current assignment are the same artifact. You are not choosing between catching up and keeping up.</p>
       <table class="sp">
         <tr><th>Day</th><th>Work</th></tr>
-        <tr><td class="d">Aug 12</td><td><code>startproject</code>, <code>startapp</code>, settings, your <code>Task</code> as a real model, <code>makemigrations</code>, <code>migrate</code>, register it in the admin. <b>Seeing your own class appear in the Django admin is the moment Django stops being magic.</b></td></tr>
-        <tr><td class="d">Aug 13</td><td>Views, URLs, templates. Get the task list rendering in a browser. Understand the request → URL → view → template → response path.</td></tr>
-        <tr><td class="d">Aug 14</td><td><code>ModelForm</code> and full CRUD through the browser. Push it. <em>Then</em> let AI review it — "what would a senior change?" Git habits in the same sitting (~3h clears 11 items).</td></tr>
+        <tr><td class="d">Day 8</td><td><code>startproject</code>, <code>startapp</code>, settings, your <code>Task</code> as a real model, <code>makemigrations</code>, <code>migrate</code>, register it in the admin. <b>Seeing your own class appear in the Django admin is the moment Django stops being magic.</b></td></tr>
+        <tr><td class="d">Day 9</td><td>Views, URLs, templates. Get the task list rendering in a browser. Understand the request → URL → view → template → response path.</td></tr>
+        <tr><td class="d">Day 10</td><td><code>ModelForm</code> and full CRUD through the browser. Push it. <em>Then</em> let AI review it — "what would a senior change?" Git habits in the same sitting (~3h clears 11 items).</td></tr>
       </table>
+      <p>If days 8–10 spill a little into module 21, that is fine — module 21 runs three weeks and its first days are setup and classes. The bridge work <em>is</em> Django practice.</p>
 
       <h2 class="sec">Phase 3 — Aug 16 to Sep 5: module 21 <em>is</em> your Django course</h2>
       <p><b>Module 21 runs Aug 16 – Sep 5 with 6 classes, and the university break is Aug 15 – Sep 2.</b> One module, three weeks, no university load. That is not a collision — it is the single best container you will ever get for learning Django, because the e-commerce project <em>needs</em> exactly the Django you are missing.</p>
@@ -330,8 +332,8 @@
       <h2 class="sec">The whole thing on one page</h2>
       <table class="sp">
         <tr><th>Dates</th><th>Backfill</th><th>Live course</th></tr>
-        <tr><td class="d">Aug 5–11</td><td>Python in Django's vocabulary</td><td>Module 20 — last AI-assisted submission</td></tr>
-        <tr><td class="d">Aug 12–14</td><td>Port the To-Do app to Django</td><td>Module 20 wrap</td></tr>
+        <tr><td class="d">Aug 6–12</td><td>Python in Django's vocabulary (Days 1–7)</td><td>Module 20 — last AI-assisted submission</td></tr>
+        <tr><td class="d">Aug 13–15</td><td>Port the To-Do app to Django (Days 8–10)</td><td>Module 20 wrap</td></tr>
         <tr><td class="d">Aug 16–Sep 5</td><td>Django (via the project itself) + SQL by reading your own queries</td><td><b>Module 21 e-commerce — your own work from here on</b></td></tr>
         <tr><td class="d">Sep 6–12</td><td>SQL mop-up (~12h)</td><td>Module 22 — exam + deployment</td></tr>
         <tr><td class="d">Sep 13–26</td><td>JavaScript core + the CSS weekend</td><td>Modules 23–24 — DRF, LMS backend</td></tr>
@@ -371,7 +373,7 @@
       <p>The response to a warning sign is never to quit the day. It is to <b>shrink the day to the floor</b> and keep the chain intact.</p>
 
       <h2 class="sec">When life happens: what to cut, in order</h2>
-      <p>You are now scheduled continuously from Aug 5 to Oct 3, and your wife's family situation is still unresolved. Something will go wrong, because something always does. So decide the sacrifice order <em>now</em>, while you are calm, instead of at midnight while you are not:</p>
+      <p>You are now scheduled continuously from Aug 6 to Oct 3, and your wife's family situation is still unresolved. Something will go wrong, because something always does. So decide the sacrifice order <em>now</em>, while you are calm, instead of at midnight while you are not:</p>
       <ol class="steps" style="margin-left:18px">
         <li><b>Cut first:</b> CSS depth. Learn it on demand and accept ugly.</li>
         <li><b>Then:</b> LeetCode and DSA. Already parked; keep them parked longer.</li>
@@ -383,7 +385,7 @@
 
       <h2 class="sec">How long do you keep using AI? Until Aug 16.</h2>
       <p>A real answer, not a comforting one: <b>module 20 is the last assignment you lean on AI for.</b> From module 21 onward — Aug 16 — you write what you submit.</p>
-      <p>That is credible because of the sequence, not because of willpower. Aug 5–14 gives you Python's class system and a Django CRUD app you built yourself. A cart and a product list are the same skills with one more relationship. By Aug 16 you will not need the crutch for the thing in front of you.</p>
+      <p>That is credible because of the sequence, not because of willpower. Aug 6–15 gives you Python's class system and a Django CRUD app you built yourself. A cart and a product list are the same skills with one more relationship. By Aug 16 you will not need the crutch for the thing in front of you.</p>
       <p><b>For module 20 this week, use AI like this instead of the way you have been:</b></p>
       <ul>
         <li>Read the assignment and write, in plain words, what you think the solution needs. Ten minutes, before AI sees it.</li>
@@ -466,7 +468,7 @@ var HFACTOR = { concept:{0:0.75,1:0.45}, habit:{0:0.25,1:0.15}, practice:{0:0,1:
 // Dependency order — what unblocks what, not what came first on the calendar.
 var TRACKS = [
   { key:'python',  name:'Python & OOP',     weeks:[1,2,3,4,5,6], due:'Aug 14',
-    why:'Load-bearing. Django models are just OOP wearing a hat — a gap here silently becomes a Django gap. Clearing now, Aug 5–14.' },
+    why:'Load-bearing. Django models are just OOP wearing a hat — a gap here silently becomes a Django gap. Clearing now, Days 1–7 (about Aug 6–12).' },
   { key:'django',  name:'Django',           weeks:[16,17,18], due:'Sep 5',
     why:'Your front line. Modules 19–24 are all Django, so this debt is charged interest daily. Cleared by building module 21 yourself.' },
   { key:'sql',     name:'Databases & SQL',  weeks:[7,8,9], due:'Sep 12',
@@ -599,14 +601,14 @@ function renderQueue(){
   if(g.scored===0){
     cap.innerHTML='<div class="cap warn">Nothing scored yet. Open the <b>Audit</b> tab and start with <b>Python &amp; OOP</b> — about 30 items, roughly half an hour. You will almost certainly find it is mostly 2s and 3s, and that alone will calm you down.</div>';
   } else {
-    var PRE=40;                         // Aug 5-14, university load light, ~4h/day
+    var PRE=40;                         // Aug 6-15, university load light, ~4h/day
     var BREAK=90;                       // Aug 15 - Sep 2, no university, ~6h/day x 6 days
     var RUNWAY=PRE+BREAK;
     var h=Math.round(g.hours);
     if(h<=PRE){
       cap.innerHTML='<div class="cap">Counted debt: <b>~'+h+' focused hours</b>. You have roughly <b>'+PRE+'h</b> before the university term ends on Aug 14, and another <b>'+BREAK+'h</b> during module 21 (Aug 16 – Sep 5, no university load).<br><br><b>You can clear this before module 21 even starts.</b></div>';
     } else if(h<=RUNWAY){
-      cap.innerHTML='<div class="cap">Counted debt: <b>~'+h+' focused hours</b>. Runway to Sep 5: <b>~'+PRE+'h</b> now (Aug 5–14, university light) plus <b>~'+BREAK+'h</b> across module 21 (Aug 16 – Sep 5, no university load) = <b>~'+RUNWAY+'h</b>.<br><br><b>The runway is bigger than the debt</b> — and module 21 is not competing for those hours, because the e-commerce project <em>is</em> the Django practice. That is arithmetic from your own numbers, not encouragement.</div>';
+      cap.innerHTML='<div class="cap">Counted debt: <b>~'+h+' focused hours</b>. Runway to Sep 5: <b>~'+PRE+'h</b> now (Aug 6–15, university light) plus <b>~'+BREAK+'h</b> across module 21 (Aug 16 – Sep 5, no university load) = <b>~'+RUNWAY+'h</b>.<br><br><b>The runway is bigger than the debt</b> — and module 21 is not competing for those hours, because the e-commerce project <em>is</em> the Django practice. That is arithmetic from your own numbers, not encouragement.</div>';
     } else {
       var after=h-RUNWAY;
       cap.innerHTML='<div class="cap warn">Counted debt: <b>~'+h+' focused hours</b>. Runway to Sep 5 is <b>~'+RUNWAY+'h</b> ('+PRE+'h now + '+BREAK+'h across module 21), leaving <b>~'+after+'h</b> — about <b>'+Math.ceil(after/12)+' more week'+(Math.ceil(after/12)===1?'':'s')+'</b> at 12h/week after that.<br><br>That still lands you clear before module 28, where the job launch starts. Clear the tracks in order and do not skip ahead.</div>';
