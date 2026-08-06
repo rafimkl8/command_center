@@ -88,6 +88,26 @@ Phases 1–2 use **numbered days, not dates** — miss a day and the numbers do 
 
 Debt ~95h against a ~130h runway to Sep 5. Clear before module 28, where the job launch starts.
 
+## The loop index — my real unit of progress
+
+I track position as **"I'm on L14"**, not by date. One loop ≈ 100 min (10 blank page / 40 learn / 40 rebuild from empty / 10 explain). Loops marked **⚠️** commonly need two sittings — that is expected, not failure. Builds are not normal loops: no blank page, the whole thing is the rebuild step.
+
+**Python (L1–L13)** — functions · scope+`*args`/`**kwargs`+mutable-default trap · functions-as-objects+lambda · ⚠️decorators · classes+`__init__`+`self` · class vs instance attributes+static/classmethod · inheritance+`super()` · polymorphism+ABC · dunders · `@property`+encapsulation · files+JSON · exceptions+custom exceptions · iterators/generators/laziness
+
+**Build A (≈3 loops)** — OOP To-Do from an empty folder
+
+**Django (L14–L27)** — setup+request flow · models+migrations+admin · views+URLs · templates+context · ⚠️ForeignKey/ManyToMany/`related_name` (×2) · ⚠️ORM queries (×2) · ⚠️forms+ModelForm+validation (×2) · CRUD wiring · ⚠️auth+`login_required`+`request.user` (×2) · class-based views
+
+**Build B (≈3 loops)** — same To-Do app in Django
+
+**SQL (L28–L32)** — SELECT/WHERE/ORDER BY · ⚠️JOINs · GROUP BY+aggregates · keys/indexes/EXPLAIN/N+1 · normalization. Much of this is absorbed during module 21 by printing `queryset.query`.
+
+**JavaScript (L33–L40)** — `let`/`const`+scope+arrow functions+template literals · ⚠️array methods `map`/`filter`/`reduce`/`find` (×2) · objects+destructuring+spread+modules · ⚠️promises+`async`/`await` (×2) · `fetch`+error handling · minimal DOM/events
+
+**CSS (L41–L44)** — box model · flexbox (Froggy is the rebuild step) · grid (Grid Garden) · media queries/responsive
+
+≈44 loops plus 6 loops of builds. **Deliberately cut from module 4: design patterns** (Singleton/Factory/Builder) — not needed for Django, better learned when the need is felt.
+
 ## Scope limits that keep this survivable
 
 **JavaScript — only the React-critical subset:** `let`/`const` and scope, arrow functions, template literals, **array methods (`map`/`filter`/`reduce`/`find`)**, objects/destructuring/spread, `import`/`export`, **promises/`async`-`await`/`fetch`/try-catch**, minimal DOM. **Skip:** JS classes (React is hooks), prototypes, generators, deep closure theory, TypeScript.
