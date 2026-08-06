@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Week-by-Week Tracker</title>
+<title>Module-by-Module Tracker</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500;600&family=Geist:wght@300;400;500;600;700&display=swap');
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -87,7 +87,7 @@
 <body>
 <div class="wrap">
   <div class="header">
-    <h1>📅 Week-by-Week Tracker</h1>
+    <h1>📅 Module-by-Module Tracker</h1>
     <div class="row">
       <label for="curSel">I'm currently on</label>
       <select id="curSel"></select>
@@ -96,7 +96,7 @@
   </div>
 
   <div class="tabs">
-    <button class="tb active" id="tab-weekly" data-v="weekly">📋 Weekly</button>
+    <button class="tb active" id="tab-weekly" data-v="weekly">📋 Module</button>
     <button class="tb" id="tab-remaining" data-v="remaining">🔥 Remaining <span class="cnt" id="remCnt">0</span></button>
     <button class="tb" id="tab-overview" data-v="overview">📊 Overview</button>
   </div>
@@ -124,7 +124,7 @@
 
   <div class="view hidden" id="view-overview">
     <div class="stats">
-      <div class="stat"><div class="n" id="ovWeeks">0</div><div class="l">Weeks complete /40</div></div>
+      <div class="stat"><div class="n" id="ovWeeks">0</div><div class="l">Modules complete /40</div></div>
       <div class="stat"><div class="n" id="ovTasks">0</div><div class="l">Tasks done</div></div>
       <div class="stat"><div class="n" id="ovHours">0</div><div class="l">Hours done</div></div>
       <div class="stat"><div class="n" id="ovEss" style="color:#ef4444">0</div><div class="l">Essentials left</div></div>
@@ -132,7 +132,7 @@
     <div class="card">
       <div class="progwrap"><div class="lab"><span>Tasks completed</span><span id="ovTaskPct">0%</span></div><div class="track"><div class="fill" id="ovTaskFill" style="background:linear-gradient(90deg,#2563eb,#16a34a)"></div></div></div>
       <div class="progwrap"><div class="lab"><span>Hours invested (of <span id="ovTotH">0</span>h)</span><span id="ovHourPct">0%</span></div><div class="track"><div class="fill" id="ovHourFill" style="background:linear-gradient(90deg,#d97706,#16a34a)"></div></div></div>
-      <div class="foot">A week counts as "complete" only when every task in it is ticked.</div>
+      <div class="foot">A module counts as "complete" only when every task in it is ticked.</div>
     </div>
     <div class="stats">
       <div class="stat"><input type="number" id="leetcode" min="0" value="0"><div class="l">LeetCode solved</div></div>
@@ -231,7 +231,7 @@ function renderRemaining(){
   [1,2,3].forEach(function(p){ groups[p].sort(function(a,b){ return a.n-b.n; }); });
 
   var essLeft=groups[1].length, total=groups[1].length+groups[2].length+groups[3].length;
-  document.getElementById('remHead').innerHTML = '<b>'+essLeft+' must-do essential'+(essLeft===1?'':'s')+'</b> + '+(groups[2].length)+' core habits + '+(groups[3].length)+' self-study items still open across Weeks 1–'+CUR+'. Tackle red first. (Set your current week above so future weeks are not flagged.)';
+  document.getElementById('remHead').innerHTML = '<b>'+essLeft+' must-do essential'+(essLeft===1?'':'s')+'</b> + '+(groups[2].length)+' core habits + '+(groups[3].length)+' self-study items still open across Modules 1–'+CUR+'. Tackle red first. (Set your current module above so future modules are not flagged.)';
 
   var titles={1:'🔴 Must-do essentials (Course &amp; Projects) — do these first',2:'🟡 Core habits (LeetCode · Git · English)',3:'🟢 Recommended (Self-study)'};
   var html='';
@@ -239,7 +239,7 @@ function renderRemaining(){
     html += '<div class="p'+p+'"><div class="rem-sec-title">'+titles[p]+' <span style="color:#8a949c;font-weight:500">('+groups[p].length+')</span></div>';
     if(!groups[p].length){ html += '<div class="rem-empty">All clear here — nothing left. ✅</div>'; }
     else { groups[p].forEach(function(it){
-      html += '<label class="rem"><input type="checkbox" data-id="'+it.id+'"><span class="wn">W'+it.n+'</span><span>'+esc(it.text)+' <span class="ct">· '+it.cat+'</span></span></label>';
+      html += '<label class="rem"><input type="checkbox" data-id="'+it.id+'"><span class="wn">M'+it.n+'</span><span>'+esc(it.text)+' <span class="ct">· '+it.cat+'</span></span></label>';
     }); }
     html += '</div>';
   });
@@ -315,8 +315,8 @@ function countRemaining(){ var c=0; WEEKS.forEach(function(w){ if(w.n>CUR) retur
 (function init(){
   var ws=document.getElementById('weekSel'), cs=document.getElementById('curSel');
   WEEKS.forEach(function(w){
-    var o=document.createElement('option'); o.value=String(w.n); o.textContent='Week '+w.n+' — '+w.title; ws.appendChild(o);
-    var o2=document.createElement('option'); o2.value=String(w.n); o2.textContent='Week '+w.n; cs.appendChild(o2);
+    var o=document.createElement('option'); o.value=String(w.n); o.textContent='Module '+w.n+' — '+w.title; ws.appendChild(o);
+    var o2=document.createElement('option'); o2.value=String(w.n); o2.textContent='Module '+w.n; cs.appendChild(o2);
   });
   selWeek = load('wt_sel', CUR);
   cs.value=String(CUR); ws.value=String(selWeek);
