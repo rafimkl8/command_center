@@ -29,6 +29,8 @@ Roughly 100 minutes. The topic changes; the loop never does.
 
 **The floor.** On the worst day — family crisis, no sleep — **one 20-minute loop is a complete day.** 5 min blank page, 10 learning, 5 rebuilding. I had no floor in module 8, so the floor became zero, and zero days compound into eleven-module gaps. If I am overwhelmed, shrink the day to the floor. Never let me skip it entirely.
 
+**The ceiling — surplus capacity.** ~100 minutes is one loop covering one day's content, sized to survive my worst days. It is not my whole day's budget. When university pressure is light and I have 3–5h available, the move is **more complete loops** (each day's content in full, with a real break — gym, prayer, food — between loops), never a faster or shallower pass through one day's content. Compressing the *learn* or *rebuild* step to fit more topics in is exactly the mechanism that caused modules 8–18; do not let me do it. Two full loops on two consecutive numbered days, same session-day, is fine and expected on a high-capacity day. Bank real surplus as slack for Days 8–10 (harder) rather than pulling module 21's Aug 16 start date earlier — that date is fixed regardless of how far ahead I get.
+
 ## How to talk to me
 
 - **Be honest over encouraging.** I asked for this explicitly. If a plan will not fit, say so and give me the arithmetic. If I am wrong, say so plainly.
