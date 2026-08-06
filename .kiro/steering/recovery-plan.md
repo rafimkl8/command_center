@@ -50,7 +50,7 @@ I do **not** rebuild every module. I rebuild the minimum set of artifacts that t
 | Build | When | Clears |
 |---|---|---|
 | **OOP To-Do, pure Python** | Day 7 | module 2/3/4 project debt + module 3/4 concepts |
-| **Same app, in Django** | Days 8–10 | **module 19** + module 16–18 Django basics |
+| **Same app, in Django** | Build B, after L20 | **module 19** + module 16–18 Django basics |
 | **E-commerce** | module 21 | **module 20** (superseded, *not* rebuilt) + module 17/18 forms, auth, queries + SQL |
 
 **Module 20's blog is never rebuilt.** Module 21's e-commerce teaches everything it would, and more. Log it as debt, let 21 absorb it, move on. Module 5's Weather app is likewise superseded by DRF (module 23).
@@ -71,8 +71,8 @@ Phases 1–2 use **numbered days, not dates** — miss a day and the numbers do 
 
 **Every day has exactly two jobs:** (1) the recovery loop, which gets the best hours, and (2) whatever the live course needs, which gets the leftovers and may use AI until Aug 16. Never the other order.
 
-- **Days 1–7 — Python in Django's vocabulary.** functions → decorators → classes → inheritance → dunders/`@property` → files/exceptions → rebuild the OOP To-Do from empty.
-- **Days 8–10 — the bridge.** Same app in Django: project/model/migrations/admin → views/URLs/templates → `ModelForm` CRUD + git habits. Spilling into module 21 is fine.
+- **L1–L13 then Build A — Python in Django's vocabulary.** functions → scope/`*args` → functions-as-objects → decorators → classes → inheritance → polymorphism → dunders → `@property` → files → exceptions → generators, then rebuild the OOP To-Do from empty. **Target: done by Aug 15.**
+- **L14–L20 then Build B — the bridge.** Same app in Django: setup → models/migrations/admin → views/URLs → templates → forms/`ModelForm` → CRUD, then rebuild it in Django + git habits. **Realistically lands in module 21's first week**, alongside its classes. Spilling is fine; never rush a loop to hit a date.
 - **Aug 16 – Sep 5 — module 21 IS the Django curriculum.** Three weeks, 6 classes, no university load (break is Aug 15 – Sep 2). Not homework competing with recovery — the vehicle for it. Learn each thing when the project demands it: relationships for products/categories/orders, sessions for the cart, auth for checkout, and SQL by printing `queryset.query` and reading what the ORM emitted.
 - **Sep 6 – Oct 3 — SQL mop-up, then JavaScript, then the CSS weekend.**
 
@@ -96,9 +96,11 @@ I track position as **"I'm on L14"**, not by date. One loop ≈ 100 min (10 blan
 
 **Build A (≈3 loops)** — OOP To-Do from an empty folder
 
-**Django (L14–L27)** — setup+request flow · models+migrations+admin · views+URLs · templates+context · ⚠️ForeignKey/ManyToMany/`related_name` (×2) · ⚠️ORM queries (×2) · ⚠️forms+ModelForm+validation (×2) · CRUD wiring · ⚠️auth+`login_required`+`request.user` (×2) · class-based views
+**Django core (L14–L20)** — setup+request flow · models+migrations+admin · views+URLs · templates+context · ⚠️forms+ModelForm+validation (×2) · CRUD wiring
 
-**Build B (≈3 loops)** — same To-Do app in Django
+**Build B (≈3 loops)** — the same To-Do app in Django. This is the bridge, and it is why forms and CRUD come before relationships.
+
+**Django depth (L21–L27), during module 21** — ⚠️ForeignKey/ManyToMany/`related_name` (×2) · ⚠️ORM queries (×2) · ⚠️auth+`login_required`+`request.user` (×2) · class-based views
 
 **SQL (L28–L32)** — SELECT/WHERE/ORDER BY · ⚠️JOINs · GROUP BY+aggregates · keys/indexes/EXPLAIN/N+1 · normalization. Much of this is absorbed during module 21 by printing `queryset.query`.
 
