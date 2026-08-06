@@ -96,9 +96,13 @@ Not "a coder who can only code." The durable skills are judgement, decomposition
 
 ## ☁️ Cross-device sync (iPhone ⇄ Windows)
 
-The trackers save to `localStorage` on each device by default, and sync in real time via a free Firebase project + a private sync code. Setup is on the **hub page**.
+The trackers save to `localStorage` on each device and sync in real time via a free Firebase project + a private sync code. Full instructions are on the **hub page**.
 
-> ⚠️ **`FIREBASE_CONFIG` in `sync.js` is still empty, so sync is OFF** — every score and tick lives in one browser only. Clearing site data loses the audit. Setting this up is ~5 minutes and it doubles as the only backup.
+**Status:** Firebase project created and wired into `sync.js`. Two steps left — publish the Firestore rules (from the hub page), then tap **Connect** and use the same code on both devices.
+
+Security model, briefly: the Firebase web config in `sync.js` is a **public project identifier, not a secret** — Firebase is built that way and it ships in the client on every site that uses it. The real protection is the Firestore rules plus a long code. The rules grant `get` rather than `read` on purpose, because `read` also grants `list`, which would let anyone enumerate every sync code and read all of it. Codes must be 12+ characters, so guessing is impractical. Anyone who learns the exact code can read and overwrite that one document — so the code is a password.
+
+> Until the devices are linked, the audit scores exist in **exactly one browser**. Clearing site data would erase them. Linking is also the backup.
 
 ---
 
