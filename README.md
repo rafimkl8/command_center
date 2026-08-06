@@ -55,6 +55,20 @@ Not "a coder who can only code." The durable skills are judgement, decomposition
 | [`print_routine_variant_b.html`](print_routine_variant_b.html) | ⚡ Printable daily routine — **Variant B** (Deep Work Mode) |
 | [`weeks.js`](weeks.js) | 📦 The 40-module curriculum — **single source of truth**, loaded by the tracker and the audit |
 | [`sync.js`](sync.js) | ☁️ Cross-device sync engine (Firebase) for the trackers |
+| [`.kiro/steering/`](.kiro/steering) | 🧠 **AI context** — my situation, how to coach me, the recovery plan, and this repo's conventions |
+
+### 🧠 `.kiro/steering/` — so I never re-explain myself
+
+These travel with the repo, so any Kiro session (any account, any device) starts already knowing my situation and the rules.
+
+| File | Loads | What it holds |
+|------|-------|---------------|
+| `my-situation.md` | always | Who I am, both programs, current module, life constraints, the goal, **module not week** |
+| `how-to-coach-me.md` | always | **The contract: AI may explain, review and quiz — AI may not author.** The daily loop, the floor, honesty rules, my traps, which model to use |
+| `recovery-plan.md` | auto | The measured diagnosis, per-track deadlines, the three builds, what is parked, the sacrifice order |
+| `command-center-repo.md` | fileMatch `*.html` `*.js` | Repo conventions — `weeks.js` as SSOT, task-ID stability, the sync + Firestore security model, how to verify without a browser |
+
+Only the two small `always` files load every message (~1.7k tokens); the other two load when relevant. Using a different Kiro account? Just clone the repo — they are picked up from `.kiro/steering/` automatically.
 
 > Edit a module in `weeks.js` once and both the tracker and the audit pick it up.
 
