@@ -64,28 +64,32 @@
   </div>
 
   <div class="sec">
-    <h2>☁️ Set up cross-device sync (iPhone ⇄ Windows) — ~5 min, once</h2>
-    <p>Your trackers save on each device by default. To sync them, connect a tiny free Firebase database. The web config is <b>not a secret</b> — your data is protected by your private sync code.</p>
+    <h2>☁️ Cross-device sync (iPhone ⇄ Windows) — 2 steps left</h2>
+    <p><b>✅ Firebase project created and wired into <code>sync.js</code>.</b> Project <code>my-command-center-b4bde</code>. Two things left, then your progress syncs <em>and</em> is backed up off-device.</p>
+
     <ol class="steps">
-      <li>Go to <b>console.firebase.google.com</b> → <b>Add project</b> (any name, e.g. "my-tracker"). Analytics optional.</li>
-      <li><b>Build → Firestore Database → Create database</b>. Choose <b>Production mode</b>, region <code>asia-south1</code> (Mumbai, closest to Bangladesh).</li>
-      <li>Open the <b>Rules</b> tab, replace everything with the rules below, and click <b>Publish</b>:</li>
+      <li><b>Publish the security rules.</b> Firebase console → <b>Firestore Database → Rules</b> tab → replace everything with the block below → <b>Publish</b>. <b>Do this first</b> — until you do, sync will fail with a permission error.</li>
     </ol>
     <pre>rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
     match /trackers/{code} {
-      allow read, write: if true;
+      // "get" instead of "read" is deliberate. "read" also grants "list",
+      // which would let anyone enumerate every sync code in the database
+      // and read all of it. "get" means you must already know the code.
+      allow get:            if code.size() >= 12;
+      allow create, update: if code.size() >= 12;
+      // "delete" is intentionally not granted - the app never deletes.
     }
   }
 }</pre>
-    <ol class="steps" start="4">
-      <li>Click the <b>gear icon → Project settings → Your apps → Web (&lt;/&gt;)</b>. Register the app and copy the <code>firebaseConfig</code> values (apiKey, authDomain, projectId, appId).</li>
-      <li>Paste those values into <code>sync.js</code> (the <code>FIREBASE_CONFIG</code> block at the top) — or just send them to your assistant to wire in and push.</li>
-      <li>Open a tracker, tap <b>Connect</b> in the top bar, and set a <b>sync code</b>. Use the <b>same code</b> on your iPhone and laptop. Done — they now sync in real time. ✅</li>
+    <ol class="steps" start="2">
+      <li><b>Link your devices.</b> Open the Recovery Audit or the tracker, tap <b>Connect</b> in the top bar, and leave the box <b>blank</b> to generate a strong code. Write it down, then enter that <b>same code</b> on your other device. Done — real-time sync both ways. ✅</li>
     </ol>
-    <div class="note"><b>First-link tip:</b> connect sync on your <b>most up-to-date device first</b> (it uploads), then connect the second device (it downloads &amp; merges). After that, every tick syncs both ways automatically.</div>
-    <div class="warn"><b>Privacy note:</b> these rules let anyone <em>who knows your exact sync code</em> read/write that one document. For your personal study checkboxes that's fine — just keep your code private and make it long. (When you build your real full-stack capstone later, you'll add proper login.)</div>
+
+    <div class="note"><b>First-link tip:</b> connect on your <b>most up-to-date device first</b> (it uploads), then the second device (it downloads &amp; merges — nothing is lost from either side). After that every tick syncs automatically. <b>This is also your only backup:</b> until it is linked, your audit scores exist in exactly one browser and clearing site data would erase them.</div>
+
+    <div class="warn"><b>What these rules do and don't protect.</b> The Firebase config in <code>sync.js</code> is a <em>public project identifier</em>, not a secret — Firebase is designed that way, and anyone can read it from any deployed site. Your actual protection is the rules above plus a long code: nobody can list what codes exist, and a 12+ character code is impractical to guess. Anyone who <em>does</em> learn your exact code can read and overwrite that one document, so treat the code like a password and never paste it into a screenshot or a chat. It is study checkboxes, not bank details — but the reasoning here is worth understanding, because it is exactly the kind of question you will be asked in an interview. (Your capstone later gets real authentication instead.)</div>
   </div>
 
   <div class="sec">

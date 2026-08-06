@@ -5,24 +5,35 @@
    secret (it is safe to be public); your data is guarded by
    your unguessable sync code.
 
-   SETUP (one time):
-   1. Create a free Firebase project at console.firebase.google.com
-   2. Build > Firestore Database > Create (production mode, region asia-south1)
-   3. Firestore > Rules > paste the rules from the hub page > Publish
-   4. Project settings (gear) > Your apps > Web app > copy the config
-   5. Paste the values into FIREBASE_CONFIG below (or send them to your
-      assistant to wire in), then commit.
-   6. Open the tracker, tap "Connect", set the SAME code on both devices.
+   SETUP STATUS:
+   [x] Firebase project created (my-command-center-b4bde)
+   [x] Config wired into FIREBASE_CONFIG below
+   [ ] Firestore rules published  <-- DO THIS FIRST, see index.html.
+                                      Until then every write fails with a
+                                      permission error and the bar shows
+                                      "Sync error".
+   [ ] Devices linked: tap "Connect", leave blank to generate a code, then
+       enter that SAME code on the other device.
    ============================================================ */
 (function () {
-  // ===== PASTE YOUR FIREBASE CONFIG VALUES HERE =====
+  // ===== FIREBASE CONFIG =====
+  // These values are a public project identifier, not a secret. Firebase web
+  // config is designed to ship in client code — anyone can read it from any
+  // deployed site. The thing that actually protects your data is the Firestore
+  // rules (see index.html) plus a long, unguessable sync code.
   var FIREBASE_CONFIG = {
-    apiKey: "",
-    authDomain: "",
-    projectId: "",
-    appId: ""
+    apiKey: "AIzaSyC2JQHfYU_4vs7wP0TzxzFRjrDHTDiHzLg",
+    authDomain: "my-command-center-b4bde.firebaseapp.com",
+    projectId: "my-command-center-b4bde",
+    storageBucket: "my-command-center-b4bde.firebasestorage.app",
+    messagingSenderId: "10791355509",
+    appId: "1:10791355509:web:4a0250f4ee1d8de865243c"
   };
-  // ==================================================
+  // ===========================
+
+  // Firestore rules require >= 12 characters. Enforced here too so a short
+  // code fails with an explanation instead of a silent permission error.
+  var MIN_CODE_LEN = 12;
 
   var KEYS = [], onData = function () {};
   var db = null, ref = null, unsub = null, code = null;
@@ -60,7 +71,10 @@
     c = (c || '').trim();
     if (!c) {
       c = 'wsr-' + Math.random().toString(36).slice(2, 8) + Math.random().toString(36).slice(2, 6);
-      alert('Your new sync code is:\n\n' + c + '\n\nEnter this SAME code on your other device to link them.');
+      alert('Your new sync code is:\n\n' + c + '\n\nWrite it down, then enter this SAME code on your other device to link them.');
+    } else if (c.length < MIN_CODE_LEN) {
+      alert('That code is too short (' + c.length + ' characters).\n\nUse at least ' + MIN_CODE_LEN + ' characters, or leave the box blank to generate a strong one.\n\nShort codes can be guessed by someone else, which would let them read and overwrite your progress.');
+      return;
     }
     firstPull = true;
     connect(c);
