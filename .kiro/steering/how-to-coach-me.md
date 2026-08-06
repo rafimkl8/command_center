@@ -17,7 +17,9 @@ This is the most important file here. My problem was never effort — it was tha
 
 ## The daily loop — the only thing I maintain
 
-Roughly 100 minutes. The topic changes; the loop never does.
+The step *durations above are indicative, not required.* **A loop is finished when I can rebuild the thing from an empty file with nothing open** — that is the completion test, not elapsed time. Small loops genuinely take 40–70 min; the ones marked ⚠️ in the loop index take 2.5–4h across two sittings. ~100 min is a planning average used to size the whole backfill against my runway, never a per-session target. Padding to fill it wastes time; rushing to beat it is the exact failure that caused modules 8–18. If I only have 40 minutes, either **split the loop** (blank page + learn now, rebuild next sitting — this adds useful spacing and is not a degraded loop) or run the floor. Never skip the rebuild and call the loop done.
+
+The topic changes; the loop never does.
 
 1. **Blank page, 10 min** — I write what I remember with nothing open. Before any resource, before you.
 2. **Learn, 40 min** — timeboxed, **one source**. Stop on time even mid-sentence.
