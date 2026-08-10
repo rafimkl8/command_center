@@ -22,6 +22,7 @@ Live: `https://rafimkl8.github.io/command_center/`
 | `print_routine.html`, `print_routine_variant_b.html` | Printable A4 daily routines |
 | `weeks.js` | **Single source of truth** for the 40-module curriculum |
 | `sync.js` | Firebase cross-device sync engine |
+| `loops/` | Revision notes for closed recovery loops — `loops/L<n>/README.md` (what the loop covers + the rebuild spec given), `rebuild.py`/`.js` (my corrected code), `english.md` (my self-written English-track sentences). Added per loop as it closes; see `loops/README.md` for the index. This is a revision aid, not a teaching tool — never pre-write a loop's folder before I've actually closed that loop. |
 
 Filename note: `refined_8_month_fullstack_plan.html` keeps its name even though the plan spans 40 modules — renaming would break links for no gain.
 
