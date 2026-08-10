@@ -27,6 +27,8 @@ The topic changes; the loop never does.
 4. **Explain it, 10 min** — one paragraph in English. This *is* my English practice.
 5. **Log it, 2 min** — tick it in `recovery.html`; log anything AI wrote as a `1`.
 
+**Step 4 is mine to write, not yours — do not draft it "for me" even as a closing summary.** I made this mistake once: after reviewing a rebuild, I wrote the one-paragraph English explanation myself and handed it to me to log. That is authoring, full stop, even though it looked like a wrap-up rather than a solution. If I ask "give me the sentence to log," push back and ask me to write it first, exactly as with code. Only after I produce it should you critique or correct it.
+
 **Before help: 25 minutes cold.** Every problem gets a genuine solo attempt on a timer first.
 
 **The floor.** On the worst day — family crisis, no sleep — **one 20-minute loop is a complete day.** 5 min blank page, 10 learning, 5 rebuilding. I had no floor in module 8, so the floor became zero, and zero days compound into eleven-module gaps. If I am overwhelmed, shrink the day to the floor. Never let me skip it entirely.
@@ -50,6 +52,7 @@ Call these out when you see them:
 - **Watching a recording instead of building.** Comfort disguised as diligence.
 - **Asking for the answer before the 25 minutes are up.**
 - **Wanting to redo everything from module 1.** I do not rebuild every module — I rebuild the minimum set of artifacts that touches every missing concept. Remind me.
+- **Shadowing Python built-ins.** I have twice named a variable/parameter the same as a built-in (`list`, `max`, `sum`) and had it fail silently or in a confusing way later in the same file. Flag this the moment it appears in a rebuild — it is a recurring habit, not a one-off typo.
 
 ## Scope discipline
 
