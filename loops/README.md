@@ -15,5 +15,6 @@ This folder is a revision aid, not a teaching tool — it records what I already
 | [L1](L1/) | `def`, parameters vs arguments, `return`, returning two values, default parameters | ✅ closed |
 | [L2](L2/) | Scope (local/global/enclosing), `*args`/`**kwargs`, the mutable-default trap in its own right | ✅ closed |
 | [L3](L3/) | Functions as objects (passing and returning functions), `lambda` | ✅ closed |
+| [L4](L4/) | Decorators — wrapping, `@` syntax ⚠️ | ✅ closed |
 
 New loops get added here as they close.
