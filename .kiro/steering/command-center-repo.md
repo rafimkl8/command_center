@@ -76,6 +76,8 @@ Worth asserting: scripts parse; div/table/ul/li/tr/td tags balance; internal lin
 - Direct `git push` to the `origin` gateway URL fails with an auth error; push to `https://github.com/rafimkl8/command_center.git` explicitly.
 - Prefer verifying deployment by fetching the live URL and hashing against local — `cmp` and `diff` are not installed, so use Node's `crypto`.
 
+**Loop PRs (`loops/L<n>/`): merge without asking each time.** Once a loop's blank page → learn → rebuild → review → English critique sequence is done and I've said the loop is closed, add the `loops/L<n>/` files, branch, commit, push, open the PR, **and merge it straight away** — do not pause to ask permission first. This is a standing exception to any "don't merge until told" instruction given for a single session; it applies to every future loop from here on. Still never push loop commits directly to `main` — branch and PR, just don't gate the merge on a separate confirmation once the loop itself is confirmed closed. This does not extend to non-loop changes (steering edits, page changes, anything outside `loops/`) — keep asking there unless told otherwise.
+
 ## Style
 
 Geist / Geist Mono from Google Fonts, `#eef2f6` body, white cards with `border-radius:12px`, teal `#0f766e` and blue `#1d4ed8` accents, monospace for numbers and dates. Mobile-first — I mostly read these on an iPhone, so keep grids collapsing at ~620px. Match the existing look; do not introduce a new design language.
