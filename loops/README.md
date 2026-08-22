@@ -16,5 +16,6 @@ This folder is a revision aid, not a teaching tool — it records what I already
 | [L2](L2/) | Scope (local/global/enclosing), `*args`/`**kwargs`, the mutable-default trap in its own right | ✅ closed |
 | [L3](L3/) | Functions as objects (passing and returning functions), `lambda` | ✅ closed |
 | [L4](L4/) | Decorators — wrapping, `@` syntax ⚠️ | ✅ closed |
+| [L5](L5/) | Classes — `class`, `__init__`, `self`, instance attributes, methods | ✅ closed |
 
 New loops get added here as they close.
