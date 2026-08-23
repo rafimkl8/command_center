@@ -19,5 +19,6 @@ This folder is a revision aid, not a teaching tool — it records what I already
 | [L5](L5/) | Classes — `class`, `__init__`, `self`, instance attributes, methods | ✅ closed |
 | [L6](L6/) | Class variables vs instance attributes, `@staticmethod`, `@classmethod` | ✅ closed |
 | [L7](L7/) | Inheritance, method overriding, `super()` | ✅ closed |
+| [L8](L8/) | Polymorphism, abstract classes (`ABC`) | ✅ closed |
 
 New loops get added here as they close.
