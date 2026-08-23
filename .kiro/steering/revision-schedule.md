@@ -32,6 +32,7 @@ Update this table every time a loop closes: add a row, compute +3/+10/+30 from t
 | L4 — decorators ⚠️ | 2026-08-22 | [ ] 2026-08-25 | [ ] 2026-09-01 | [ ] 2026-09-21 |
 | L5 — classes, `__init__`, `self`, instance attributes, methods | 2026-08-23 | [ ] 2026-08-26 | [ ] 2026-09-02 | [ ] 2026-09-22 |
 | L6 — class vs instance attributes, `@staticmethod`, `@classmethod` | 2026-08-23 | [ ] 2026-08-26 | [ ] 2026-09-02 | [ ] 2026-09-22 |
+| L7 — inheritance, method overriding, `super()` | 2026-08-22 | [ ] 2026-08-25 | [ ] 2026-09-01 | [ ] 2026-09-21 |
 
 **Rows for L1's +3d/+10d and L2's +3d are marked lapsed** because this tracking file didn't exist yet when those dates passed — logged honestly as missed, not silently backfilled as done. Every loop from L3 onward gets tracked for real, starting now.
 
